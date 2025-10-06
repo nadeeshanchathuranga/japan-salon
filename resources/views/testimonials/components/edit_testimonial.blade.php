@@ -67,10 +67,11 @@
                 @if($testimonial->image_path)
                   <div class="text-center w-100">
                     <small class="d-block mb-1">Current</small>
-                    <img src="{{ asset('storage/'.$testimonial->image_path) }}"
-                         alt="testimonial image"
-                         class="rounded border"
-                         style="height:80px; width:80px; object-fit:cover;">
+                 <img src="{{ asset($testimonial->image_path) }}"
+     alt="testimonial image"
+     class="rounded border"
+     style="height:80px; width:80px; object-fit:cover;">
+
                   </div>
                 @else
                   <span class="text-muted">No image</span>

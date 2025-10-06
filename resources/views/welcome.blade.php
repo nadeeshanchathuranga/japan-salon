@@ -212,13 +212,16 @@
                         <div class="card h-100 shadow-sm rounded-3">
                            {{-- Image box (200px height, cover) --}}
                            <div class="w-100" style="height:200px;">
-                              @php
-                              $img = $service->image_path
-                              ? asset('storage/' . $service->image_path)
-                              : asset('/images/service.jpg');
-                              @endphp
-                              <img src="{{ $img }}" alt="{{ $service->title }}"
-                                 class="w-100" style="width:100%; height:100%; object-fit:cover;">
+                            @php
+    $img = $service->image_path
+        ? asset($service->image_path)   
+        : asset('/images/service.jpg');
+@endphp
+
+<img src="{{ $img }}" alt="{{ $service->title }}"
+     class="w-100"
+     style="width:100%; height:100%; object-fit:cover;">
+
                            </div>
                            <div class="card-body">
                               <h5 class="fw-bold mb-2">{{ $service->title }}</h5>
@@ -252,14 +255,16 @@
                      <div class="col-12 col-sm-6 col-lg-4">
                         <div class="card h-100 shadow-sm rounded-3">
                            <div class="w-100" style="height:200px;">
-                              @php
-                              $img = $service->image_path
-                              ? asset('storage/' . $service->image_path)
-                              : asset('/images/service.jpg');
-                              @endphp
-                              <img src="{{ $img }}" alt="{{ $service->title }}"
-                                 class="w-100" style="width:100%; height:100%; object-fit:cover;">
-                           </div>
+    @php
+        $img = $service->image_path
+            ? asset($service->image_path)  
+            : asset('/images/service.jpg');
+    @endphp
+
+    <img src="{{ $img }}" alt="{{ $service->title }}"
+         class="w-100" style="width:100%; height:100%; object-fit:cover;">
+</div>
+
                            <div class="card-body">
                               <h5 class="fw-bold mb-2">{{ $service->title }}</h5>
                               <p class="mb-0 text-muted">
@@ -541,9 +546,10 @@
       @foreach ($testimonials as $testimonial)
         <div class="item" aria-roledescription="slide">
           <div class="shadow-effect">
-            <img class="img-circle"
-                 src="{{ $testimonial->image_path ? asset('storage/' . $testimonial->image_path) : asset('images/default.png') }}"
-                 alt="Photo of {{ $testimonial->name ?? 'User' }}">
+             <img class="img-circle"
+     src="{{ $testimonial->image_path ? asset($testimonial->image_path) : asset('images/default.png') }}"
+     alt="Photo of {{ $testimonial->name ?? 'User' }}">
+
             <p class="font-15 fw-bolder pb-2">{{ $testimonial->content }}</p>
           </div>
           <div class="testimonial-name">{{ $testimonial->name }}</div>
@@ -708,33 +714,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  var $el = $('.service-carousel');
-  if (!$el.length) return;
-
-  var count = {{ count($testimonials) }}; // Blade renders the number
-  var show = Math.min(2, Math.max(1, count)); // 1 if only one, else 2
-
-  $el.owlCarousel({
-    loop: count > 1,            // don't loop if there’s only one slide
-    center: count > 1,
-    items: show,
-    margin: 10,
-    autoplay: false,
-    autoplayTimeout: 4500,
-    smartSpeed: 450,
-    dots: true,
-    nav: false,
+ $('.service-carousel').owlCarousel({
+    margin: 30,
+    loop: true,
+    dots: false,
+    autoplay: true,
+    smartSpeed: 3000, // slide transition එක slow කරලා (default: 250)
+    animateOut: 'fadeOut',
+    autoplayTimeout: 4000, // slide එකක් 8 seconds පෙන්වලා next එකට යයි
     responsive: {
-      0:   { items: 1, stagePadding: 30, margin: 10 },
-      600: { items: show, stagePadding: 80 },
-      1000:{ items: show, stagePadding: 50 }
+        0: {
+            items: 1
+        },
+        600: {
+            items: 2
+        },
+        1000: {
+            items: 3,
+            nav: false
+        }
     }
-  });
 });
-
 
 
 

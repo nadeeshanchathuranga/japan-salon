@@ -54,15 +54,15 @@
 
                     <!-- Image -->
                     <td>
-                        @if($testimonial->image_path)
-                            <img src="{{ asset('storage/'.$testimonial->image_path) }}"
-                                 class="rounded border"
-                                 style="height:50px; width:50px; object-fit:cover;"
-                                 alt="service image">
-                        @else
-                            <span class="text-muted">No image</span>
-                            
-                        @endif
+                       @if($testimonial->image_path)
+    <img src="{{ asset($testimonial->image_path) }}"
+         class="rounded border"
+         style="height:50px; width:50px; object-fit:cover;"
+         alt="testimonial image">
+@else
+    <span class="text-muted">No image</span>
+@endif
+
                     </td>
                      <!-- Title -->
                     <td>{{ $testimonial->name }}</td>

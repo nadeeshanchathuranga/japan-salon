@@ -74,10 +74,13 @@
                 @if($service->image_path)
                   <div class="text-center w-100">
                     <small class="d-block mb-1">Current</small>
-                    <img src="{{ asset('storage/'.$service->image_path) }}"
-                         alt="service image"
-                         class="rounded border"
-                         style="height:80px; width:80px; object-fit:cover;">
+                   <img src="{{ $service->image_path 
+            ? asset($service->image_path) 
+            : asset('images/no-image.png') }}"
+     alt="service image"
+     class="rounded border"
+     style="height:80px; width:80px; object-fit:cover;">
+
                   </div>
                 @else
                   <span class="text-muted">No image</span>

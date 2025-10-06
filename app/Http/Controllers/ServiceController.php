@@ -45,35 +45,46 @@ class ServiceController extends Controller
     }
 
 
-public function store(Request $request)
+ public function store(Request $request)
 {
-    // Validate incoming request
+    // Validate input
     $validated = $request->validate([
         'title'       => 'required|string|max:255',
         'description' => 'nullable|string',
         'price'       => 'required|numeric|min:0',
         'image' => [
-        'nullable',
-        'image',
-        'mimes:jpg,jpeg,png,webp,gif',
-        'max:2048',
-        'dimensions:width=350,height=200', // ✅ enforce exact size
-    ],
+            'nullable',
+            'image',
+            'mimes:jpg,jpeg,png,webp,gif',
+            'max:2048',
+            'dimensions:width=350,height=200',
+        ],
     ]);
 
-    // Handle image upload if provided
     $imagePath = null;
+
+    // Handle image upload
     if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('services', 'public');
+        $destinationPath = public_path('uploads/services');
+
+        if (!is_dir($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
+        }
+
+        $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+        $request->file('image')->move($destinationPath, $imageName);
+
+        // ✅ Save relative path (no "storage/" prefix)
+        $imagePath = 'uploads/services/' . $imageName;
     }
 
-    // Create the service
+    // Save record
     Service::create([
         'title'       => $validated['title'],
         'description' => $validated['description'] ?? null,
         'price'       => $validated['price'],
-        'image_path'  => $imagePath,   // ✅ match your fillable
-        'is_active'   => true,         // optional default
+        'image_path'  => $imagePath,
+        'is_active'   => true,
     ]);
 
     return redirect()->route('services.index')
@@ -82,62 +93,82 @@ public function store(Request $request)
 
 
 
-  public function update(Request $request, Service $service)
-    {
-        $data = $request->validate([
-            'title'       => ['required','string','max:255'],
-            'description' => ['nullable','string'],
-            'price'       => ['required','numeric','min:0'],
-            // name MUST match the form file input below
-        'image'       => [
-        'nullable',
-        'image',
-        'mimes:jpg,jpeg,png,webp,gif',
-        'max:2048',
-        'dimensions:width=350,height=200', // ✅ enforce exact size
-    ],
-            // select sends "1"/"0" -> we'll cast explicitly
-            'is_active'   => ['required','in:0,1'],
-        ]);
+ public function update(Request $request, Service $service)
+{
+    // Validate input
+    $validated = $request->validate([
+        'title'       => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'price'       => 'required|numeric|min:0',
+        'image' => [
+            'nullable',
+            'image',
+            'mimes:jpg,jpeg,png,webp,gif',
+            'max:2048',
+            'dimensions:width=350,height=200',
+        ],
+        'is_active'   => 'required|in:0,1',
+    ]);
 
-        // Handle image upload & old image removal
-        if ($request->hasFile('image')) {
-            // remove old if present
-            if ($service->image_path && Storage::disk('public')->exists($service->image_path)) {
-                Storage::disk('public')->delete($service->image_path);
-            }
+    $imagePath = $service->image_path; // Keep old image if not replaced
 
-            // store new
-            $data['image_path'] = $request->file('image')->store('services', 'public');
+    // Handle new image upload
+    if ($request->hasFile('image')) {
+        $destinationPath = public_path('uploads/services');
+
+        if (!is_dir($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
         }
 
-        // Cast is_active to boolean (since select sends string)
-        $data['is_active'] = (int) $request->input('is_active') === 1;
-
-        // We don't want to save 'image' key itself
-        unset($data['image']);
-
-        $service->update($data);
-
-        if ($request->wantsJson()) {
-            return response()->json(['ok' => true]);
+        // Remove old image if exists
+        if ($service->image_path && file_exists(public_path($service->image_path))) {
+            unlink(public_path($service->image_path));
         }
 
-        return back()->with('success', 'Service updated.');
+        // Upload new image
+        $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+        $request->file('image')->move($destinationPath, $imageName);
+
+        // Save relative path (no storage prefix)
+        $imagePath = 'uploads/services/' . $imageName;
     }
+
+    // Update record
+    $service->update([
+        'title'       => $validated['title'],
+        'description' => $validated['description'] ?? null,
+        'price'       => $validated['price'],
+        'image_path'  => $imagePath,
+        'is_active'   => (bool) $validated['is_active'],
+    ]);
+
+    return redirect()->route('services.index')
+                     ->with('success', 'Service updated successfully.');
+}
+
+
 
 
 
 public function destroy(Service $service)
 {
-    if ($service->image_path) {
-        Storage::disk('public')->delete($service->image_path);
+    // Delete image if exists
+    if ($service->image_path && file_exists(public_path($service->image_path))) {
+        unlink(public_path($service->image_path));
     }
+
+    // Delete the service record
     $service->delete();
 
+    // Return JSON if requested
     if (request()->wantsJson()) {
         return response()->json(['ok' => true]);
     }
-    return back()->with('success','Service deleted.');
+
+    return back()->with('success', 'Service deleted.');
 }
+
+
+
+
 }

@@ -55,7 +55,7 @@
                     <!-- Image -->
                     <td>
                         @if($service->image_path)
-                            <img src="{{ asset('storage/'.$service->image_path) }}"
+                            <img src="{{ asset($service->image_path) }}"
                                  class="rounded border"
                                  style="height:50px; width:50px; object-fit:cover;"
                                  alt="service image">
