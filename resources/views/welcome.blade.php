@@ -240,7 +240,7 @@
                               </div>
                               <a href="https://beauty.hotpepper.jp/" target="_blank"
                                  class="py-2 px-4 btn-border fw-bold text-center hvr-grow">
-                              Book
+                              詳細
                               </a>
                            </div>
                         </div>
@@ -282,7 +282,7 @@
                               </div>
                               <a href="https://beauty.hotpepper.jp/" target="_blank"
                                  class="py-2 px-4 btn-border fw-bold text-center hvr-grow">
-                              Book
+                              詳細
                               </a>
                            </div>
                         </div>
@@ -636,7 +636,7 @@
                         <h5 class="mb-0  fw-bolder jost-font font-12">現金</h5>
                      </div>
                      <!-- Card Payment -->
-                     <div class="col-lg-7 col-sm-7 col-4">
+                     <div class="col-lg-7 col-sm-7 col-8">
                         <img src="{{ asset('/images/visa.png') }}" class="img-fluid" alt="CHERISH logo" >
                      </div>
                      <!-- Cash Payment -->

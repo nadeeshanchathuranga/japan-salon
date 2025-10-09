@@ -30,6 +30,8 @@ class TestimonialController extends Controller
      */
 public function store(Request $request)
 {
+
+
     // Validate incoming request
     $validated = $request->validate([
         'name'       => 'required|string|max:255',
@@ -59,7 +61,7 @@ public function store(Request $request)
         // Save relative path
         $imagePath = 'uploads/testimonials/' . $imageName;
     }
-
+   
     // Create the testimonial
     Testimonial::create([
         'name'       => $validated['name'],
