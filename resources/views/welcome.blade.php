@@ -598,7 +598,7 @@
 
       <div class="col-12">
 <h2 class="font-40 fw-bold pb-4 text-white jost-font text-center"> 
-                     お客様の声
+                   Reservation
                   </h2>
       </div>
        

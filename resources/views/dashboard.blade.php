@@ -32,6 +32,21 @@
             </div>
          </div>
       </div>
+
+
+
+       <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+         <div class="dashboard-card card shadow-sm h-100 border-0 rounded-3">
+            <div class="card-body text-center">
+               <div class="icon-wrapper mb-3">
+                 <i class="bi bi-calendar-event fs-1"></i>
+
+               </div>
+               <h2 class="pb-4  fw-bold">Reservation</h2>
+               <a href="{{ route('reservations.index') }}"  class="btn btn-info w-100">View</a>
+            </div>
+         </div>
+      </div>
    </div>
 </div>
 

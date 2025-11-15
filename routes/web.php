@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 Route::resource('testimonials', TestimonialController::class);
      Route::resource('services', ServiceController::class);
+     Route::resource('reservations', ReservationController::class);
 });
 
 
