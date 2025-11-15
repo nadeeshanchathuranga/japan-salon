@@ -13,6 +13,7 @@ class HomeController extends Controller
 $services = Service::where('is_active', true)
                    ->orderBy('id', 'desc') // or another column you prefer
                    ->get();
+ 
 
 
 $testimonials = Testimonial::where('is_active', true)

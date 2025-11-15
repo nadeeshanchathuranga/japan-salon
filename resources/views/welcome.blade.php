@@ -590,6 +590,169 @@
             </div>
          </div>
       </div>
+
+
+<div class="container-fluid booking-section py-5 bg-main">
+
+   <div class="row py-lg-5">
+
+      <div class="col-12">
+<h2 class="font-40 fw-bold pb-4 text-white jost-font text-center"> 
+                     お客様の声
+                  </h2>
+      </div>
+       
+      <div class="col-lg-8 mx-auto">
+<div id="message" class="jost-font">
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fa-solid fa-circle-check me-2"></i>{{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fa-solid fa-circle-xmark me-2"></i>{{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fa-solid fa-circle-xmark me-2"></i><strong>Validation Error:</strong>
+            <ul class="mb-0 mt-2">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+</div>
+
+
+<form  
+    action="{{ route('reservations.store') }}" 
+    method="POST" 
+    class="needs-validation" 
+    novalidate>
+    @csrf
+
+    <div class="row g-3">
+
+        <!-- Name -->
+        <div class="col-12">
+            <label class="form-label font-20 pt-2 jost-font text-white">氏名<span class="required-star">*</span></label>
+            <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                maxlength="100"
+                class="form-control @error('name') is-invalid @enderror" 
+                value="{{ old('name') }}"
+                required>
+            <div class="invalid-feedback text-white">Please enter your name.</div>
+            @error('name')
+                <div class="text-danger font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Date / Time -->
+        <div class="col-sm-6">
+            <label class="form-label font-20 pt-2 jost-font text-white">日時を選択<span class="required-star">*</span></label>
+            <input 
+                type="datetime-local" 
+                id="datetime" 
+                name="datetime"
+                class="form-control @error('datetime') is-invalid @enderror" 
+                value="{{ old('datetime') }}"
+                required>
+            <div class="invalid-feedback text-white">Please choose date and time.</div>
+            @error('datetime')
+                <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Service -->
+        <div class="col-sm-6">
+            <label class="form-label font-20 pt-2 jost-font text-white">サービス<span class="required-star">*</span></label>
+            <select id="service_id" name="service_id" class="form-select @error('service_id') is-invalid @enderror" required>
+                <option value="">Choose one...</option>
+                @foreach ($services as $service)
+                    <option value="{{ $service->id }}" @if(old('service_id') == $service->id) selected @endif>{{ $service->title }}</option>
+                @endforeach
+            </select>
+            <div class="invalid-feedback text-white">Please select a service.</div>
+            @error('service_id')
+                <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Phone -->
+        <div class="col-sm-6">
+            <label class="form-label font-20 pt-2 jost-font text-white">電話番号<span class="required-star">*</span></label>
+            <input 
+                type="tel" 
+                id="phone" 
+                name="phone"
+                maxlength="11"
+                pattern="[0-9]{10,11}"
+                class="form-control @error('phone') is-invalid @enderror" 
+                value="{{ old('phone') }}"
+                required>
+            <div class="invalid-feedback text-white">Enter a valid phone number (max 11 digits).</div>
+            @error('phone')
+                <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Email -->
+        <div class="col-sm-6">
+            <label class="form-label font-20 pt-2 jost-font text-white">メールアドレス<span class="required-star">*</span></label>
+            <input 
+                type="email" 
+                id="email" 
+                name="email"
+                class="form-control @error('email') is-invalid @enderror" 
+                value="{{ old('email') }}"
+                required>
+            <div class="invalid-feedback text-white">Please enter a valid email.</div>
+            @error('email')
+                <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Other Request -->
+        <div class="col-12">
+            <label class="form-label font-20 pt-2 jost-font text-white">その他ご希望</label>
+            <textarea 
+                id="request" 
+                name="other_request" 
+                class="form-control @error('other_request') is-invalid @enderror" 
+                maxlength="1000"
+                rows="4">{{ old('other_request') }}</textarea>
+            @error('other_request')
+                <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
+            @enderror
+        </div>
+
+    </div>
+
+    <div class="mt-4 d-flex justify-content-between">
+        <button type="submit" class="btn-border-1 jost-font font-17 text-white fw-bolder px-lg-5 px-2 py-lg-3 py-1 bt-hvr">
+            予約する
+        </button>
+    </div>
+
+</form>
+
+
+      </div>
+   </div>
+</div>
+
+
+
+
       <footer class="footer-section py-5 bg-second">
          <div class="container">
             <div class="row gy-4 justify-content-between">
@@ -668,25 +831,22 @@
       <script src="{{ url('js/lightbox-plus-jquery.min.js') }}"></script>
       <script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script>
    </body>
-   <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-      
-      
-       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-       
-   </script>
+ 
+ 
 
    <script>
+// Scroll to message if success, error, or validation errors
+@if(session('success') || session('error') || $errors->any())
+document.addEventListener('DOMContentLoaded', function() {
+    const messageElement = document.getElementById('message');
+    if (messageElement) {
+        setTimeout(() => {
+            messageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 250);
+    }
+});
+@endif
+
 document.addEventListener('DOMContentLoaded', function () {
   var $el = $('#customers-testimonials');
   if (!$el.length) return;
