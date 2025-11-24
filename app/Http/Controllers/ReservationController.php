@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 use App\Models\Service;
 use App\Models\Reservation;
+use App\Mail\ReservationConfirmation;
+use App\Mail\ReservationNotification;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Mail;
 
 class ReservationController extends Controller
 {
      public function store(Request $request)
 {
+
     try {
         // Validate first
         $request->validate([
@@ -25,7 +29,7 @@ class ReservationController extends Controller
         $date     = date('Y-m-d', strtotime($request->datetime));
         $time     = date('H:i', strtotime($request->datetime));
 
-        Reservation::create([
+        $reservation = Reservation::create([
             'service_id'     => $request->service_id,
             'date'           => $date,
             'time'           => $time,
@@ -35,11 +39,18 @@ class ReservationController extends Controller
             'other_request'  => $request->other_request,
         ]);
 
+        // Send confirmation email to customer
+        Mail::to($reservation->email)->send(new ReservationConfirmation($reservation));
+
+        // Send notification email to admin
+        Mail::to(config('app.admin_email'))->send(new ReservationNotification($reservation));
+
         return back()->with('success', 'Booking added successfully!');
 
     } catch (ValidationException $e) {
         return back()->withErrors($e->errors())->withInput()->with('scroll', 'message');
     } catch (\Exception $e) {
+        dd($e);
         return back()->with('error', 'An error occurred: ' . $e->getMessage())->with('scroll', 'message');
     }
 }
@@ -99,6 +110,12 @@ public function update(Request $request, Reservation $reservation)
             'email'          => $request->email,
             'other_request'  => $request->other_request,
         ]);
+
+        // Send updated confirmation email to customer
+        Mail::to($reservation->email)->send(new ReservationConfirmation($reservation));
+
+        // Send notification email to admin
+        Mail::to(config('app.admin_email'))->send(new ReservationNotification($reservation));
 
         return back()->with('success', 'Reservation updated successfully!');
 
