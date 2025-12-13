@@ -42,7 +42,7 @@
                  <i class="bi bi-calendar-event fs-1"></i>
 
                </div>
-               <h2 class="pb-4  fw-bold">Reservation</h2>
+               <h2 class="pb-4  fw-bold">予約</h2>
                <a href="{{ route('reservations.index') }}"  class="btn btn-info w-100">View</a>
             </div>
          </div>

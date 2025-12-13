@@ -53,6 +53,14 @@ $testimonials = Testimonial::where('is_active', true)
             'other_request'  => 'nullable|string|max:1000',
         ]);
 
+        // Ensure the selected time is on a 30-minute interval (minutes == 00 or 30)
+        $minutes = date('i', strtotime($request->datetime));
+        if (!in_array($minutes, ['00', '30'])) {
+            throw ValidationException::withMessages([
+                'datetime' => ['時間は30分刻みで選択してください（00または30分）'],
+            ]);
+        }
+
         // Split datetime to date + time
         $date     = date('Y-m-d', strtotime($request->datetime));
         $time     = date('H:i', strtotime($request->datetime));

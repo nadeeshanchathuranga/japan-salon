@@ -1,19 +1,46 @@
-<h2>Reservation Confirmation</h2>
+<!doctype html>
+<html>
+    <body style="margin:0;padding:0;background-color:#f6f7fb;font-family:Arial,Helvetica,sans-serif;color:#222">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td align="center" style="padding:30px 10px">
+                    <table role="presentation" width="620" style="background:#ffffff;border-radius:8px;overflow:hidden" cellpadding="0" cellspacing="0">
+                         
+                        <tr>
+                            <td style="padding:24px">
+                                <h2 style="margin:0 0 8px 0;color:#111;font-size:20px">ご予約確認</h2>
+                                <p style="margin:0 0 12px 0">{{ $reservation->name }} 様</p>
 
-<p>Hello {{ $reservation->name }},</p>
+                                <p style="margin:0 0 16px 0;line-height:1.5">
+                                    この度は、CHERISHにご予約いただき、誠にありがとうございます。<br>
+                                    店長の平田でございます。<br>
+                                    下記の内容でご予約を承りましたので、ご確認をお願いいたします。
+                                </p>
 
-<p>Thank you for booking with Cherish Fukuoka!</p>
+                                <div style="margin:18px 0;padding:16px;background:#f8f9ff;border-radius:6px">
+                                    <h3 style="margin:0 0 10px 0;font-size:16px;color:#0d6efd">ご予約内容</h3>
+                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;color:#333">
+                                        <tr><td style="padding:4px 0"><strong>ご予約日:</strong></td><td style="padding:4px 0">{{ $reservation->date }}</td></tr>
+                                        <tr><td style="padding:4px 0"><strong>ご予約時間:</strong></td><td style="padding:4px 0">{{ $reservation->time }}</td></tr>
+                                        <tr><td style="padding:4px 0"><strong>コース:</strong></td><td style="padding:4px 0">{{ $reservation->service ? $reservation->service->title : 'N/A' }}</td></tr>
+                                        <tr><td style="padding:4px 0"><strong>お電話番号:</strong></td><td style="padding:4px 0">{{ $reservation->phone }}</td></tr>
+                                        <tr><td style="padding:4px 0"><strong>ご要望:</strong></td><td style="padding:4px 0">{{ $reservation->other_request ?? '特になし' }}</td></tr>
+                                    </table>
+                                </div>
 
-<h3>Reservation Details:</h3>
-<ul>
-    <li><strong>Date:</strong> {{ $reservation->date }}</li>
-    <li><strong>Time:</strong> {{ $reservation->time }}</li>
-    <li><strong>Service:</strong> {{ $reservation->service ? $reservation->service->title : 'N/A' }}</li>
-    <li><strong>Phone:</strong> {{ $reservation->phone }}</li>
-    <li><strong>Special Requests:</strong> {{ $reservation->other_request ?? 'None' }}</li>
-</ul>
+                                <p style="margin:0 0 12px 0">ご不明な点がございましたらお気軽にお問い合わせください。ご来店を心よりお待ちしております。</p>
 
-<p>We look forward to seeing you!</p>
-
-<p>Best regards,<br>
-<strong>Cherish Fukuoka Team</strong></p>
+                                <p style="margin:14px 0 0 0;color:#666">敬具<br><strong>CHERISH 福岡店</strong></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background:#f1f3ff;padding:12px 24px;text-align:center;color:#666;font-size:12px">
+                                〒815-0033 福岡県福岡市南区大橋1-4-6 フォックスビルディング603号
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

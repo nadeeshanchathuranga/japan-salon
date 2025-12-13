@@ -48,7 +48,7 @@
                         </li>
                         <li class="nav-item">
                            <a class="nav-link font-18 jost-font text-white fw-bolder ps-lg-5 ps-sm-4 ps-2"
-                              href="#services">サービス一覧</a>
+                              href="#reservation">サービス一覧</a>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link font-18 jost-font text-white fw-bolder ps-lg-5 ps-sm-4 ps-2"
@@ -79,7 +79,7 @@
                            <h3 class="font-27 pt-2 py-2 fst-italic jost-font text-white fw-bolder">心と体をゆるめ、緩めて、明日に繋ぐ場所</span>
                            </h3>
                            <ul class="d-flex justify-content-center list-unstyled gap-5 pt-lg-3 pt-1">
-                              <li><a href="https://beauty.hotpepper.jp/" target="_blank"
+                              <li><a href="#reservation"  
                                  class="btn-border-1 jost-font font-20 text-white fw-bolder px-lg-5 px-2 py-lg-3 py-1 bt-hvr hvr-grow ">ご予約はこちら</a>
                               </li>
                               {{--
@@ -96,7 +96,7 @@
             <div class="row justify-content-center text-center">
                <div class="col-lg-4 mb-4">
                   <h4 class="font-18 fw-bold text-white text-uppercase jost-font ls-1 pb-4">CONTACT</h4>
-                  <p class="fw-normal jost-font font-16 pb-1"> <a href="tel:080XXXXXXXX" class="text-white">080 XXXX XXXX</a>
+                  <p class="fw-normal jost-font font-16 pb-1"> <a href="tel:08079861646" class="text-white">080-7986-1646</a>
                   </p>
                   <p class="fw-normal jost-font font-16"><a href="mailto:cherish.fukuoka260101@gmail.com"
                      class="text-white">cherish.fukuoka260101@gmail.com</a></p>
@@ -212,16 +212,14 @@
                         <div class="card h-100 shadow-sm rounded-3">
                            {{-- Image box (200px height, cover) --}}
                            <div class="w-100" style="height:200px;">
-                            @php
-    $img = $service->image_path
-        ? asset($service->image_path)   
-        : asset('/images/service.jpg');
-@endphp
-
-<img src="{{ $img }}" alt="{{ $service->title }}"
-     class="w-100"
-     style="width:100%; height:100%; object-fit:cover;">
-
+                              @php
+                              $img = $service->image_path
+                              ? asset($service->image_path)   
+                              : asset('/images/service.jpg');
+                              @endphp
+                              <img src="{{ $img }}" alt="{{ $service->title }}"
+                                 class="w-100"
+                                 style="width:100%; height:100%; object-fit:cover;">
                            </div>
                            <div class="card-body">
                               <h5 class="fw-bold mb-2">{{ $service->title }}</h5>
@@ -255,16 +253,14 @@
                      <div class="col-12 col-sm-6 col-lg-4">
                         <div class="card h-100 shadow-sm rounded-3">
                            <div class="w-100" style="height:200px;">
-    @php
-        $img = $service->image_path
-            ? asset($service->image_path)  
-            : asset('/images/service.jpg');
-    @endphp
-
-    <img src="{{ $img }}" alt="{{ $service->title }}"
-         class="w-100" style="width:100%; height:100%; object-fit:cover;">
-</div>
-
+                              @php
+                              $img = $service->image_path
+                              ? asset($service->image_path)  
+                              : asset('/images/service.jpg');
+                              @endphp
+                              <img src="{{ $img }}" alt="{{ $service->title }}"
+                                 class="w-100" style="width:100%; height:100%; object-fit:cover;">
+                           </div>
                            <div class="card-body">
                               <h5 class="fw-bold mb-2">{{ $service->title }}</h5>
                               <p class="mb-0 text-muted">
@@ -519,12 +515,14 @@
          </div>
       </div>
       --}}
+
+    
       <div class="container-fluid location-section py-5">
          <div class="row align-items-center pt-4">
             <div class="col-12 mx-auto text-center text-second px-0">
                <h2 class="font-40 fw-bold pb-lg-5 pb-sm-5 pb-3 jost-font">Location</h2>
                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6647.305909362275!2d130.32580865!3d33.588358899999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3541934099601119%3A0xfc2cb57b0e25ebb1!2sMeinohama%2C%20Nishi%20Ward%2C%20Fukuoka%2C%20819-0002%2C%20Japan!5e0!3m2!1sen!2slk!4v1758356493580!5m2!1sen!2slk"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.7840532523314!2d130.4284125!3d33.5589866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x354191032162ba85%3A0xc0994bdf8b542414!2zSmFwYW4sIOOAkjgxNS0wMDMzIEZ1a3Vva2EsIE1pbmFtaSBXYXJkLCDFjGhhc2hpLCAxLWNoxY1tZeKIkjTiiJI2IOODleOCqeODg-OCr-OCueODk-ODq-ODh-OCo-ODs-OCsCA2MDM!5e0!3m2!1sen!2slk!4v1765472722105!5m2!1sen!2slk"
                   class="map" style="border:0;" allowfullscreen="" loading="lazy"
                   referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
@@ -534,33 +532,27 @@
          <div class="container py-lg-5  py-sm-5">
             <div class="row align-items-center ">
                <div class="col-12 jost-font text-main text-center mx-auto">
-                  <h2 class="font-40 fw-bold"> 
-                     お客様の声
+                  <h2 class="font-40 fw-bold">
+                  お客様の声
                   </h2
-                  
-
-<div class="row g-4">
-  <div class="col-sm-12">
-    <div id="customers-testimonials" class="owl-carousel" role="region"
-         aria-roledescription="carousel" aria-label="Testimonials">
-      @foreach ($testimonials as $testimonial)
-        <div class="item" aria-roledescription="slide">
-          <div class="shadow-effect">
-             <img class="img-circle"
-     src="{{ $testimonial->image_path ? asset($testimonial->image_path) : asset('images/default.png') }}"
-     alt="Photo of {{ $testimonial->name ?? 'User' }}">
-
-            <p class="font-15 fw-bolder pb-2">{{ $testimonial->content }}</p>
-          </div>
-          <div class="testimonial-name">{{ $testimonial->name }}</div>
-        </div>
-      @endforeach
-    </div>
-  </div>
-</div>
-
-
-                  
+                  <div class="row g-4">
+                     <div class="col-sm-12">
+                        <div id="customers-testimonials" class="owl-carousel" role="region"
+                           aria-roledescription="carousel" aria-label="Testimonials">
+                           @foreach ($testimonials as $testimonial)
+                           <div class="item" aria-roledescription="slide">
+                              <div class="shadow-effect">
+                                 <img class="img-circle"
+                                    src="{{ $testimonial->image_path ? asset($testimonial->image_path) : asset('images/default.png') }}"
+                                    alt="Photo of {{ $testimonial->name ?? 'User' }}">
+                                 <p class="font-15 fw-bolder pb-2">{{ $testimonial->content }}</p>
+                              </div>
+                              <div class="testimonial-name">{{ $testimonial->name }}</div>
+                           </div>
+                           @endforeach
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
          </div>
@@ -570,7 +562,7 @@
             <div class="col-lg-4 col-sm-4">
                <img src="{{ asset('/images/mobile.png') }}" class="w-auto mx-auto" alt="CHERISH">
                <h4 class="font-20 fw-bold text-main text-uppercase ls-2 py-3">お問い合わせ</h4>
-               <p class="fw-normal jost-font font-16 pb-1"> <a href="tel:080XXXXXXXX" class="text-a">080 XXXX XXXX</a>
+               <p class="fw-normal jost-font font-16 pb-1"> <a href="tel:08079861646" class="text-a">080-7986-1646</a>
                </p>
                <p class=" fw-normal jost-font font-16"><a href="mailto:cherish.fukuoka260101@gmail.com"
                   class="text-a">cherish.fukuoka260101@gmail.com</a></p>
@@ -578,180 +570,178 @@
             <div class="col-lg-4 col-sm-4">
                <img src="{{ asset('/images/clock.png') }}" class="w-auto mx-auto" alt="CHERISH">
                <h4 class="font-20 fw-bold text-main text-uppercase ls-2  py-3">営業時間</h4>
-               <p class="fw-normal jost-font font-16 pb-1 text-a"> 10時半～18時半最終入店</p>
-               <p class=" fw-normal jost-font font-16 pb-1 text-a"> 定休日：月曜日、木曜日</p>
+               <p class="fw-normal jost-font font-16 pb-1  "> 10時半～18時半最終入店</p>
+               <p class=" fw-normal jost-font font-16 pb-1  "> 定休日：月曜日、木曜日</p>
             </div>
             <div class="col-lg-4 col-sm-4">
                <img src="{{ asset('/images/location.png') }}" class="w-auto mx-auto" alt="CHERISH">
                <h4 class="font-20 fw-bold text-main text-uppercase ls-2 py-3">所在地</h4>
-               <p class=" fw-normal jost-font font-16 pb-1 text-a">1-chōme-206</p>
-               <p class=" fw-normal jost-font font-16 pb-1 text-a"> Hikida, Kanazawa, Ishikawa</p>
-               <p class=" fw-normal jost-font font-16 pb-1 text-a">920-0003, Japan</p>
+            <p class="fw-normal jost-font font-16 pb-1  ">〒815-0033</p>
+<p class="fw-normal jost-font font-16 pb-1  ">福岡県福岡市南区大橋1-4-6</p>
+<p class="fw-normal jost-font font-16 pb-1  ">フォックスビルディング603号</p>
+
+<p class="fw-normal jost-font font-16 pb-1  mt-3">🚉 西鉄大橋駅　東口より徒歩4分</p>
+<p class="fw-normal jost-font font-16 pb-1  ">🚌 西鉄バス大橋一丁目バス停より徒歩1分</p>
+<p class="fw-normal jost-font font-16 pb-1  ">🚗 マンション裏にコインパーキング有</p>
             </div>
          </div>
       </div>
+      <div class="container-fluid booking-section py-5 bg-main" id="reservation">
+         <div class="row py-lg-5">
+            <div class="col-12">
+               <h2 class="font-40 fw-bold pb-4 text-white jost-font text-center"> 
+                  予約
+               </h2>
+            </div>
+            <div class="col-lg-8 mx-auto">
+               <div id="message" class="jost-font">
+                  @if(session('success'))
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                     <i class="fa-solid fa-circle-check me-2"></i>{{ session('success') }}
+                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  @endif
+                  @if(session('error'))
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                     <i class="fa-solid fa-circle-xmark me-2"></i>{{ session('error') }}
+                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  @endif
+                  @if($errors->any())
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                     <i class="fa-solid fa-circle-xmark me-2"></i><strong>Validation Error:</strong>
+                     <ul class="mb-0 mt-2">
+                        @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                     </ul>
+                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  @endif
+               </div>
+               <form action="{{ route('frontend.reservations.store') }}" method="POST">
+                  @csrf
+                  <div class="row g-3">
+                     <!-- Name -->
+                     <div class="col-12">
+                        <label class="form-label font-20 pt-2 jost-font text-white">氏名<span class="required-star">*</span></label>
+                        <input 
+                           type="text" 
+                           id="name" 
+                           name="name" 
+                           maxlength="100"
+                           class="form-control @error('name') is-invalid @enderror" 
+                           value="{{ old('name') }}"
+                           required>
+                        <div class="invalid-feedback text-white">Please enter your name.</div>
+                        @error('name')
+                        <div class="text-danger font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
+                        @enderror
+                     </div>
+                     <!-- Date / Time -->
+                     <div class="col-sm-6">
+                        <label class="form-label font-20 pt-2 jost-font text-white">日時を選択<span class="required-star">*</span></label>
 
+                        {{-- hidden input submitted to server in ISO format YYYY-MM-DDTHH:MM --}}
+                        <input type="hidden" id="datetime" name="datetime" value="{{ old('datetime') }}">
 
-<div class="container-fluid booking-section py-5 bg-main">
+                        <div class="d-flex gap-2">
+                           @php
+                              $allowedTimes = [
+                                 '10:30','11:00','11:30','12:00','12:30','13:00','13:30',
+                                 '14:00','14:30','15:00','15:30','16:00','16:30','17:00',
+                                 '17:30','18:00','18:30'
+                              ];
 
-   <div class="row py-lg-5">
+                              $oldDate = old('datetime') ? \Carbon\Carbon::parse(old('datetime'))->format('Y-m-d') : now()->format('Y-m-d');
+                              $oldTime = old('datetime') ? \Carbon\Carbon::parse(old('datetime'))->format('H:i') : '';
+                           @endphp
 
-      <div class="col-12">
-<h2 class="font-40 fw-bold pb-4 text-white jost-font text-center"> 
-                   Reservation
-                  </h2>
+                           <input type="date" id="dateInput" class="form-control @error('datetime') is-invalid @enderror" value="{{ $oldDate }}" min="{{ now()->format('Y-m-d') }}" required>
+
+                           <select id="timeSelect" class="form-select @error('datetime') is-invalid @enderror" required>
+                              <option value="">時間を選択...</option>
+                              @foreach($allowedTimes as $t)
+                                 <option value="{{ $t }}" @if($oldTime === $t) selected @endif>{{ $t }}</option>
+                              @endforeach
+                           </select>
+                        </div>
+
+                        <div class="invalid-feedback text-white">Please choose date and time.</div>
+                        @error('datetime')
+                        <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
+                        @enderror
+                     </div>
+                     <!-- Service -->
+                     <div class="col-sm-6">
+                        <label class="form-label font-20 pt-2 jost-font text-white">サービス<span class="required-star">*</span></label>
+                        <select id="service_id" name="service_id" class="form-select @error('service_id') is-invalid @enderror" required>
+                           <option value="">Choose one...</option>
+                           @foreach ($services as $service)
+                           <option value="{{ $service->id }}" @if(old('service_id') == $service->id) selected @endif>{{ $service->title }}</option>
+                           @endforeach
+                        </select>
+                        <div class="invalid-feedback text-white">Please select a service.</div>
+                        @error('service_id')
+                        <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
+                        @enderror
+                     </div>
+                     <!-- Phone -->
+                     <div class="col-sm-6">
+                        <label class="form-label font-20 pt-2 jost-font text-white">電話番号<span class="required-star">*</span></label>
+                        <input 
+                           type="tel" 
+                           id="phone" 
+                           name="phone"
+                           maxlength="11"
+                           pattern="[0-9]{10,11}"
+                           class="form-control @error('phone') is-invalid @enderror" 
+                           value="{{ old('phone') }}"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                           required>
+                        <div class="invalid-feedback text-white">Please enter a valid phone number (max 11 digits).</div>
+                        @error('phone')
+                        <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
+                        @enderror
+                     </div>
+                     <!-- Email -->
+                     <div class="col-sm-6">
+                        <label class="form-label font-20 pt-2 jost-font text-white">メールアドレス<span class="required-star">*</span></label>
+                        <input 
+                           type="email" 
+                           id="email" 
+                           name="email"
+                           class="form-control @error('email') is-invalid @enderror" 
+                           value="{{ old('email') }}"
+                           required>
+                        <div class="invalid-feedback text-white">Please enter a valid email.</div>
+                        @error('email')
+                        <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
+                        @enderror
+                     </div>
+                     <!-- Other Request -->
+                     <div class="col-12">
+                        <label class="form-label font-20 pt-2 jost-font text-white">その他ご希望</label>
+                        <textarea 
+                           id="request" 
+                           name="other_request" 
+                           class="form-control @error('other_request') is-invalid @enderror" 
+                           maxlength="1000"
+                           rows="4">{{ old('other_request') }}</textarea>
+                        @error('other_request')
+                        <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
+                        @enderror
+                     </div>
+                  </div>
+                  <div class="mt-4 d-flex justify-content-between">
+                     <button type="submit" id="submitBtn" class="btn-border-1 jost-font font-17 text-white fw-bolder px-lg-5 px-2 py-lg-3 py-1 bt-hvr">
+                     予約する
+                     </button>
+                  </div>
+               </form>
+            </div>
+         </div>
       </div>
-       
-      <div class="col-lg-8 mx-auto">
-<div id="message" class="jost-font">
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fa-solid fa-circle-check me-2"></i>{{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fa-solid fa-circle-xmark me-2"></i>{{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    @if($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fa-solid fa-circle-xmark me-2"></i><strong>Validation Error:</strong>
-            <ul class="mb-0 mt-2">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-</div>
-
-<form action="{{ route('frontend.reservations.store') }}" method="POST">
-
-   
-    @csrf
-
-    <div class="row g-3">
-
-        <!-- Name -->
-        <div class="col-12">
-            <label class="form-label font-20 pt-2 jost-font text-white">氏名<span class="required-star">*</span></label>
-            <input 
-                type="text" 
-                id="name" 
-                name="name" 
-                maxlength="100"
-                class="form-control @error('name') is-invalid @enderror" 
-                value="{{ old('name') }}"
-                required>
-            <div class="invalid-feedback text-white">Please enter your name.</div>
-            @error('name')
-                <div class="text-danger font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
-            @enderror
-        </div>
-
-        <!-- Date / Time -->
-        <div class="col-sm-6">
-            <label class="form-label font-20 pt-2 jost-font text-white">日時を選択<span class="required-star">*</span></label>
-            <input 
-                type="datetime-local" 
-                id="datetime" 
-                name="datetime"
-                min="{{ now()->format('Y-m-d\TH:i') }}"
-                class="form-control @error('datetime') is-invalid @enderror" 
-                value="{{ old('datetime') }}"
-                required>
-            <div class="invalid-feedback text-white">Please choose date and time.</div>
-            @error('datetime')
-                <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
-            @enderror
-        </div>
-
-        <!-- Service -->
-        <div class="col-sm-6">
-            <label class="form-label font-20 pt-2 jost-font text-white">サービス<span class="required-star">*</span></label>
-            <select id="service_id" name="service_id" class="form-select @error('service_id') is-invalid @enderror" required>
-                <option value="">Choose one...</option>
-                @foreach ($services as $service)
-                    <option value="{{ $service->id }}" @if(old('service_id') == $service->id) selected @endif>{{ $service->title }}</option>
-                @endforeach
-            </select>
-            <div class="invalid-feedback text-white">Please select a service.</div>
-            @error('service_id')
-                <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
-            @enderror
-        </div>
-
-        <!-- Phone -->
-        <div class="col-sm-6">
-            <label class="form-label font-20 pt-2 jost-font text-white">電話番号<span class="required-star">*</span></label>
-            <input 
-                type="tel" 
-                id="phone" 
-                name="phone"
-                maxlength="11"
-                pattern="[0-9]{10,11}"
-                class="form-control @error('phone') is-invalid @enderror" 
-                value="{{ old('phone') }}"
-                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                required>
-            <div class="invalid-feedback text-white">Please enter a valid phone number (max 11 digits).</div>
-            @error('phone')
-                <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
-            @enderror
-        </div>
-
-        <!-- Email -->
-        <div class="col-sm-6">
-            <label class="form-label font-20 pt-2 jost-font text-white">メールアドレス<span class="required-star">*</span></label>
-            <input 
-                type="email" 
-                id="email" 
-                name="email"
-                class="form-control @error('email') is-invalid @enderror" 
-                value="{{ old('email') }}"
-                required>
-            <div class="invalid-feedback text-white">Please enter a valid email.</div>
-            @error('email')
-                <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
-            @enderror
-        </div>
-
-        <!-- Other Request -->
-        <div class="col-12">
-            <label class="form-label font-20 pt-2 jost-font text-white">その他ご希望</label>
-            <textarea 
-                id="request" 
-                name="other_request" 
-                class="form-control @error('other_request') is-invalid @enderror" 
-                maxlength="1000"
-                rows="4">{{ old('other_request') }}</textarea>
-            @error('other_request')
-                <div class="text-white font-14 mt-1"><i class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
-            @enderror
-        </div>
-
-    </div>
-
-    <div class="mt-4 d-flex justify-content-between">
-        <button type="submit" id="submitBtn" class="btn-border-1 jost-font font-17 text-white fw-bolder px-lg-5 px-2 py-lg-3 py-1 bt-hvr">
-            予約する
-        </button>
-    </div>
-
-</form>
-
-
-      </div>
-   </div>
-</div>
-
-
-
-
       <footer class="footer-section py-5 bg-second">
          <div class="container">
             <div class="row gy-4 justify-content-between">
@@ -776,7 +766,7 @@
                      </li>
                      <li class="pb-2">
                         <i class="fa-solid fa-right-long me-2"></i>
-                        <a href="#services" class="font-15 fw-semibold jost-font text-main hvr-forward">サービス一覧</a>
+                        <a href="#reservation" class="font-15 fw-semibold jost-font text-main hvr-forward">サービス一覧</a>
                      </li>
                      <li class="pb-2">
                         <i class="fa-solid fa-right-long me-2"></i>
@@ -792,7 +782,6 @@
                <div class="col-12 col-sm-12 col-lg-4 text-start">
                   <h3 class="h6 fw-bold text-main text-uppercase pt-lg-0 pt-sm-0 pt-4 pb-3 m-0">お支払方法</h3>
                   <div class="row g-3">
-
                      <div class="col-lg-2 col-sm-2 col-2 text-center">
                         <i class="fa-solid fa-money-bill-wave fa-2x text-main"></i>
                         <h5 class="mb-0  fw-bolder jost-font font-12">現金</h5>
@@ -802,7 +791,6 @@
                         <img src="{{ asset('/images/visa.png') }}" class="img-fluid" alt="CHERISH logo" >
                      </div>
                      <!-- Cash Payment -->
-                     
                   </div>
                </div>
             </div>
@@ -830,91 +818,224 @@
       <script src="{{ url('js/lightbox-plus-jquery.min.js') }}"></script>
       <script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script>
    </body>
- 
- 
-
    <script>
-// Scroll to message if success, error, or validation errors
-@if(session('success') || session('error') || $errors->any())
-document.addEventListener('DOMContentLoaded', function() {
-    const messageElement = document.getElementById('message');
-    if (messageElement) {
-        setTimeout(() => {
-            messageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 250);
-    }
-});
-@endif
+      // Scroll to message if success, error, or validation errors
+      @if(session('success') || session('error') || $errors->any())
+      document.addEventListener('DOMContentLoaded', function() {
+          const messageElement = document.getElementById('message');
+          if (messageElement) {
+              setTimeout(() => {
+                  messageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }, 250);
+          }
+      });
+      @endif
+      
+        // Disable submit button after form submission and enforce allowed times
+        document.addEventListener('DOMContentLoaded', function() {
+           const form = document.querySelector('form[action="{{ route('frontend.reservations.store') }}"]');
+           const submitBtn = document.getElementById('submitBtn');
+           const hiddenDatetime = document.getElementById('datetime');
+           const dateInput = document.getElementById('dateInput');
+           const timeSelect = document.getElementById('timeSelect');
 
-// Disable submit button after form submission
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('form[action="{{ route('frontend.reservations.store') }}"]');
-    const submitBtn = document.getElementById('submitBtn');
-    
-    if (form && submitBtn) {
-        form.addEventListener('submit', function(e) {
-            // Check if form is valid
-            if (form.checkValidity()) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>送信中...';
-                submitBtn.classList.add('opacity-75');
-            }
+           // allowed times (sourced from Blade so it's single-source-of-truth)
+           const allowedTimes = @json($allowedTimes);
+
+           function showDatetimeError(msg) {
+              let err = document.getElementById('datetimeValidationError');
+              // choose parent for error display: timeSelect wrapper
+              const parent = timeSelect ? timeSelect.parentNode : (hiddenDatetime ? hiddenDatetime.parentNode : null);
+              if (!err && parent) {
+                 err = document.createElement('div');
+                 err.id = 'datetimeValidationError';
+                 err.className = 'text-white font-14 mt-1';
+                 parent.appendChild(err);
+              }
+              if (err) err.innerHTML = '<i class="fa-solid fa-exclamation-circle me-1"></i>' + msg;
+           }
+
+           function clearDatetimeError() {
+              const err = document.getElementById('datetimeValidationError');
+              if (err) err.remove();
+           }
+
+           function combineAndSetHidden() {
+              if (!dateInput || !timeSelect || !hiddenDatetime) return;
+              if (!dateInput.value || !timeSelect.value) {
+                 hiddenDatetime.value = '';
+                 return;
+              }
+              hiddenDatetime.value = dateInput.value + 'T' + timeSelect.value;
+           }
+
+           // if page loaded with old datetime, ensure hidden already set (Blade set it), but fill date/time if missing
+           if (hiddenDatetime && hiddenDatetime.value && dateInput && timeSelect) {
+              try {
+                 const parts = hiddenDatetime.value.split('T');
+                 if (parts.length === 2) {
+                    if (!dateInput.value) dateInput.value = parts[0];
+                    if (!timeSelect.value) timeSelect.value = parts[1];
+                 }
+              } catch (e) {}
+           }
+
+           function refreshTimeOptions() {
+              if (!timeSelect || !dateInput) return;
+              const selectedDate = dateInput.value; // YYYY-MM-DD
+              const now = new Date();
+
+              // remove all options except the placeholder (index 0)
+              while (timeSelect.options.length > 1) {
+                 timeSelect.remove(1);
+              }
+
+              allowedTimes.forEach(function(t) {
+                 const opt = document.createElement('option');
+                 opt.value = t;
+                 opt.text = t;
+
+                 // if selected date is today, disable times that are in the past or equal to now
+                 if (selectedDate) {
+                    // parse YYYY-MM-DD and HH:MM into a local Date to avoid cross-browser parsing issues
+                    const parts = selectedDate.split('-');
+                    const timeParts = t.split(':');
+                    const year = parseInt(parts[0], 10);
+                    const month = parseInt(parts[1], 10) - 1; // zero-based
+                    const day = parseInt(parts[2], 10);
+                    const hour = parseInt(timeParts[0], 10);
+                    const minute = parseInt(timeParts[1], 10);
+                    const candidate = new Date(year, month, day, hour, minute, 0, 0);
+                    if (candidate.getTime() <= now.getTime()) {
+                       opt.disabled = true;
+                    }
+                 }
+
+                 timeSelect.appendChild(opt);
+              });
+
+              // if previously selected time is now disabled, reset selection
+              if (timeSelect.value) {
+                 const sel = timeSelect.value;
+                 const option = Array.from(timeSelect.options).find(o => o.value === sel);
+                 if (option && option.disabled) {
+                    timeSelect.value = '';
+                 }
+              }
+           }
+
+           if (dateInput && timeSelect) {
+              // initial population and combine
+              refreshTimeOptions();
+              combineAndSetHidden();
+
+              // react immediately when user types or picks a date
+              dateInput.addEventListener('change', function() {
+                 clearDatetimeError();
+                 refreshTimeOptions();
+                 combineAndSetHidden();
+              });
+              dateInput.addEventListener('input', function() {
+                 clearDatetimeError();
+                 refreshTimeOptions();
+                 combineAndSetHidden();
+              });
+
+              timeSelect.addEventListener('change', function() {
+                 clearDatetimeError();
+                 combineAndSetHidden();
+              });
+           }
+
+           if (form && submitBtn) {
+              form.addEventListener('submit', function(e) {
+                 combineAndSetHidden();
+
+                 // basic validations: date and allowed time must be present
+                 if (!hiddenDatetime.value) {
+                    e.preventDefault();
+                    showDatetimeError('日付と時間を選択してください');
+                    return;
+                 }
+
+                 // ensure selected time is allowed
+                 const timePart = hiddenDatetime.value.split('T')[1];
+                 if (!allowedTimes.includes(timePart)) {
+                    e.preventDefault();
+                    showDatetimeError('指定された時間は予約可能な時間ではありません');
+                    return;
+                 }
+
+                 // ensure combined datetime is not in the past
+                 const selected = new Date(hiddenDatetime.value);
+                 const now = new Date();
+                 if (selected < now) {
+                    e.preventDefault();
+                    showDatetimeError('過去の日時は選択できません');
+                    return;
+                 }
+
+                 // fallback: disable submit when form is valid
+                 if (form.checkValidity()) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>送信中...';
+                    submitBtn.classList.add('opacity-75');
+                 }
+              });
+           }
         });
-    }
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-  var $el = $('#customers-testimonials');
-  if (!$el.length) return;
-
-  var count = {{ count($testimonials) }}; // Blade renders the number
-  var show = Math.min(2, Math.max(1, count)); // 1 if only one, else 2
-
-  $el.owlCarousel({
-    loop: count > 1,            // don't loop if there’s only one slide
-    center: count > 1,
-    items: show,
-    margin: 10,
-    autoplay: false,
-    autoplayTimeout: 4500,
-    smartSpeed: 450,
-    dots: true,
-    nav: false,
-    responsive: {
-      0:   { items: 1, stagePadding: 30, margin: 10 },
-      600: { items: show, stagePadding: 80 },
-      1000:{ items: show, stagePadding: 50 }
-    }
-  });
-});
-
-
-
- $('.service-carousel').owlCarousel({
-    margin: 30,
-    loop: true,
-    dots: false,
-    autoplay: true,
-    smartSpeed: 3000, // slide transition එක slow කරලා (default: 250)
-    animateOut: 'fadeOut',
-    autoplayTimeout: 4000, // slide එකක් 8 seconds පෙන්වලා next එකට යයි
-    responsive: {
-        0: {
-            items: 1
-        },
-        600: {
-            items: 2
-        },
-        1000: {
-            items: 3,
-            nav: false
-        }
-    }
-});
-
-
-
-
-</script>
-
+      
+      document.addEventListener('DOMContentLoaded', function () {
+        var $el = $('#customers-testimonials');
+        if (!$el.length) return;
+      
+        var count = {{ count($testimonials) }}; // Blade renders the number
+        var show = Math.min(2, Math.max(1, count)); // 1 if only one, else 2
+      
+        $el.owlCarousel({
+          loop: count > 1,            // don't loop if there’s only one slide
+          center: count > 1,
+          items: show,
+          margin: 10,
+          autoplay: false,
+          autoplayTimeout: 4500,
+          smartSpeed: 450,
+          dots: true,
+          nav: false,
+          responsive: {
+            0:   { items: 1, stagePadding: 30, margin: 10 },
+            600: { items: show, stagePadding: 80 },
+            1000:{ items: show, stagePadding: 50 }
+          }
+        });
+      });
+      
+      
+      
+       $('.service-carousel').owlCarousel({
+          margin: 30,
+          loop: true,
+          dots: false,
+          autoplay: true,
+          smartSpeed: 3000, // slide transition එක slow කරලා (default: 250)
+          animateOut: 'fadeOut',
+          autoplayTimeout: 4000, // slide එකක් 8 seconds පෙන්වලා next එකට යයි
+          responsive: {
+              0: {
+                  items: 1
+              },
+              600: {
+                  items: 2
+              },
+              1000: {
+                  items: 3,
+                  nav: false
+              }
+          }
+      });
+      
+      
+      
+      
+   </script>
 </html>
