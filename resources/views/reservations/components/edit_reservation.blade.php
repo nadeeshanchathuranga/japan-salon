@@ -8,6 +8,36 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
+<!-- Flatpickr for modal datetime (disable Monday/Thursday) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+  (function(){
+    const dt = document.getElementById('datetime{{ $reservation->id }}');
+    if(!dt) return;
+
+    // ensure browser native picker doesn't conflict
+    try { dt.type = 'text'; } catch(e) {}
+
+    if (typeof flatpickr !== 'undefined') {
+      flatpickr(dt, {
+        enableTime: true,
+        time_24hr: true,
+        minuteIncrement: 30,
+        dateFormat: 'Y-m-d\TH:i',
+        minDate: new Date(),
+        disable: [
+          function(date) { return [1,4].includes(date.getDay()); }
+        ],
+        onChange: function(selectedDates, dateStr){
+          // keep existing input listeners happy
+          dt.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      });
+    }
+  })();
+</script>
+
       <div class="modal-header">
         <h5 class="modal-title" id="editReservationLabel{{ $reservation->id }}">Edit Reservation #{{ $reservation->id }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -35,7 +65,7 @@
             <div class="col-md-6">
               <label for="datetime{{ $reservation->id }}" class="form-label">Date & Time</label>
               <input type="datetime-local" class="form-control" name="datetime" id="datetime{{ $reservation->id }}" 
-                     value="{{ old('datetime', $reservation->date . 'T' . $reservation->time) }}" required>
+                     value="{{ old('datetime', $reservation->date . 'T' . $reservation->time) }}" required step="1800" min="{{ now()->format('Y-m-d\TH:i') }}">
             </div>
           </div>
 
@@ -76,3 +106,68 @@
     </div>
   </div>
 </div>
+
+<script>
+  (function(){
+    const dt = document.getElementById('datetime{{ $reservation->id }}');
+    const form = dt ? dt.closest('form') : null;
+    function isClosedDayFromValue(val){
+      if(!val) return false;
+      const parts = val.split('T');
+      let d;
+      if(parts.length === 2){
+        const dateParts = parts[0].split('-');
+        d = new Date(parseInt(dateParts[0],10), parseInt(dateParts[1],10)-1, parseInt(dateParts[2],10));
+      } else {
+        d = new Date(val);
+      }
+      return [1,4].includes(d.getDay());
+    }
+    function showError(msg){
+      let el = document.getElementById('datetimeError{{ $reservation->id }}');
+      const parent = dt ? dt.parentNode : null;
+      if(!el && parent){
+        el = document.createElement('div');
+        el.id = 'datetimeError{{ $reservation->id }}';
+        el.className = 'text-danger small mt-1';
+        parent.appendChild(el);
+      }
+      if(el) el.textContent = msg;
+    }
+    function clearError(){
+      const el = document.getElementById('datetimeError{{ $reservation->id }}');
+      if(el) el.remove();
+    }
+
+    // initial validation for pre-filled value (when modal opens)
+    if(dt && dt.value && isClosedDayFromValue(dt.value)){
+      showError('Our shop is closed on Mondays and Thursdays. Please choose another day.');
+      dt.setCustomValidity('Our shop is closed on Mondays and Thursdays. Please choose another day.');
+    } else if(dt) {
+      dt.setCustomValidity('');
+    }
+
+    if(dt){
+      dt.addEventListener('input', function(){
+        clearError();
+        if(isClosedDayFromValue(this.value)){
+          this.setCustomValidity('Our shop is closed on Mondays and Thursdays. Please choose another day.');
+          showError('Our shop is closed on Mondays and Thursdays. Please choose another day.');
+        } else {
+          this.setCustomValidity('');
+          clearError();
+        }
+      });
+    }
+    if(form){
+      form.addEventListener('submit', function(e){
+        if(dt && isClosedDayFromValue(dt.value)){
+          e.preventDefault();
+          showError('Our shop is closed on Mondays and Thursdays. Please choose another day.');
+          dt.focus();
+          return false;
+        }
+      });
+    }
+  })();
+</script>
