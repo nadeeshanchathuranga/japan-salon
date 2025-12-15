@@ -19,6 +19,7 @@
       <link href="{{ asset('css/hover.css') }}" rel="stylesheet">
       <link href="{{ asset('css/style.css') }}" rel="stylesheet">
       <link href="{{ asset('css/mobile-style.css') }}" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
    </head>
    <body>
       <div class="container-fluid header-section" id="home">
@@ -817,6 +818,7 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
       <script src="{{ url('js/lightbox-plus-jquery.min.js') }}"></script>
       <script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
    </body>
    <script>
       // Scroll to message if success, error, or validation errors
@@ -839,8 +841,37 @@
            const dateInput = document.getElementById('dateInput');
            const timeSelect = document.getElementById('timeSelect');
 
+           // initialize flatpickr to visually disable closed weekdays (Mon=1, Thu=4)
+           if (dateInput && typeof flatpickr !== 'undefined') {
+              flatpickr(dateInput, {
+                 dateFormat: 'Y-m-d',
+                 minDate: 'today',
+                 disable: [
+                    function(date) { return [1,4].includes(date.getDay()); }
+                 ],
+                 onChange: function(selectedDates, dateStr) {
+                    // trigger native change so existing handlers run
+                    dateInput.dispatchEvent(new Event('change', { bubbles: true }));
+                 }
+              });
+           }
+
            // allowed times (sourced from Blade so it's single-source-of-truth)
            const allowedTimes = @json($allowedTimes);
+
+           // closed days: Monday (1) and Thursday (4)
+           const closedDays = [1, 4];
+
+           function isClosedDay(dateString) {
+              if (!dateString) return false;
+              const parts = dateString.split('-');
+              if (parts.length !== 3) return false;
+              const year = parseInt(parts[0], 10);
+              const month = parseInt(parts[1], 10) - 1;
+              const day = parseInt(parts[2], 10);
+              const d = new Date(year, month, day);
+              return closedDays.includes(d.getDay());
+           }
 
            function showDatetimeError(msg) {
               let err = document.getElementById('datetimeValidationError');
@@ -932,11 +963,26 @@
               // react immediately when user types or picks a date
               dateInput.addEventListener('change', function() {
                  clearDatetimeError();
+                 // block shop closed days
+                 if (isClosedDay(dateInput.value)) {
+                    showDatetimeError('Our shop is closed on Mondays and Thursdays. Please choose another day.');
+                    dateInput.value = '';
+                    refreshTimeOptions();
+                    combineAndSetHidden();
+                    return;
+                 }
                  refreshTimeOptions();
                  combineAndSetHidden();
               });
               dateInput.addEventListener('input', function() {
                  clearDatetimeError();
+                 if (isClosedDay(dateInput.value)) {
+                    showDatetimeError('Our shop is closed on Mondays and Thursdays. Please choose another day.');
+                    dateInput.value = '';
+                    refreshTimeOptions();
+                    combineAndSetHidden();
+                    return;
+                 }
                  refreshTimeOptions();
                  combineAndSetHidden();
               });
@@ -972,6 +1018,14 @@
                  if (selected < now) {
                     e.preventDefault();
                     showDatetimeError('過去の日時は選択できません');
+                    return;
+                 }
+
+                 // ensure date is not a closed day (Monday/Thursday)
+                 const datePart = hiddenDatetime.value.split('T')[0];
+                 if (isClosedDay(datePart)) {
+                    e.preventDefault();
+                    showDatetimeError('Our shop is closed on Mondays and Thursdays. Please choose another day.');
                     return;
                  }
 
