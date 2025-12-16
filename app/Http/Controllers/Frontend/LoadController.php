@@ -20,18 +20,21 @@ class LoadController extends Controller
    public function index()
     {
 
-$services = Service::where('is_active', true)
-                   ->orderBy('id', 'desc') // or another column you prefer
+$services1 = Service::where('is_active', true)
+                   ->orderBy('id', 'desc')  
+                   ->get();
+
+                   $services = Service::orderBy('id', 'desc')  
                    ->get();
  
 
 
 $testimonials = Testimonial::where('is_active', true)
-                   ->orderBy('id', 'desc') // or another column you prefer
+                   ->orderBy('id', 'desc') 
                    ->get();
 
 
-        return view('frontend.index',compact('services','testimonials'));
+        return view('frontend.index',compact('services','testimonials','services1'));
     }
 
 
@@ -81,7 +84,7 @@ $testimonials = Testimonial::where('is_active', true)
         // Send notification email to admin
         Mail::to(config('app.admin_email'))->send(new ReservationNotification($reservation));
 
-        return back()->with('success', 'Booking added successfully!');
+        return back()->with('success', 'ご予約が完了しました！');
 
     } catch (ValidationException $e) {
         return back()->withErrors($e->errors())->withInput()->with('scroll', 'message');

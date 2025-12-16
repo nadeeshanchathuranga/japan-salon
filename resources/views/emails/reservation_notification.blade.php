@@ -9,7 +9,7 @@
                         <tr>
                             <td style="padding:24px">
                                 <h2 style="margin:0 0 8px 0;color:#111;font-size:20px">新しいご予約が入りました</h2>
-                                <p style="margin:0 0 12px 0">以下の内容で新規予約が行われましたのでご確認ください。</p>
+                                <p style="margin:0 0 12px 0">以下の内容で新規予約が入りましたのでご確認ください。</p>
 
                                 <div style="margin:18px 0;padding:16px;background:#fff6f6;border-radius:6px">
                                     <h3 style="margin:0 0 10px 0;font-size:16px;color:#d63333">お客様情報</h3>

@@ -8,7 +8,7 @@
                          
                         <tr>
                             <td style="padding:24px">
-                                <h2 style="margin:0 0 8px 0;color:#111;font-size:20px">ご予約確認</h2>
+                                <h2 style="margin:0 0 8px 0;color:#111;font-size:20px">ご予約完了のお知らせ</h2>
                                 <p style="margin:0 0 12px 0">{{ $reservation->name }} 様</p>
 
                                 <p style="margin:0 0 16px 0;line-height:1.5">
@@ -20,22 +20,30 @@
                                 <div style="margin:18px 0;padding:16px;background:#f8f9ff;border-radius:6px">
                                     <h3 style="margin:0 0 10px 0;font-size:16px;color:#0d6efd">ご予約内容</h3>
                                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;color:#333">
+                                        <tr><td style="padding:4px 0"><strong>メニュー:</strong></td><td style="padding:4px 0">{{ $reservation->service ? $reservation->service->title : 'N/A' }}</td></tr>
                                         <tr><td style="padding:4px 0"><strong>ご予約日:</strong></td><td style="padding:4px 0">{{ $reservation->date }}</td></tr>
                                         <tr><td style="padding:4px 0"><strong>ご予約時間:</strong></td><td style="padding:4px 0">{{ $reservation->time }}</td></tr>
-                                        <tr><td style="padding:4px 0"><strong>コース:</strong></td><td style="padding:4px 0">{{ $reservation->service ? $reservation->service->title : 'N/A' }}</td></tr>
-                                        <tr><td style="padding:4px 0"><strong>お電話番号:</strong></td><td style="padding:4px 0">{{ $reservation->phone }}</td></tr>
-                                        <tr><td style="padding:4px 0"><strong>ご要望:</strong></td><td style="padding:4px 0">{{ $reservation->other_request ?? '特になし' }}</td></tr>
                                     </table>
                                 </div>
 
-                                <p style="margin:0 0 12px 0">ご不明な点がございましたらお気軽にお問い合わせください。ご来店を心よりお待ちしております。</p>
+                                <p style="margin:0 0 12px 0"><strong>【サロン所在地】</strong><br/>
+                                 福岡市南区大橋1-4-6 フォクスビルディング603号室
+                                </p>
 
-                                <p style="margin:14px 0 0 0;color:#666">敬具<br><strong>CHERISH 福岡店</strong></p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="background:#f1f3ff;padding:12px 24px;text-align:center;color:#666;font-size:12px">
-                                〒815-0033 福岡県福岡市南区大橋1-4-6 フォックスビルディング603号
+                                 <p style="margin:0 0 12px 0"><strong>【当日のお願い】</strong><br/>
+                                 ・5分前を目安にお越しください。<br/>
+                                 ・体調やご不安な点があれば、いつでもお気軽にお知らせください。<br/>
+                                 ・駐車場はございません。マンション裏手にコインパーキングがございます。
+                                </p>
+
+                                <p style="margin:0 0 12px 0"><strong>【キャンセル・変更】</strong><br/>
+                                 ご予約の変更やキャンセルがある場合は、前日までにご連絡いただけますと幸いです。
+                                </p>
+
+                                <p style="margin:0 0 12px 0">心も身体もゆるめていただけるよう、丁寧にご案内いたします。<br/>
+                                当日お会いできますことを、心より楽しみにしております。</p>
+                                <br/>
+                                <p style="margin:14px 0 0 0;color:#666"><strong>CHERISH −チェリッシュ−</strong><br>平田 路乃</p>
                             </td>
                         </tr>
                     </table>

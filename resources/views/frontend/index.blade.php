@@ -176,32 +176,7 @@
             <div class="row align-items-center ">
                <div class="col-12 jost-font text-main text-center mx-auto">
                   <h2 class="font-40 fw-bold pb-lg-5 pb-sm-5 pb-3">サービス一覧</h2>
-                  {{--
-                  <ul class="d-flex justify-content-center list-unstyled gap-5 font-24 text-main py-3 text-center">
-                     <li>
-                        <img
-                           src="{{asset('/images/1.png')}}"
-                           class="w-auto mx-auto" alt="CHERISH">
-                        <div class="font-17 fw-bolder pt-2  ls-1">Facial</div>
-                     </li>
-                     <li>
-                        <img  src="{{asset('/images/2.png')}}"class="w-auto mx-auto" alt="CHERISH">
-                        <div class="font-17 fw-bolder pt-2  ls-1">Skincare</div>
-                     </li>
-                     <li>
-                        <img  src="{{asset('/images/3.png')}}" class="w-auto mx-auto" alt="CHERISH">
-                        <div class="font-17 fw-bolder pt-2  ls-1">manicure pedicure</div>
-                     </li>
-                     <li>
-                        <img  src="{{asset('/images/4.png')}}" class="w-auto mx-auto" alt="CHERISH">
-                        <div class="font-17 fw-bolder pt-2  ls-1">Makeup</div>
-                     </li>
-                     <li>
-                        <img  src="{{asset('/images/5.png')}}"class="w-auto mx-auto" alt="CHERISH">
-                        <div class="font-17 fw-bolder pt-2  ls-1">Hair</div>
-                     </li>
-                  </ul>
-                  --}}
+                 
                   @php
                   $useSlider = $services->count() > 3;
                   @endphp
@@ -237,7 +212,7 @@
                                  <span class="badge bg-secondary">Inactive</span>
                                  @endunless
                               </div>
-                              <a href="https://beauty.hotpepper.jp/" target="_blank"
+                              <a href="#reservation"  
                                  class="py-2 px-4 btn-border fw-bold text-center hvr-grow">
                               詳細
                               </a>
@@ -277,7 +252,7 @@
                                  <span class="badge bg-secondary">Inactive</span>
                                  @endunless
                               </div>
-                              <a href="https://beauty.hotpepper.jp/" target="_blank"
+                              <a href="#reservation" 
                                  class="py-2 px-4 btn-border fw-bold text-center hvr-grow">
                               詳細
                               </a>
@@ -588,7 +563,7 @@
          </div>
       </div>
       <div class="container-fluid booking-section py-5 bg-main" id="reservation">
-         <div class="row py-lg-5">
+         <div class="row py-lg-3 ">
             <div class="col-12">
                <h2 class="font-40 fw-bold pb-4 text-white jost-font text-center"> 
                   予約
@@ -678,7 +653,7 @@
                         <label class="form-label font-20 pt-2 jost-font text-white">サービス<span class="required-star">*</span></label>
                         <select id="service_id" name="service_id" class="form-select @error('service_id') is-invalid @enderror" required>
                            <option value="">Choose one...</option>
-                           @foreach ($services as $service)
+                           @foreach ($services1 as $service)
                            <option value="{{ $service->id }}" @if(old('service_id') == $service->id) selected @endif>{{ $service->title }}</option>
                            @endforeach
                         </select>
