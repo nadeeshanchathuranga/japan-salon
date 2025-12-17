@@ -834,6 +834,13 @@
            // allowed times (sourced from Blade so it's single-source-of-truth)
            const allowedTimes = @json($allowedTimes);
 
+           // Use server time to avoid client/laptop clock tampering.
+           // Provide server timestamp (ms since epoch) and compute offset from client.
+           const serverNowMs = @json((int) \Carbon\Carbon::now()->getTimestamp() * 1000);
+           const clientNowMs = Date.now();
+           // positive means server is ahead of client
+           const clockOffsetMs = (typeof serverNowMs === 'number' && !isNaN(serverNowMs)) ? (serverNowMs - clientNowMs) : 0;
+
            // closed days: Monday (1) and Thursday (4)
            const closedDays = [1, 4];
 
@@ -889,7 +896,8 @@
            function refreshTimeOptions() {
               if (!timeSelect || !dateInput) return;
               const selectedDate = dateInput.value; // YYYY-MM-DD
-              const now = new Date();
+              // compute effective "now" using server sync to defend against wrong laptop time
+              const effectiveNowMs = Date.now() + clockOffsetMs;
 
               // remove all options except the placeholder (index 0)
               while (timeSelect.options.length > 1) {
@@ -912,7 +920,7 @@
                     const hour = parseInt(timeParts[0], 10);
                     const minute = parseInt(timeParts[1], 10);
                     const candidate = new Date(year, month, day, hour, minute, 0, 0);
-                    if (candidate.getTime() <= now.getTime()) {
+                    if (candidate.getTime() <= effectiveNowMs) {
                        opt.disabled = true;
                     }
                  }
@@ -988,9 +996,20 @@
                  }
 
                  // ensure combined datetime is not in the past
-                 const selected = new Date(hiddenDatetime.value);
-                 const now = new Date();
-                 if (selected < now) {
+                 // parse hidden ISO 'YYYY-MM-DDTHH:MM' into local Date to avoid timezone parsing differences
+                 function parseLocalDatetime(iso) {
+                    if (!iso) return null;
+                    const parts = iso.split('T');
+                    if (parts.length !== 2) return null;
+                    const d = parts[0].split('-');
+                    const t = parts[1].split(':');
+                    if (d.length !== 3 || t.length < 2) return null;
+                    return new Date(parseInt(d[0],10), parseInt(d[1],10)-1, parseInt(d[2],10), parseInt(t[0],10), parseInt(t[1],10), 0, 0);
+                 }
+
+                 const selected = parseLocalDatetime(hiddenDatetime.value);
+                 const effectiveNow = Date.now() + clockOffsetMs;
+                 if (!selected || selected.getTime() < effectiveNow) {
                     e.preventDefault();
                     showDatetimeError('過去の日時は選択できません');
                     return;
