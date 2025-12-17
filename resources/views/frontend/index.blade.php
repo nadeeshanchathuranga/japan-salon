@@ -209,7 +209,7 @@
                                  <span
                                     class="fw-bolder">¥{{ number_format($service->price, 2) }}</span>
                                  @unless ($service->is_active)
-                                 <span class="badge bg-secondary">Inactive</span>
+                                 
                                  @endunless
                               </div>
                               <a href="#reservation"  
@@ -249,7 +249,7 @@
                                  <span
                                     class="fw-bolder">¥{{ number_format($service->price, 2) }}</span>
                                  @unless ($service->is_active)
-                                 <span class="badge bg-secondary">Inactive</span>
+                               
                                  @endunless
                               </div>
                               <a href="#reservation" 
