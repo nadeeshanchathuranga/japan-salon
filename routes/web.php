@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LoadController::class, 'index'])->name('home');
 Route::post('/reservation-store', [LoadController::class, 'reservationStore'])
         ->name('frontend.reservations.store');
+Route::get('/reservations-by-date', [LoadController::class, 'getReservationsByDate']);
 
 
 Route::middleware('auth')->group(function () {

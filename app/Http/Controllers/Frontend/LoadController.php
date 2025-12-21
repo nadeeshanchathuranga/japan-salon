@@ -6,14 +6,17 @@ use App\Models\Testimonial;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Mail\ReservationConfirmation;
+use Illuminate\Support\Facades\DB;
+
 use App\Mail\ReservationNotification;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+
 use Illuminate\Support\Facades\Mail;
 
 class LoadController extends Controller
 {
-    
+
 
 
 
@@ -21,16 +24,16 @@ class LoadController extends Controller
     {
 
 $services1 = Service::where('is_active', true)
-                   ->orderBy('id', 'desc')  
+                   ->orderBy('id', 'desc')
                    ->get();
 
-                   $services = Service::orderBy('id', 'desc')  
+                   $services = Service::orderBy('id', 'desc')
                    ->get();
- 
+
 
 
 $testimonials = Testimonial::where('is_active', true)
-                   ->orderBy('id', 'desc') 
+                   ->orderBy('id', 'desc')
                    ->get();
 
 
@@ -44,7 +47,7 @@ $testimonials = Testimonial::where('is_active', true)
 
        public function reservationStore(Request $request)
 {
- 
+
     try {
         // Validate first
         $request->validate([
@@ -92,6 +95,20 @@ $testimonials = Testimonial::where('is_active', true)
         dd($e);
         return back()->with('error', 'An error occurred: ' . $e->getMessage())->with('scroll', 'message');
     }
+}
+
+
+
+public function getReservationsByDate(Request $request)
+{
+    $date = $request->date;
+
+    $reservations = Reservation::where('date', $date)
+        ->select('time', DB::raw('count(*) as total'))
+        ->groupBy('time')
+        ->pluck('total', 'time');
+
+    return response()->json($reservations);
 }
 
 }
