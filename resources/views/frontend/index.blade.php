@@ -888,15 +888,32 @@
     }
 
     /* ---------------- FLATPICKR ---------------- */
+  /* ---------------- FLATPICKR ---------------- */
     if (typeof flatpickr !== 'undefined') {
         flatpickr(dateInput, {
             dateFormat: 'Y-m-d',
             minDate: 'today',
-            disable: [d => closedDays.includes(d.getDay())],
-            onChange: () => dateInput.dispatchEvent(new Event('change'))
+            disable: [
+                function(date) {
+                    // Disable Mondays (1) and Thursdays (4)
+                    return closedDays.includes(date.getDay());
+                }
+            ],
+            defaultDate: null, // No default date selected
+            onChange: () => dateInput.dispatchEvent(new Event('change')),
+            onReady: function(selectedDates, dateStr, instance) {
+                // Set placeholder when flatpickr is ready
+                instance.input.placeholder = '日付を選択...';
+                // Clear any default value
+                if (!instance.input.value || closedDays.includes(new Date(instance.input.value).getDay())) {
+                    instance.clear();
+                }
+            }
         });
+    } else {
+        // Fallback if flatpickr is not loaded
+        dateInput.placeholder = '日付を選択...';
     }
-
     /* ---------------- BASE TIME OPTIONS ---------------- */
     function refreshBaseTimeOptions() {
         const now = Date.now() + clockOffsetMs;
