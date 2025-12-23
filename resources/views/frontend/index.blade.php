@@ -1019,6 +1019,13 @@
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>送信中...';
     });
 
+    /* ---------------- INITIALIZE ON LOAD ---------------- */
+    // Load time options when page loads
+    if (dateInput.value) {
+        refreshBaseTimeOptions();
+        applyReservationBlocking(dateInput.value);
+    }
+
 });
 
 
