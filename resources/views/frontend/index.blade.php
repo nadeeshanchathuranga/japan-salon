@@ -973,12 +973,14 @@
             if (clusterEnd !== clusterStart) blockedRanges.push([clusterStart, clusterEnd + 90]);
         }
 
-        // -------- APPLY BLOCKS TO OPTIONS --------
+        // -------- APPLY BLOCKS TO OPTIONS (keep existing disabled state) --------
         Array.from(timeSelect.options).forEach(opt => {
-            if (!opt.value) return;
+            if (!opt.value || opt.disabled) return; // Don't re-enable already disabled options
 
             const slotMin = timeToMinutes(opt.value);
-            opt.disabled = blockedRanges.some(([start, end]) => slotMin >= start && slotMin < end);
+            if (blockedRanges.some(([start, end]) => slotMin >= start && slotMin < end)) {
+                opt.disabled = true;
+            }
         });
 
     } catch (err) {
