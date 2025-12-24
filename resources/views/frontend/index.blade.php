@@ -609,10 +609,11 @@
                         <div class="col-12">
                             <label class="form-label font-20 pt-2 jost-font text-white">氏名<span
                                     class="required-star">*</span></label>
-                            <input type="text" id="name" name="name" maxlength="100"
+                            <input type="text" id="name" name="name" minlength="2" maxlength="100"
                                 class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
+                                placeholder="氏名を入力してください"
                                 required>
-                            <div class="invalid-feedback text-white">Please enter your name.</div>
+                            <div class="invalid-feedback text-white">氏名は2文字以上100文字以下で入力してください。</div>
                             @error('name')
                                 <div class="text-danger font-14 mt-1"><i
                                         class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
@@ -662,7 +663,7 @@
 
                                 <select id="timeSelect" class="form-select @error('datetime') is-invalid @enderror"
                                     required>
-                                    <option value="">時間を選択...</option>
+                                    <option value="">時間...</option>
                                     @foreach ($allowedTimes as $t)
                                         <option value="{{ $t }}"
                                             @if ($oldTime === $t) selected @endif>{{ $t }}
@@ -671,7 +672,7 @@
                                 </select>
                             </div>
 
-                            <div class="invalid-feedback text-white">Please choose date and time.</div>
+                            <div class="invalid-feedback text-white d-block">日付と時間を選択してください。</div>
                             @error('datetime')
                                 <div class="text-white font-14 mt-1"><i
                                         class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
@@ -683,14 +684,14 @@
                                     class="required-star">*</span></label>
                             <select id="service_id" name="service_id"
                                 class="form-select @error('service_id') is-invalid @enderror" required>
-                                <option value="">Choose one...</option>
+                                <option value="">サービスを選択...</option>
                                 @foreach ($services1 as $service)
                                     <option value="{{ $service->id }}"
                                         @if (old('service_id') == $service->id) selected @endif>{{ $service->title }}
                                     </option>
                                 @endforeach
                             </select>
-                            <div class="invalid-feedback text-white">Please select a service.</div>
+                            <div class="invalid-feedback text-white">サービスを選択してください。</div>
                             @error('service_id')
                                 <div class="text-white font-14 mt-1"><i
                                         class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
@@ -700,11 +701,12 @@
                         <div class="col-sm-6">
                             <label class="form-label font-20 pt-2 jost-font text-white">電話番号<span
                                     class="required-star">*</span></label>
-                            <input type="tel" id="phone" name="phone" maxlength="11"
-                                pattern="[0-9]{10,11}" class="form-control @error('phone') is-invalid @enderror"
-                                value="{{ old('phone') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                            <input type="tel" id="phone" name="phone" maxlength="11" minlength="10"
+                                pattern="0[0-9]{9,10}" class="form-control @error('phone') is-invalid @enderror"
+                                value="{{ old('phone') }}" placeholder="09012345678"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                 required>
-                            <div class="invalid-feedback text-white">Please enter a valid phone number (max 11 digits).
+                            <div class="invalid-feedback text-white">有効な電話番号を入力してください（10-11桁、0から始まる）。
                             </div>
                             @error('phone')
                                 <div class="text-white font-14 mt-1"><i
@@ -715,10 +717,11 @@
                         <div class="col-sm-6">
                             <label class="form-label font-20 pt-2 jost-font text-white">メールアドレス<span
                                     class="required-star">*</span></label>
-                            <input type="email" id="email" name="email"
+                            <input type="email" id="email" name="email" maxlength="255"
                                 class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
+                                placeholder="example@email.com"
                                 required>
-                            <div class="invalid-feedback text-white">Please enter a valid email.</div>
+                            <div class="invalid-feedback text-white">有効なメールアドレスを入力してください。</div>
                             @error('email')
                                 <div class="text-white font-14 mt-1"><i
                                         class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
@@ -728,7 +731,8 @@
                         <div class="col-12">
                             <label class="form-label font-20 pt-2 jost-font text-white">その他ご希望</label>
                             <textarea id="request" name="other_request" class="form-control @error('other_request') is-invalid @enderror"
-                                maxlength="1000" rows="4">{{ old('other_request') }}</textarea>
+                                maxlength="1000" rows="4" placeholder="何かご要望やご質問がございましたら、こちらにご記入ください。">{{ old('other_request') }}</textarea>
+                            <div class="text-white-50 font-12 mt-1"><span id="charCount">0</span>/1000</div>
                             @error('other_request')
                                 <div class="text-white font-14 mt-1"><i
                                         class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
@@ -1007,14 +1011,174 @@
 
     timeSelect.addEventListener('change', combineAndSetHidden);
 
+    /* ---------------- FORM VALIDATION FUNCTIONS ---------------- */
+    function validateName() {
+        const nameInput = document.getElementById('name');
+        const nameValue = nameInput.value.trim();
+
+        if (!nameValue) {
+            nameInput.classList.add('is-invalid');
+            return false;
+        }
+
+        if (nameValue.length < 2) {
+            nameInput.classList.add('is-invalid');
+            return false;
+        }
+
+        if (nameValue.length > 100) {
+            nameInput.classList.add('is-invalid');
+            return false;
+        }
+
+        nameInput.classList.remove('is-invalid');
+        return true;
+    }
+
+    function validatePhone() {
+        const phoneInput = document.getElementById('phone');
+        const phoneValue = phoneInput.value.trim().replace(/[^0-9]/g, '');
+
+        if (!phoneValue) {
+            phoneInput.classList.add('is-invalid');
+            return false;
+        }
+
+        if (phoneValue.length < 10 || phoneValue.length > 11) {
+            phoneInput.classList.add('is-invalid');
+            return false;
+        }
+
+        // Japanese phone format validation
+        if (!/^0\d{9,10}$/.test(phoneValue)) {
+            phoneInput.classList.add('is-invalid');
+            return false;
+        }
+
+        phoneInput.classList.remove('is-invalid');
+        return true;
+    }
+
+    function validateEmail() {
+        const emailInput = document.getElementById('email');
+        const emailValue = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailValue) {
+            emailInput.classList.add('is-invalid');
+            return false;
+        }
+
+        if (!emailRegex.test(emailValue)) {
+            emailInput.classList.add('is-invalid');
+            return false;
+        }
+
+        if (emailValue.length > 255) {
+            emailInput.classList.add('is-invalid');
+            return false;
+        }
+
+        emailInput.classList.remove('is-invalid');
+        return true;
+    }
+
+    function validateService() {
+        const serviceInput = document.getElementById('service_id');
+
+        if (!serviceInput.value) {
+            serviceInput.classList.add('is-invalid');
+            return false;
+        }
+
+        serviceInput.classList.remove('is-invalid');
+        return true;
+    }
+
+    function validateDateTime() {
+        if (!hiddenDatetime.value) {
+            dateInput.classList.add('is-invalid');
+            timeSelect.classList.add('is-invalid');
+            return false;
+        }
+
+        dateInput.classList.remove('is-invalid');
+        timeSelect.classList.remove('is-invalid');
+        return true;
+    }
+
+    function validateOtherRequest() {
+        const requestInput = document.getElementById('request');
+        const requestValue = requestInput.value;
+        const charCount = document.getElementById('charCount');
+
+        if (charCount) {
+            charCount.textContent = requestValue.length;
+        }
+
+        if (requestValue.length > 1000) {
+            requestInput.classList.add('is-invalid');
+            return false;
+        }
+
+        requestInput.classList.remove('is-invalid');
+        return true;
+    }
+
+    // Add real-time validation
+    document.getElementById('name').addEventListener('blur', validateName);
+    document.getElementById('name').addEventListener('input', function() {
+        if (this.value.trim()) validateName();
+    });
+
+    document.getElementById('phone').addEventListener('blur', validatePhone);
+    document.getElementById('phone').addEventListener('input', function() {
+        if (this.value.trim()) validatePhone();
+    });
+
+    document.getElementById('email').addEventListener('blur', validateEmail);
+    document.getElementById('email').addEventListener('input', function() {
+        if (this.value.trim()) validateEmail();
+    });
+
+    document.getElementById('service_id').addEventListener('change', validateService);
+
+    document.getElementById('request').addEventListener('input', validateOtherRequest);
+
+    // Initialize character count on page load
+    window.addEventListener('load', function() {
+        const charCount = document.getElementById('charCount');
+        const requestInput = document.getElementById('request');
+        if (charCount && requestInput) {
+            charCount.textContent = requestInput.value.length;
+        }
+    });
+
     /* ---------------- SUBMIT ---------------- */
     form.addEventListener('submit', function (e) {
         combineAndSetHidden();
-        if (!hiddenDatetime.value) {
+
+        // Validate all fields
+        const isNameValid = validateName();
+        const isPhoneValid = validatePhone();
+        const isEmailValid = validateEmail();
+        const isServiceValid = validateService();
+        const isDateTimeValid = validateDateTime();
+        const isRequestValid = validateOtherRequest();
+
+        if (!isNameValid || !isPhoneValid || !isEmailValid || !isServiceValid || !isDateTimeValid || !isRequestValid) {
             e.preventDefault();
-            showDatetimeError('日付と時間を選択してください');
+
+            // Scroll to the first error
+            const firstInvalid = document.querySelector('.is-invalid');
+            if (firstInvalid) {
+                firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstInvalid.focus();
+            }
+
             return;
         }
+
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>送信中...';
     });
