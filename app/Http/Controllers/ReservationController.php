@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 
 class ReservationController extends Controller
 {
-  
+
 
 
 
@@ -22,9 +22,13 @@ class ReservationController extends Controller
         $services = Service::where('is_active', true)
                    ->orderBy('id', 'desc') // or another column you prefer
                    ->get();
- 
+
+                   $services1 = Service::where('is_active', true)
+                   ->orderBy('id', 'desc')
+                   ->get();
+
        $reservations = Reservation::orderBy('created_at', 'desc')->paginate(12);
-        return view('reservations.index', compact('reservations','services'));
+        return view('reservations.index', compact('reservations','services','services1'));
     }
 
 
@@ -83,11 +87,29 @@ public function update(Request $request, Reservation $reservation)
     }
 }
 
+    public function getReservationsByDate(Request $request)
+    {
+        $date = $request->query('date');
+
+        if (!$date) {
+            return response()->json([]);
+        }
+
+        $reservations = Reservation::where('date', $date)
+            ->where('is_active', true)
+            ->groupBy('time')
+            ->selectRaw('time, COUNT(*) as count')
+            ->pluck('count', 'time')
+            ->toArray();
+
+        return response()->json($reservations);
+    }
 
 
 
 
 
 
-    
+
+
 }
