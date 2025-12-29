@@ -39,13 +39,13 @@
                     <thead class="table-light">
                         <tr>
                             <th style="width:70px;" class="text-center">#</th>
-                            <th>Service</th>
-                            <th>Date Time</th>
+                            <th>サービス</th>
+                            <th>予約日時</th>
                             
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>Other Requests</th>
+                            <th>名前</th>
+                            <th>電話番号</th>
+                            <th>メールアドレス</th>
+                            <th>その他リクエスト</th>
                             <th style="width:160px;">Actions</th>
                         </tr>
                     </thead>

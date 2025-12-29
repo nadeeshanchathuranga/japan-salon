@@ -3,7 +3,7 @@
         class="btn btn-danger btn-sm text-white"
         data-bs-toggle="modal"
         data-bs-target="#remove-reservation-{{ $reservation->id }}">
-    <i class="fa fa-trash"></i> Delete
+    <i class="fa fa-trash"></i> 削除
 </button>
 
 <!-- Modal -->
@@ -13,7 +13,7 @@
 
       <div class="modal-header">
         <h5 class="modal-title" id="removeReservationLabel-{{ $reservation->id }}">
-          Remove Reservation #{{ $reservation->id }}
+          予約を削除 #{{ $reservation->id }}
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -23,15 +23,15 @@
         @method('DELETE')
 
         <div class="modal-body">
-          Are you sure you want to remove this Reservation from the system?
+          この予約をシステムから削除してもよろしいですか？
           <br>
-          <p class="text-danger mb-0">This action cannot be undone.</p>
+          <p class="text-danger mb-0">（復元することは出来ません！）</p>
           <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Yes, delete</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">はい, 削除</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
         </div>
 
       </form>

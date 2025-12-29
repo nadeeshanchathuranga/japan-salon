@@ -101,7 +101,7 @@
         <div class="container compny-details d-none  d-lg-block  d-xl-none">
             <div class="row justify-content-center text-center">
                 <div class="col-lg-4 mb-4">
-                    <h4 class="font-18 fw-bold text-white text-uppercase jost-font ls-1 pb-4">CONTACT</h4>
+                    <h4 class="font-18 fw-bold text-white text-uppercase jost-font ls-1 pb-4">お問い合わせ</h4>
                     <p class="fw-normal jost-font font-16 pb-1"> <a href="tel:08079861646"
                             class="text-white">080-7986-1646</a>
                     </p>
@@ -109,16 +109,15 @@
                             class="text-white">cherish.fukuoka260101@gmail.com</a></p>
                 </div>
                 <div class="col-lg-4 mb-4">
-                    <h4 class="font-18 fw-bold text-white text-uppercase jost-font ls-1 pb-4">HOURS</h4>
-                    <p class="fw-normal jost-font font-16 pb-1 text-white">Mon to Fri: 7:30 am — 1:00 am </p>
-                    <p class="fw-normal jost-font font-16 pb-1 text-white">Sat: 9:00 am — 1:00 am</p>
-                    <p class="fw-normal jost-font font-16 pb-1 text-white">Sun: 9:00 am — 11:30 pm</p>
+                    <h4 class="font-18 fw-bold text-white text-uppercase jost-font ls-1 pb-4">営業時間</h4>
+                    <p class="fw-normal jost-font font-16 pb-1 text-white">10時半～18時半最終入店</p>
+                    <p class="fw-normal jost-font font-16 pb-1 text-white">定休日：月曜日、木曜日</p>
                 </div>
                 <div class="col-lg-4 mb-4">
-                    <h4 class="font-18 fw-bold text-white text-uppercase jost-font ls-1 pb-4">LOCATION</h4>
-                    <p class="fw-normal jost-font font-16 pb-1 text-white">1-chōme-206</p>
-                    <p class="fw-normal jost-font font-16 pb-1 text-white">Hikida, Kanazawa, Ishikawa</p>
-                    <p class="fw-normal jost-font font-16 pb-1 text-white">920-0003, Japan</p>
+                    <h4 class="font-18 fw-bold text-white text-uppercase jost-font ls-1 pb-4">所在地</h4>
+                    <p class="fw-normal jost-font font-16 pb-1 text-white">〒815-0033</p>
+                    <p class="fw-normal jost-font font-16 pb-1 text-white">福岡県福岡市南区大橋1-4-6</p>
+                    <p class="fw-normal jost-font font-16 pb-1 text-white">フォックスビルディング603号</p>
                 </div>
             </div>
         </div>
@@ -251,7 +250,7 @@
                                                 class="card-footer d-flex justify-content-between align-items-center bg-white">
                                                 <div class="d-flex align-items-center gap-2">
                                                     <span
-                                                        class="fw-bolder">¥{{ number_format($service->price, 2) }}</span>
+                                                        class="fw-bolder">¥{{ number_format($service->price, 0) }}</span>
                                                     @unless ($service->is_active)
                                                     @endunless
                                                 </div>
@@ -500,9 +499,9 @@
     <div class="container-fluid location-section py-5">
         <div class="row align-items-center pt-4">
             <div class="col-12 mx-auto text-center text-second px-0">
-                <h2 class="font-40 fw-bold pb-lg-5 pb-sm-5 pb-3 jost-font">Location</h2>
+                <h2 class="font-40 fw-bold pb-lg-5 pb-sm-5 pb-3 jost-font">営業時間</h2>
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.7840532523314!2d130.4284125!3d33.5589866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x354191032162ba85%3A0xc0994bdf8b542414!2zSmFwYW4sIOOAkjgxNS0wMDMzIEZ1a3Vva2EsIE1pbmFtaSBXYXJkLCDFjGhhc2hpLCAxLWNoxY1tZeKIkjTiiJI2IOODleOCqeODg-OCr-OCueODk-ODq-ODh-OCo-ODs-OCsCA2MDM!5e0!3m2!1sen!2slk!4v1765472722105!5m2!1sen!2slk"
+                    src="google.com/maps/place/Cherish+Fukuoka/@33.558991,130.4258376,1382m/data=!3m2!1e3!4b1!4m6!3m5!1s0x354191191b6593f7:0xd543562c29902dc4!8m2!3d33.5589866!4d130.4284125!16s%2Fg%2F11yr1k0zdw?entry=tts&g_ep=EgoyMDI1MTIwOS4wIPu8ASoASAFQAw%3D%3D&skid=18c93bac-7bd2-4f8b-b3cb-7325a18367c0"
                     class="map" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>

@@ -37,11 +37,11 @@
         <thead class="table-light">
             <tr>
                 <th style="width:70px;" class="text-center">#</th>
-                <th>Image</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th class="text-end">Price</th>
-                <th>Status</th>
+                <th>イメージ</th>
+                <th>タイトル</th>
+                <th>詳細</th>
+                <th class="text-end">金額</th>
+                <th>予約表示</th>
                 <th style="width:160px;">Action</th>
             </tr>
         </thead>
@@ -77,9 +77,9 @@
                     <!-- Status -->
                     <td>
                         @if($service->is_active)
-                            <span class="badge bg-success">Active</span>
+                            <span class="badge bg-success">表示</span>
                         @else
-                            <span class="badge bg-secondary">Inactive</span>
+                            <span class="badge bg-secondary">非表示</span>
                         @endif
                     </td>
 
@@ -102,7 +102,7 @@
   <div class="modal-dialog">
     <div class="modal-content border-0">
       <div class="modal-header">
-        <h5 class="modal-title" id="editServiceLabel">Edit Service</h5>
+        <h5 class="modal-title" id="editServiceLabel">サービス修正</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -112,40 +112,40 @@
 
         <div class="modal-body">
           <div class="mb-3">
-            <label class="form-label">Title <span class="text-danger">*</span></label>
+            <label class="form-label">タイトル <span class="text-danger">*</span></label>
             <input type="text" name="title" id="edit-title" class="form-control" required>
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Description</label>
+            <label class="form-label">詳細</label>
             <textarea name="description" id="edit-description" class="form-control" rows="3"></textarea>
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Price (¥) <span class="text-danger">*</span></label>
+            <label class="form-label">金額 (¥) <span class="text-danger">*</span></label>
             <input type="number" name="price" id="edit-price" class="form-control" step="0.01" min="0" required>
           </div>
 
           <div class="mb-2">
-            <label class="form-label d-block">Current Image</label>
+            <label class="form-label d-block">現在のイメージ</label>
             <img id="edit-preview" src="" alt="service image" class="rounded d-none" style="height:60px;object-fit:cover;">
           </div>
 
           <div class="mb-1">
-            <label class="form-label">Replace Image (optional)</label>
+            <label class="form-label">変更するイメージ</label>
             <input type="file" name="image" id="edit-image" class="form-control" accept="image/jpeg,image/png,image/jpg,image/gif,image/svg+xml">
             <div class="form-text">Supported: jpeg, png, jpg, gif, svg. Max 2MB.</div>
           </div>
 
           <div class="form-check mt-2">
             <input type="checkbox" class="form-check-input" id="edit-active" name="is_active" value="1">
-            <label class="form-check-label" for="edit-active">Active</label>
+            <label class="form-check-label" for="edit-active">予約表示</label>
           </div>
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Update Service</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">修正完了</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
         </div>
       </form>
 

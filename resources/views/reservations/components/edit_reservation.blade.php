@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="{{ '#edit-reservation'.$reservation->id }}">
-    <i class="fa fa-edit"></i> Edit
+    <i class="fa fa-edit"></i> 修正
 </button>
 
 <!-- Modal -->
@@ -39,7 +39,7 @@
 </script>
 
       <div class="modal-header">
-        <h5 class="modal-title" id="editReservationLabel{{ $reservation->id }}">Edit Reservation #{{ $reservation->id }}</h5>
+        <h5 class="modal-title" id="editReservationLabel{{ $reservation->id }}">予約を修正 #{{ $reservation->id }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -52,7 +52,7 @@
 
           <div class="row mb-3">
             <div class="col-md-6">
-              <label for="service{{ $reservation->id }}" class="form-label">Service</label>
+              <label for="service{{ $reservation->id }}" class="form-label">サービス</label>
               <select class="form-control" name="service_id" id="service{{ $reservation->id }}" required>
                 @foreach($services as $service)
                   <option value="{{ $service->id }}" {{ $service->id == $reservation->service_id ? 'selected' : '' }}>
@@ -63,7 +63,7 @@
             </div>
 
             <div class="col-md-6">
-              <label for="datetime{{ $reservation->id }}" class="form-label">Date & Time</label>
+              <label for="datetime{{ $reservation->id }}" class="form-label">予約日時</label>
               <input type="datetime-local" class="form-control" name="datetime" id="datetime{{ $reservation->id }}" 
                      value="{{ old('datetime', $reservation->date . 'T' . $reservation->time) }}" required step="1800" min="{{ now()->format('Y-m-d\TH:i') }}">
             </div>
@@ -71,33 +71,33 @@
 
           <div class="row mb-3">
             <div class="col-md-6">
-              <label for="name{{ $reservation->id }}" class="form-label">Name</label>
+              <label for="name{{ $reservation->id }}" class="form-label">名前</label>
               <input type="text" class="form-control" name="name" id="name{{ $reservation->id }}" value="{{ old('name', $reservation->name) }}" required>
             </div>
 
             <div class="col-md-6">
-              <label for="phone{{ $reservation->id }}" class="form-label">Phone</label>
+              <label for="phone{{ $reservation->id }}" class="form-label">電話番号</label>
               <input type="text" class="form-control" name="phone" id="phone{{ $reservation->id }}" value="{{ old('phone', $reservation->phone) }}" required>
             </div>
           </div>
 
           <div class="row mb-3">
             <div class="col-md-12">
-              <label for="email{{ $reservation->id }}" class="form-label">Email</label>
+              <label for="email{{ $reservation->id }}" class="form-label">メールアドレス</label>
               <input type="email" class="form-control" name="email" id="email{{ $reservation->id }}" value="{{ old('email', $reservation->email) }}" required>
             </div>
           </div>
 
           <div class="row mb-3">
             <div class="col-md-12">
-              <label for="other_request{{ $reservation->id }}" class="form-label">Other Requests</label>
+              <label for="other_request{{ $reservation->id }}" class="form-label">その他リクエスト</label>
               <textarea class="form-control" name="other_request" id="other_request{{ $reservation->id }}" rows="3">{{ old('other_request', $reservation->other_request) }}</textarea>
             </div>
           </div>
 
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Update Reservation</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">修正完了</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
           </div>
 
         </form>
