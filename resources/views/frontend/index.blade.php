@@ -939,58 +939,52 @@
     }
 
     /* ---------------- RESERVATION BLOCKING ---------------- */
-   async function applyReservationBlocking(date) {
+ async function applyReservationBlocking(date) {
     if (!date) return;
 
     try {
         const res = await fetch(`/reservations-by-date?date=${date}`);
         if (!res.ok) throw new Error('Network error');
+
         const data = await res.json();
+        // example response:
+        // { "15:00": 2, "16:30": 1 }
 
         const blockedRanges = [];
-        const times = Object.keys(data)
-            .map(timeToMinutes)
-            .sort((a, b) => a - b);
 
-        // -------- MAX 2 PER SLOT --------
-        Object.keys(data).forEach(timeStr => {
-            if (data[timeStr] >= 2) {
-                const start = timeToMinutes(timeStr);
-                const end = start + 90; // block slot + 1.5h
-                blockedRanges.push([start, end]);
+        /* -------- SAME TIME SLOT >= 2 → BLOCK ±1 HOUR -------- */
+        Object.entries(data).forEach(([timeStr, count]) => {
+            if (count >= 2) {
+                const centerMin = timeToMinutes(timeStr);
+
+                blockedRanges.push([
+                    centerMin - 60, // 1 hour before
+                    centerMin + 60  // 1 hour after
+                ]);
             }
         });
 
-        // -------- CLUSTER BLOCKING (≤90 min apart) --------
-        if (times.length >= 2) {
-            let clusterStart = times[0], clusterEnd = times[0];
-            for (let i = 1; i < times.length; i++) {
-                if (times[i] - times[i - 1] <= 90) {
-                    clusterEnd = times[i];
-                } else {
-                    if (clusterEnd !== clusterStart) blockedRanges.push([clusterStart, clusterEnd + 90]);
-                    clusterStart = times[i];
-                    clusterEnd = times[i];
-                }
-            }
-            if (clusterEnd !== clusterStart) blockedRanges.push([clusterStart, clusterEnd + 90]);
-        }
-
-        // -------- APPLY BLOCKS TO OPTIONS (keep existing disabled state) --------
+        /* -------- APPLY BLOCKS TO TIME OPTIONS -------- */
         Array.from(timeSelect.options).forEach(opt => {
-            if (!opt.value || opt.disabled) return; // Don't re-enable already disabled options
+            if (!opt.value || opt.disabled) return;
 
-            const slotMin = timeToMinutes(opt.value);
-            if (blockedRanges.some(([start, end]) => slotMin >= start && slotMin < end)) {
+            const optionMin = timeToMinutes(opt.value);
+
+            const isBlocked = blockedRanges.some(
+                ([start, end]) => optionMin >= start && optionMin <= end
+            );
+
+            if (isBlocked) {
                 opt.disabled = true;
             }
         });
 
-    } catch (err) {
-        console.error(err);
+    } catch (error) {
+        console.error(error);
         showDatetimeError('予約情報の取得に失敗しました');
     }
 }
+
 
     /* ---------------- EVENTS ---------------- */
     dateInput.addEventListener('change', async function () {
