@@ -103,12 +103,40 @@ public function getReservationsByDate(Request $request)
 {
     $date = $request->date;
 
+    // Get all reservations for the date ordered by time
+    $allReservations = Reservation::where('date', $date)
+        ->orderBy('time', 'ASC')
+        ->get(['time'])
+        ->pluck('time')
+        ->toArray();
+
+    // Count by time slot for existing logic
     $reservations = Reservation::where('date', $date)
         ->select('time', DB::raw('count(*) as total'))
         ->groupBy('time')
-        ->pluck('total', 'time');
+        ->pluck('total', 'time')
+        ->toArray();
 
-    return response()->json($reservations);
+    // Find pairs of reservations within 90 minutes and get the latest one
+    $latestReservationTimes = [];
+
+    for ($i = 0; $i < count($allReservations) - 1; $i++) {
+        $currentTime = strtotime($allReservations[$i]);
+        $nextTime = strtotime($allReservations[$i + 1]);
+
+        // Check if next reservation is within 90 minutes
+        $diffMinutes = ($nextTime - $currentTime) / 60;
+
+        if ($diffMinutes >= 0 && $diffMinutes <= 90) {
+            // Found a pair within 90 minutes, take the latest one
+            $latestReservationTimes[] = $allReservations[$i + 1];
+        }
+    }
+
+    return response()->json([
+        'reservations' => $reservations,
+        'latestReservationTimes' => array_unique($latestReservationTimes),
+    ]);
 }
 
 }

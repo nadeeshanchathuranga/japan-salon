@@ -219,12 +219,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const data = await res.json();
         // example response:
-        // { "15:00": 2, "16:30": 1 }
+        // { "reservations": { "15:00": 2, "16:30": 1 }, "latestReservationTimes": ["16:30"] }
 
         const blockedRanges = [];
 
         /* -------- SAME TIME SLOT >= 2 → BLOCK ±1 HOUR -------- */
-        Object.entries(data).forEach(([timeStr, count]) => {
+        Object.entries(data.reservations || data).forEach(([timeStr, count]) => {
             if (count >= 2) {
                 const centerMin = timeToMinutes(timeStr);
 
@@ -234,6 +234,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 ]);
             }
         });
+
+        /* -------- TWO RESERVATIONS WITHIN 90 MINUTES → BLOCK 1 HOUR AFTER LATEST -------- */
+        if (data.latestReservationTimes && Array.isArray(data.latestReservationTimes)) {
+            data.latestReservationTimes.forEach(timeStr => {
+                const latestMin = timeToMinutes(timeStr);
+
+                blockedRanges.push([
+                    latestMin,           // From the latest reservation time
+                    latestMin + 60       // For the next 1 hour
+                ]);
+            });
+        }
 
         /* -------- APPLY BLOCKS TO TIME OPTIONS -------- */
         Array.from(timeSelect.options).forEach(opt => {
