@@ -12,7 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
       <div class="modal-header">
-        <h5 class="modal-title" id="editReservationLabel{{ $reservation->id }}">Edit Reservation #{{ $reservation->id }}</h5>
+        <h5 class="modal-title" id="editReservationLabel{{ $reservation->id }}">予約を修正 #{{ $reservation->id }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 

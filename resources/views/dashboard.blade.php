@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}  {{ __("You're logged in!") }}
+            {{ __('Dashboard') }}  {{ __("管理画面へようこそ！") }}
         </h2>
     </x-slot>
 
@@ -16,7 +16,7 @@
                </div>
                <h2 class=" pb-4 fw-bold">サービス追加</h2>
 
-               <a href="{{ route('services.index') }}" class="btn btn-primary w-100">View</a>
+               <a href="{{ route('services.index') }}" class="btn btn-primary w-100">開く</a>
             </div>
          </div>
       </div>
@@ -28,7 +28,7 @@
                   <i class="bi bi-people-fill fs-1"></i>
                </div>
                <h2 class="pb-4  fw-bold">お客様の声</h2>
-               <a href="{{ route('testimonials.index') }}"  class="btn btn-success w-100">View</a>
+               <a href="{{ route('testimonials.index') }}"  class="btn btn-success w-100">開く</a>
             </div>
          </div>
       </div>
@@ -43,7 +43,7 @@
 
                </div>
                <h2 class="pb-4  fw-bold">予約</h2>
-               <a href="{{ route('reservations.index') }}"  class="btn btn-info w-100">View</a>
+               <a href="{{ route('reservations.index') }}"  class="btn btn-info w-100">開く</a>
             </div>
          </div>
       </div>

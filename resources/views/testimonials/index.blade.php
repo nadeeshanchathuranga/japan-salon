@@ -37,11 +37,11 @@
         <thead class="table-light">
             <tr>
                 <th style="width:70px;" class="text-center">#</th>
-                <th>Image</th>
-                <th>Title</th>
-                <th>Description</th>
+                <th>イメージ</th>
+                <th>タイトル</th>
+                <th>詳細</th>
 
-                <th>Status</th>
+                <th>ステータス</th>
                 <th style="width:160px;">Action</th>
             </tr>
         </thead>
@@ -74,9 +74,9 @@
                     <!-- Status -->
                     <td>
                         @if($testimonial->is_active)
-                            <span class="badge bg-success">Active</span>
+                            <span class="badge bg-success">表示</span>
                         @else
-                            <span class="badge bg-secondary">Inactive</span>
+                            <span class="badge bg-secondary">非表示</span>
                         @endif
                     </td>
 
@@ -99,7 +99,7 @@
   <div class="modal-dialog">
     <div class="modal-content border-0">
       <div class="modal-header">
-        <h5 class="modal-title" id="editServiceLabel">Edit Service</h5>
+        <h5 class="modal-title" id="editServiceLabel">修正</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -109,17 +109,17 @@
 
         <div class="modal-body">
           <div class="mb-3">
-            <label class="form-label">Title <span class="text-danger">*</span></label>
+            <label class="form-label">タイトル <span class="text-danger">*</span></label>
             <input type="text" name="title" id="edit-title" class="form-control" required>
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Description</label>
+            <label class="form-label">詳細</label>
             <textarea name="description" id="edit-description" class="form-control" rows="3"></textarea>
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Price (¥) <span class="text-danger">*</span></label>
+            <label class="form-label">金額 (¥) <span class="text-danger">*</span></label>
             <input type="number" name="price" id="edit-price" class="form-control" step="0.01" min="0" required>
           </div>
 
