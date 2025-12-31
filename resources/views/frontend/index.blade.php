@@ -809,7 +809,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <p class="company-name">
-                        Copyright © 2026 CHERISH
+                        Copyright © {{ now()->year }} CHERISH
                         {{-- |
                      Design by <a href="https://onemaxweb.com" target="_blank" class="text-dark fw-bolder">
                      OneMaxWeb Solution --}}
@@ -1240,9 +1240,9 @@
         loop: true,
         dots: false,
         autoplay: true,
-        smartSpeed: 3000, // slide transition එක slow කරලා (default: 250)
+        smartSpeed: 3000,
         animateOut: 'fadeOut',
-        autoplayTimeout: 4000, // slide එකක් 8 seconds පෙන්වලා next එකට යයි
+        autoplayTimeout: 4000,
         responsive: {
             0: {
                 items: 1
