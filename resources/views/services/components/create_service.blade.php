@@ -45,7 +45,7 @@
               <label class="form-label">イメージ ( Size Width 350px * Height 200px)  </label>
               <input type="file" name="image" class="form-control" accept="image/*" required>
               @error('image') <div class="text-danger small">{{ $message }}</div> @enderror
-              <div class="form-text">Supported: jpeg, png, jpg, gif, svg</div>
+              <div class="form-text">対応形式: jpeg, png, jpg, gif, svg</div>
             </div>
           </div>
         </div>

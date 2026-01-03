@@ -96,7 +96,6 @@ public function update(Request $request, Reservation $reservation)
         }
 
         $reservations = Reservation::where('date', $date)
-            ->where('is_active', true)
             ->groupBy('time')
             ->selectRaw('time, COUNT(*) as count')
             ->pluck('count', 'time')

@@ -58,7 +58,7 @@
                   <label for="image{{ $testimonial->id }}">イメージ ( Size Width 150px * Height 150px)</label>
                   <input type="file" class="form-control" name="image" id="image{{ $testimonial->id }}"
                          accept="image/png,image/jpeg,image/jpg,image/webp,image/gif">
-                  <small class="text-muted">Max 2MB. Types: jpg, jpeg, png, webp, gif</small>
+                  <small class="text-muted">最大2MB　対応形式: jpg, jpeg, png, webp, gif</small>
                 </div>
               </div>
 
@@ -74,7 +74,7 @@
 
                   </div>
                 @else
-                  <span class="text-muted">No image</span>
+                  <span class="text-muted">画像なし</span>
                 @endif
               </div>
             </div>

@@ -6,9 +6,9 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-1">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard') }}"><i class="bi bi-house-door-fill"></i> Dashboard</a>
+                    <a href="{{ route('dashboard') }}"><i class="bi bi-house-door-fill"></i> ダッシュボード</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Services</li>
+                <li class="breadcrumb-item active" aria-current="page">サービス一覧</li>
             </ol>
         </nav>
     </div>
@@ -42,7 +42,7 @@
                 <th>詳細</th>
                 <th class="text-end">金額</th>
                 <th>予約表示</th>
-                <th style="width:160px;">Action</th>
+                <th style="width:160px;">操作</th>
             </tr>
         </thead>
         <tbody>
@@ -60,7 +60,7 @@
                                  style="height:50px; width:50px; object-fit:cover;"
                                  alt="service image">
                         @else
-                            <span class="text-muted">No image</span>
+                            <span class="text-muted">画像なし</span>
                             
                         @endif
                     </td>
@@ -134,7 +134,7 @@
           <div class="mb-1">
             <label class="form-label">変更するイメージ</label>
             <input type="file" name="image" id="edit-image" class="form-control" accept="image/jpeg,image/png,image/jpg,image/gif,image/svg+xml">
-            <div class="form-text">Supported: jpeg, png, jpg, gif, svg. Max 2MB.</div>
+            <div class="form-text">対応形式: jpeg, png, jpg, gif, svg　最大2MB</div>
           </div>
 
           <div class="form-check mt-2">

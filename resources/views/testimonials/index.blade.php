@@ -6,9 +6,9 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-1">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard') }}"><i class="bi bi-house-door-fill"></i> Dashboard</a>
+                    <a href="{{ route('dashboard') }}"><i class="bi bi-house-door-fill"></i> ダッシュボード</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Testimonials</li>
+                <li class="breadcrumb-item active" aria-current="page">お客様の声</li>
             </ol>
         </nav>
     </div>
@@ -42,7 +42,7 @@
                 <th>詳細</th>
 
                 <th>ステータス</th>
-                <th style="width:160px;">Action</th>
+                <th style="width:160px;">操作</th>
             </tr>
         </thead>
         <tbody>
@@ -60,7 +60,7 @@
          style="height:50px; width:50px; object-fit:cover;"
          alt="testimonial image">
 @else
-    <span class="text-muted">No image</span>
+    <span class="text-muted">画像なし</span>
 @endif
 
                     </td>
@@ -124,25 +124,25 @@
           </div>
 
           <div class="mb-2">
-            <label class="form-label d-block">Current Image</label>
+            <label class="form-label d-block">現在の画像</label>
             <img id="edit-preview" src="" alt="service image" class="rounded d-none" style="height:60px;object-fit:cover;">
           </div>
 
           <div class="mb-1">
-            <label class="form-label">Replace Image (optional)</label>
+            <label class="form-label">画像を変更（任意）</label>
             <input type="file" name="image" id="edit-image" class="form-control" accept="image/jpeg,image/png,image/jpg,image/gif,image/svg+xml">
-            <div class="form-text">Supported: jpeg, png, jpg, gif, svg. Max 2MB.</div>
+            <div class="form-text">対応形式: jpeg, png, jpg, gif, svg　最大2MB</div>
           </div>
 
           <div class="form-check mt-2">
             <input type="checkbox" class="form-check-input" id="edit-active" name="is_active" value="1">
-            <label class="form-check-label" for="edit-active">Active</label>
+            <label class="form-check-label" for="edit-active">表示</label>
           </div>
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Update Service</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">更新</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
         </div>
       </form>
 

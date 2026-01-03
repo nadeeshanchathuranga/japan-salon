@@ -211,7 +211,7 @@
                                             class="card-footer d-flex justify-content-between align-items-center bg-white">
                                             <div class="d-flex align-items-center gap-2">
                                                 <span
-                                                    class="fw-bolder">¥{{ number_format($service->price, 2) }}</span>
+                                                    class="fw-bolder">¥{{ number_format($service->price, 0) }}</span>
                                                 @unless ($service->is_active)
                                                 @endunless
                                             </div>
@@ -264,7 +264,7 @@
                                 @endforeach
                             @else
                                 <div class="col-12">
-                                    <div class="alert alert-info mb-0 font-16 fw-normal">No services found.</div>
+                                    <div class="alert alert-info mb-0 font-16 fw-normal">サービスが見つかりません。</div>
                                 </div>
                             @endif
                         </div>
@@ -499,11 +499,13 @@
     <div class="container-fluid location-section py-5">
         <div class="row align-items-center pt-4">
             <div class="col-12 mx-auto text-center text-second px-0">
-                <h2 class="font-40 fw-bold pb-lg-5 pb-sm-5 pb-3 jost-font">営業時間</h2>
-                <iframe
+                <h2 class="font-40 fw-bold pb-lg-5 pb-sm-5 pb-3 jost-font">場所</h2>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d96296.22871197909!2d130.3716734!3d33.5446092!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x354191191b6593f7%3A0xd543562c29902dc4!2sCherish%20Fukuoka!5e1!3m2!1sja!2sjp!4v1767289299413!5m2!1sja!2sjp" 
+                    class="map" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <!-- <iframe
                     src="google.com/maps/place/Cherish+Fukuoka/@33.558991,130.4258376,1382m/data=!3m2!1e3!4b1!4m6!3m5!1s0x354191191b6593f7:0xd543562c29902dc4!8m2!3d33.5589866!4d130.4284125!16s%2Fg%2F11yr1k0zdw?entry=tts&g_ep=EgoyMDI1MTIwOS4wIPu8ASoASAFQAw%3D%3D&skid=18c93bac-7bd2-4f8b-b3cb-7325a18367c0"
                     class="map" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    referrerpolicy="no-referrer-when-downgrade"></iframe> -->
             </div>
         </div>
     </div>
@@ -513,7 +515,8 @@
                 <div class="col-12 jost-font text-main text-center mx-auto">
                     <h2 class="font-40 fw-bold">
                         お客様の声
-                    </h2 <div class="row g-4">
+                    </h2>
+                    <div class="row g-4">
                     <div class="col-sm-12">
                         <div id="customers-testimonials" class="owl-carousel" role="region"
                             aria-roledescription="carousel" aria-label="Testimonials">
@@ -590,7 +593,7 @@
                     @endif
                     @if ($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fa-solid fa-circle-xmark me-2"></i><strong>Validation Error:</strong>
+                            <i class="fa-solid fa-circle-xmark me-2"></i><strong>入力エラー：</strong>
                             <ul class="mb-0 mt-2">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -612,7 +615,7 @@
                                 class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
                                 placeholder="氏名を入力してください"
                                 required>
-                            <div class="invalid-feedback text-white">氏名は2文字以上100文字以下で入力してください。</div>
+                            <div class="invalid-feedback text-white">2文字以上100文字以下で入力してください。</div>
                             @error('name')
                                 <div class="text-danger font-14 mt-1"><i
                                         class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
@@ -648,17 +651,20 @@
                                         '18:30',
                                     ];
 
+                                    // Use Japan timezone for date calculations
+                                    $japanNow = \Carbon\Carbon::now('Asia/Tokyo');
                                     $oldDate = old('datetime')
-                                        ? \Carbon\Carbon::parse(old('datetime'))->format('Y-m-d')
-                                        : now()->format('Y-m-d');
-                                    $oldTime = old('datetime')
-                                        ? \Carbon\Carbon::parse(old('datetime'))->format('H:i')
+                                        ? \Carbon\Carbon::parse(old('datetime'), 'Asia/Tokyo')->format('Y-m-d')
                                         : '';
+                                    $oldTime = old('datetime')
+                                        ? \Carbon\Carbon::parse(old('datetime'), 'Asia/Tokyo')->format('H:i')
+                                        : '';
+                                    $minDate = $japanNow->format('Y-m-d');
                                 @endphp
 
                                 <input type="date" id="dateInput"
                                     class="form-control @error('datetime') is-invalid @enderror"
-                                    value="{{ $oldDate }}" min="{{ now()->format('Y-m-d') }}" required>
+                                    value="{{ $oldDate }}" min="{{ $minDate }}" required>
 
                                 <select id="timeSelect" class="form-select @error('datetime') is-invalid @enderror"
                                     required>
@@ -718,7 +724,6 @@
                                     class="required-star">*</span></label>
                             <input type="email" id="email" name="email" maxlength="255"
                                 class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
-                                placeholder="example@email.com"
                                 required>
                             <div class="invalid-feedback text-white">有効なメールアドレスを入力してください。</div>
                             @error('email')
@@ -809,7 +814,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <p class="company-name">
-                        Copyright © {{ now()->year }} CHERISH
+                        Copyright © 2026 CHERISH
                         {{-- |
                      Design by <a href="https://onemaxweb.com" target="_blank" class="text-dark fw-bolder">
                      OneMaxWeb Solution --}}
@@ -855,8 +860,19 @@
     const allowedTimes = @json($allowedTimes);
     const closedDays = [1, 4]; // Monday, Thursday
 
-    const serverNowMs = @json((int) \Carbon\Carbon::now()->getTimestamp() * 1000);
-    const clockOffsetMs = serverNowMs - Date.now();
+    // Get current Japan time from server (always uses Asia/Tokyo regardless of server timezone)
+    // This returns the Unix timestamp which is timezone-independent
+    const serverJapanTimestampMs = @json((int) \Carbon\Carbon::now('Asia/Tokyo')->getTimestampMs());
+    
+    // Calculate the offset between server's Japan time and client's local clock
+    // This accounts for: 1) any client clock drift, 2) network latency (minimal)
+    const clockOffsetMs = serverJapanTimestampMs - Date.now();
+    
+    // Japan timezone offset in milliseconds (UTC+9)
+    const JAPAN_OFFSET_MS = 9 * 60 * 60 * 1000;
+    
+    // Helper: Get current time in Japan as milliseconds since epoch
+    const getNowJapanMs = () => Date.now() + clockOffsetMs;
 
     const timeToMinutes = t => {
         const [h, m] = t.split(':').map(Number);
@@ -867,7 +883,27 @@
         String(Math.floor(m / 60)).padStart(2, '0') + ':' +
         String(m % 60).padStart(2, '0');
 
-    const isClosedDay = dateStr => closedDays.includes(new Date(dateStr).getDay());
+    // Check if a date string (YYYY-MM-DD) falls on a closed day
+    // The date is already in Japan timezone format from the date picker
+    const isClosedDay = dateStr => {
+        const [y, m, d] = dateStr.split('-').map(Number);
+        // Create date at noon Japan time to avoid date boundary issues
+        const japanNoonUtc = Date.UTC(y, m - 1, d, 12, 0) - JAPAN_OFFSET_MS;
+        const date = new Date(japanNoonUtc);
+        return closedDays.includes(date.getUTCDay());
+    };
+    
+    // Get current date in Japan timezone as YYYY-MM-DD string
+    const getJapanDateString = () => {
+        // Get current Japan time as UTC timestamp
+        const nowJapanMs = getNowJapanMs();
+        // Create a date object and add Japan offset to get Japan local time components
+        const japanDate = new Date(nowJapanMs + JAPAN_OFFSET_MS);
+        const y = japanDate.getUTCFullYear();
+        const m = String(japanDate.getUTCMonth() + 1).padStart(2, '0');
+        const d = String(japanDate.getUTCDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    };
 
     const combineAndSetHidden = () => {
         hiddenDatetime.value =
@@ -891,11 +927,13 @@
     }
 
     /* ---------------- FLATPICKR ---------------- */
-  /* ---------------- FLATPICKR ---------------- */
+    // Get today's date in Japan timezone for minDate
+    const todayJapan = getJapanDateString();
+    
     if (typeof flatpickr !== 'undefined') {
         flatpickr(dateInput, {
             dateFormat: 'Y-m-d',
-            minDate: 'today',
+            minDate: todayJapan, // Use Japan's current date
             disable: [
                 function(date) {
                     // Disable Mondays (1) and Thursdays (4)
@@ -907,8 +945,8 @@
             onReady: function(selectedDates, dateStr, instance) {
                 // Set placeholder when flatpickr is ready
                 instance.input.placeholder = '日付を選択...';
-                // Clear any default value
-                if (!instance.input.value || closedDays.includes(new Date(instance.input.value).getDay())) {
+                // Clear any default value if it's on a closed day
+                if (instance.input.value && isClosedDay(instance.input.value)) {
                     instance.clear();
                 }
             }
@@ -916,10 +954,14 @@
     } else {
         // Fallback if flatpickr is not loaded
         dateInput.placeholder = '日付を選択...';
+        // Set min attribute for native date input (Japan's today)
+        dateInput.min = todayJapan;
     }
     /* ---------------- BASE TIME OPTIONS ---------------- */
     function refreshBaseTimeOptions() {
-        const now = Date.now() + clockOffsetMs;
+        // Get current time in Japan timezone (UTC timestamp)
+        const nowJapanMs = getNowJapanMs();
+        
         timeSelect.innerHTML = '<option value="">時間を選択...</option>';
 
         allowedTimes.forEach(t => {
@@ -928,10 +970,19 @@
             opt.textContent = t;
 
             if (dateInput.value) {
+                // Parse date and time
                 const [y, m, d] = dateInput.value.split('-').map(Number);
                 const [hh, mm] = t.split(':').map(Number);
-                const slotDate = new Date(y, m - 1, d, hh, mm);
-                if (slotDate.getTime() <= now) opt.disabled = true;
+                
+                // Calculate the slot time as UTC milliseconds
+                // The slot is in Japan time, so we create UTC for that Japan time
+                // then convert to actual UTC by subtracting Japan offset
+                const slotUtcMs = Date.UTC(y, m - 1, d, hh, mm) - JAPAN_OFFSET_MS;
+                
+                // Disable if slot time is in the past or equal to now
+                if (slotUtcMs <= nowJapanMs) {
+                    opt.disabled = true;
+                }
             }
 
             timeSelect.appendChild(opt);
@@ -942,39 +993,44 @@
  async function applyReservationBlocking(date) {
     if (!date) return;
 
+    // Business hours in minutes (10:30 = 630, 18:30 = 1110)
+    const businessStart = 630;
+    const businessEnd = 1110;
+
     try {
         const res = await fetch(`/reservations-by-date?date=${date}`);
         if (!res.ok) throw new Error('Network error');
 
         const data = await res.json();
-        // example response:
-        // { "reservations": { "15:00": 2, "16:30": 1 }, "latestReservationTimes": ["16:30"] }
+        // Response format:
+        // { 
+        //   reservations: { "15:00": 2, "16:30": 1 },
+        //   proximityBlocks: [ { start: 690, end: 810 } ]  // in minutes
+        // }
+        
+        const reservations = data.reservations || data;
+        const proximityBlocks = data.proximityBlocks || [];
 
         const blockedRanges = [];
 
-        /* -------- SAME TIME SLOT >= 2 → BLOCK ±1 HOUR -------- */
-        Object.entries(data.reservations || data).forEach(([timeStr, count]) => {
+        /* -------- CONDITION 1: SAME TIME SLOT >= 2 → BLOCK ±1 HOUR -------- */
+        Object.entries(reservations).forEach(([timeStr, count]) => {
             if (count >= 2) {
                 const centerMin = timeToMinutes(timeStr);
-
-                blockedRanges.push([
-                    centerMin - 60, // 1 hour before
-                    centerMin + 60  // 1 hour after
-                ]);
+                // Clamp to business hours
+                const blockStart = Math.max(centerMin - 60, businessStart);
+                const blockEnd = Math.min(centerMin + 60, businessEnd);
+                blockedRanges.push([blockStart, blockEnd]);
             }
         });
 
-        /* -------- TWO RESERVATIONS WITHIN 90 MINUTES → BLOCK 1 HOUR AFTER LATEST -------- */
-        if (data.latestReservationTimes && Array.isArray(data.latestReservationTimes)) {
-            data.latestReservationTimes.forEach(timeStr => {
-                const latestMin = timeToMinutes(timeStr);
-
-                blockedRanges.push([
-                    latestMin,           // From the latest reservation time
-                    latestMin + 60       // For the next 1 hour
-                ]);
-            });
-        }
+        /* -------- CONDITION 2: TWO RESERVATIONS WITHIN 1 HOUR → BLOCK FROM FIRST TO LAST+1HR -------- */
+        proximityBlocks.forEach(block => {
+            // Already clamped in backend, but ensure safety
+            const blockStart = Math.max(block.start, businessStart);
+            const blockEnd = Math.min(block.end, businessEnd);
+            blockedRanges.push([blockStart, blockEnd]);
+        });
 
         /* -------- APPLY BLOCKS TO TIME OPTIONS -------- */
         Array.from(timeSelect.options).forEach(opt => {
@@ -1001,20 +1057,40 @@
     /* ---------------- EVENTS ---------------- */
     dateInput.addEventListener('change', async function () {
         clearDatetimeError();
+        
+        // Clear any previously selected time when date changes
+        timeSelect.value = '';
+        combineAndSetHidden();
 
-        if (isClosedDay(this.value)) {
-            showDatetimeError('Our shop is closed on Mondays and Thursdays.');
-            this.value = '';
-            refreshBaseTimeOptions();
+        if (!this.value) {
+            // No date selected - disable time dropdown
+            timeSelect.disabled = true;
+            timeSelect.innerHTML = '<option value="">まず日付を選択...</option>';
             return;
         }
 
+        if (isClosedDay(this.value)) {
+            showDatetimeError('月曜日と木曜日は定休日です。');
+            this.value = '';
+            timeSelect.disabled = true;
+            timeSelect.innerHTML = '<option value="">まず日付を選択...</option>';
+            return;
+        }
+
+        // Enable time dropdown and load options
+        timeSelect.disabled = false;
         refreshBaseTimeOptions();
         await applyReservationBlocking(this.value);
         combineAndSetHidden();
     });
 
     timeSelect.addEventListener('change', combineAndSetHidden);
+    
+    // Initialize: Disable time dropdown until date is selected
+    if (!dateInput.value) {
+        timeSelect.disabled = true;
+        timeSelect.innerHTML = '<option value="">まず日付を選択...</option>';
+    }
 
     /* ---------------- FORM VALIDATION FUNCTIONS ---------------- */
     function validateName() {
@@ -1189,10 +1265,19 @@
     });
 
     /* ---------------- INITIALIZE ON LOAD ---------------- */
-    // Load time options when page loads
-    if (dateInput.value) {
+    // Initialize time dropdown state based on whether date is selected
+    if (dateInput.value && !isClosedDay(dateInput.value)) {
+        // Date is pre-selected (e.g., from old() after validation error)
+        timeSelect.disabled = false;
         refreshBaseTimeOptions();
         applyReservationBlocking(dateInput.value);
+    } else {
+        // No date selected - disable time dropdown
+        timeSelect.disabled = true;
+        timeSelect.innerHTML = '<option value="">まず日付を選択...</option>';
+        if (dateInput.value && isClosedDay(dateInput.value)) {
+            dateInput.value = ''; // Clear closed day
+        }
     }
 
 });
@@ -1240,9 +1325,9 @@
         loop: true,
         dots: false,
         autoplay: true,
-        smartSpeed: 3000,
+        smartSpeed: 3000, // slide transition එක slow කරලා (default: 250)
         animateOut: 'fadeOut',
-        autoplayTimeout: 4000,
+        autoplayTimeout: 4000, // slide එකක් 8 seconds පෙන්වලා next එකට යයි
         responsive: {
             0: {
                 items: 1
@@ -1257,5 +1342,7 @@
         }
     });
 </script>
+
+   
 
 </html>

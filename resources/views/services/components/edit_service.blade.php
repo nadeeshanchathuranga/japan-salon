@@ -9,7 +9,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title" id="editServiceLabel{{ $service->id }}">Edit Service : {{ $service->title }}</h5>
+        <h5 class="modal-title" id="editServiceLabel{{ $service->id }}">サービス修正 : {{ $service->title }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -65,7 +65,7 @@
                   <label for="image{{ $service->id }}">サービスイメージ ( Size Width 350px * Height 200px)</label>
                   <input type="file" class="form-control" name="image" id="image{{ $service->id }}"
                          accept="image/png,image/jpeg,image/jpg,image/webp,image/gif">
-                  <small class="text-muted">Max 2MB. Types: jpg, jpeg, png, webp, gif</small>
+                  <small class="text-muted">最大2MB　対応形式: jpg, jpeg, png, webp, gif</small>
                 </div>
               </div>
 

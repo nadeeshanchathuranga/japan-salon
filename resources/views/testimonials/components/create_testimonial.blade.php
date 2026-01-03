@@ -6,7 +6,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content border-0 shadow-sm">
       <div class="modal-header">
-        <h5 class="modal-title" id="newTestimonialLabel">New Testimonial</h5>
+        <h5 class="modal-title" id="newTestimonialLabel">お客様の声を追加</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -34,7 +34,7 @@
               <label class="form-label">イメージ ( Size Width 150px * Height 150px)</label>
               <input type="file" name="image" class="form-control" accept="image/*">
               @error('image') <div class="text-danger small">{{ $message }}</div> @enderror
-              <div class="form-text">Supported: jpeg, png, jpg, gif, svg</div>
+              <div class="form-text">対応形式: jpeg, png, jpg, gif, svg</div>
             </div>
           </div>
         </div>

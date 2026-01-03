@@ -7,9 +7,9 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-1">
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard') }}"><i class="bi bi-house-door-fill"></i> Dashboard</a>
+                        <a href="{{ route('dashboard') }}"><i class="bi bi-house-door-fill"></i> ダッシュボード</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Reservations</li>
+                    <li class="breadcrumb-item active" aria-current="page">予約一覧</li>
                 </ol>
             </nav>
         </div>
@@ -46,7 +46,7 @@
                             <th>電話番号</th>
                             <th>メールアドレス</th>
                             <th>その他リクエスト</th>
-                            <th style="width:160px;">Actions</th>
+                            <th style="width:160px;">操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,7 +56,7 @@
                                 <td class="text-center fw-semibold">{{ $reservation->id }}</td>
 
                                 <!-- Service -->
-                                <td>{{ $reservation->service->title ?? 'N/A' }}</td>
+                                <td>{{ $reservation->service->title ?? '未設定' }}</td>
 
                                 <!-- Date & Time -->
                                 <td>{{ \Carbon\Carbon::parse($reservation->date)->format('Y-m-d') }}

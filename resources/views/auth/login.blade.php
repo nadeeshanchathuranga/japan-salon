@@ -7,12 +7,12 @@
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" class="text-white" />
+            <x-input-label for="email" :value="__('メールアドレス')" class="text-white" />
             <x-text-input id="email" class="block mt-1 w-full text-black" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div> 
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" class="text-white"  />
+            <x-input-label for="password" :value="__('パスワード')" class="text-white"  />
 
             <x-text-input id="password" class="block mt-1 w-full text-black"
                             type="password"
@@ -38,7 +38,7 @@
             @endif
 
             <x-primary-button class="ms-3">
-                {{ __('Log in') }}
+                {{ __('ログイン') }}
             </x-primary-button>
         </div>
     </form>
