@@ -148,81 +148,135 @@ public function getReservationsByDate(Request $request)
     $date = $request->date;
 
     // Business hours in minutes (10:30 = 630, 18:30 = 1110)
-    $businessStart = 630;  // 10:30
-    $businessEnd = 1110;   // 18:30
+    $businessStart = 630;
+    $businessEnd   = 1110;
 
-    // Get reservation counts grouped by time
+    // --------------------------------------------------
+    // 1. Reservation counts per time (for Validation 02)
+    // --------------------------------------------------
     $reservations = Reservation::where('date', $date)
         ->select('time', DB::raw('count(*) as total'))
         ->groupBy('time')
         ->pluck('total', 'time');
 
-    // Get ALL reservation times for this date (including duplicates for proximity check)
-    // We need individual reservation times, not unique ones
-    $allTimes = Reservation::where('date', $date)
-        ->pluck('time')
+    // --------------------------------------------------
+    // 2. Unique reservation times in minutes (sorted)
+    // --------------------------------------------------
+    $uniqueTimes = collect($reservations)
+        ->keys()
         ->map(function ($time) {
-            // Convert time to minutes for easier calculation
-            $parts = explode(':', $time);
-            return (int)$parts[0] * 60 + (int)$parts[1];
+            [$h, $m] = array_map('intval', explode(':', $time));
+            return ($h * 60) + $m;
         })
         ->sort()
         ->values()
         ->toArray();
 
-    // Find groups of reservations within 1 hour (60 minutes) of each other
-    // Check ALL pairs of reservations (not unique times)
     $proximityBlocks = [];
-    $n = count($allTimes);
-    
-    if ($n >= 2) {
-        $processed = []; // Track which ranges we've already added
-        
-        // Check every pair of reservations
-        for ($i = 0; $i < $n - 1; $i++) {
-            for ($j = $i + 1; $j < $n; $j++) {
-                // Check if these two reservations are within 60 minutes of each other
-                // (includes same time slot - difference would be 0)
-                if ($allTimes[$j] - $allTimes[$i] <= 60) {
-                    // Calculate block range: from first reservation to (last + 1 hour)
-                    $blockStart = max($allTimes[$i], $businessStart);
-                    $blockEnd = min($allTimes[$j] + 60, $businessEnd);
-                    
-                    // Create a key to avoid duplicate ranges
-                    $key = $blockStart . '-' . $blockEnd;
-                    if (!isset($processed[$key])) {
-                        $proximityBlocks[] = [
-                            'start' => $blockStart,
-                            'end' => $blockEnd
-                        ];
-                        $processed[$key] = true;
-                    }
-                }
-            }
+
+    // Helper to push clamped blocks
+    $pushBlock = function (int $startMin, int $endMin) use (&$proximityBlocks, $businessStart, $businessEnd) {
+        $start = max($startMin, $businessStart);
+        $end   = min($endMin, $businessEnd);
+
+        if ($start < $end) {
+            $proximityBlocks[] = [
+                'start' => $start,
+                'end'   => $end,
+            ];
         }
-        
-        // Merge overlapping blocks
-        if (count($proximityBlocks) > 1) {
-            usort($proximityBlocks, fn($a, $b) => $a['start'] - $b['start']);
-            $merged = [$proximityBlocks[0]];
-            
-            for ($i = 1; $i < count($proximityBlocks); $i++) {
-                $last = &$merged[count($merged) - 1];
-                if ($proximityBlocks[$i]['start'] <= $last['end']) {
-                    // Overlapping, merge them
-                    $last['end'] = max($last['end'], $proximityBlocks[$i]['end']);
-                } else {
-                    $merged[] = $proximityBlocks[$i];
-                }
-            }
-            $proximityBlocks = $merged;
+    };
+
+    // --------------------------------------------------
+    // Validation 02 – Same time reserved twice
+    // Block ±1 hour around that time
+    // --------------------------------------------------
+    foreach ($reservations as $timeStr => $count) {
+        if ($count >= 2) {
+            [$h, $m] = array_map('intval', explode(':', $timeStr));
+            $t = ($h * 60) + $m;
+            $pushBlock($t - 60, $t + 60);
         }
     }
 
+    // --------------------------------------------------
+    // Validation 01 – Continuous reservations (30 min chain)
+    // Rule: last overlapping time → +1 hour block
+    // --------------------------------------------------
+    $i = 0;
+    $n = count($uniqueTimes);
+
+    while ($i < $n) {
+        $chain = [$uniqueTimes[$i]];
+        $j = $i + 1;
+
+        while ($j < $n && ($uniqueTimes[$j] - $uniqueTimes[$j - 1] === 30)) {
+            $chain[] = $uniqueTimes[$j];
+            $j++;
+        }
+
+        if (count($chain) >= 2) {
+            // Last overlapping time = second-to-last
+            $lastOverlap = $chain[count($chain) - 2];
+            $pushBlock($lastOverlap, $lastOverlap + 60);
+        }
+
+        $i = $j;
+    }
+
+    // --------------------------------------------------
+    // Validation 03 – Reservations with gaps
+    // Rule: last reservation → +1 hour block
+    // --------------------------------------------------
+    if (count($uniqueTimes) >= 1) {
+        $hasGap = false;
+
+        for ($i = 1; $i < count($uniqueTimes); $i++) {
+            $gap = $uniqueTimes[$i] - $uniqueTimes[$i - 1];
+
+            // gap >= 60 means NOT overlapping
+            if ($gap >= 60) {
+                $hasGap = true;
+                break;
+            }
+        }
+
+        if ($hasGap) {
+            $last = end($uniqueTimes);
+            $pushBlock($last, $last + 60);
+        }
+    }
+
+    // --------------------------------------------------
+    // Merge overlapping proximity blocks
+    // --------------------------------------------------
+    if (count($proximityBlocks) > 1) {
+        usort($proximityBlocks, fn ($a, $b) => $a['start'] <=> $b['start']);
+
+        $merged = [$proximityBlocks[0]];
+
+        for ($k = 1; $k < count($proximityBlocks); $k++) {
+            $last = &$merged[count($merged) - 1];
+            $cur  = $proximityBlocks[$k];
+
+            if ($cur['start'] <= $last['end']) {
+                $last['end'] = max($last['end'], $cur['end']);
+            } else {
+                $merged[] = $cur;
+            }
+        }
+
+        $proximityBlocks = $merged;
+    }
+
+    // --------------------------------------------------
+    // Response
+    // --------------------------------------------------
     return response()->json([
-        'reservations' => $reservations,
-        'proximityBlocks' => $proximityBlocks
+        'reservations'     => $reservations,     // for same-time counts
+        'proximityBlocks'  => $proximityBlocks,  // final blocks to apply in JS
     ]);
 }
+
 
 }
