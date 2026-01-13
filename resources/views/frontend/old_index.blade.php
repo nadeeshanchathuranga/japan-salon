@@ -5,49 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CHERISH｜福岡のデトックスサロン｜水素吸入・足湯・岩盤浴</title>
-    <meta name="keywords" content="サービス内容
-	•	水素吸入セラピー
-クリーンな水素を吸入し、体内の活性酸素を除去。疲労回復や美容、健康維持におすすめです。
-	•	天然鉱石の足湯＆低温岩盤浴サウナ
-厳選した天然鉱石を使った足湯と、やさしい温度でゆったり汗を流す岩盤浴サウナで、心身を芯から温めデトックス。
-	•	色彩心理カウンセリング
-色彩心理を用いたカウンセリングで、心の状態に寄り添い、心身のバランスを整えるサポート。
-
-CHERISHが大切にしていること
-	•	日常に寄り添うデトックス
-続けやすい価格と時間設定で、無理なく定期的に通えるケアをご提供します。
-	•	本物に触れる安心感
-厳選した機器や天然鉱石のみを使用し、質の高いサービスを追求しています。
-	•	心も身体も緩める空間
-忙しい日常から少し離れ、自然体の自分に戻れる穏やかな空間づくりを心がけています。
-	•	“自分を大切にする習慣”を届ける
-CHERISHで過ごす時間が、「自分を大切にするきっかけ」になり、その優しさが周囲にも広がっていくことを願っています。
-
-サロン情報
-	•	店舗名：CHERISH（チェリッシュ）福岡・大橋
-	•	住所：〒815-0033 福岡県福岡市南区大橋1-4-6 フォックスビルディング603号
-	•	電話番号：080-7986-1646
-	•	メール：cherish.fukuoka260101@gmail.com
-	•	営業時間：完全予約制
-	•	アクセス：西鉄大橋駅から徒歩すぐ
-
-こんな方におすすめ
-	•	日々のストレスや疲れをリセットしたい方
-	•	身体の内側からキレイと健康を目指したい方
-	•	心のモヤモヤを整理したい方
-	•	無理なく続けられるリラクゼーションサロンを探している方
-	•	自分をもっと大切にしたいと感じている方
-
-よく検索されるキーワード（SEO対策例）
-	•	福岡 大橋 デトックスサロン
-	•	福岡 水素吸入
-	•	福岡 足湯 岩盤浴
-	•	福岡 色彩心理カウンセリング
-	•	大橋 リラクゼーションサロン
-	•	福岡市南区 エステ デトックス">
-    <meta name="description" content="CHERISH（チェリッシュ）福岡・大橋｜心と身体をゆるめるデトックス＆カウンセリングサロン
-CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を大切にする」ためのデトックス＆カウンセリングサロンです。
-がんばりすぎてしまう日常の中で、心と身体の両面からやさしくアプローチし、「大切な自分」を取り戻すお手伝いをしています">
+    <meta name="keywords" content="CHERISH, デトックスサロン, 福岡サロン, 水素吸入, 足湯, 岩盤浴, 心と体ケア, リラクゼーション, ヒーリング, 自分時間">
+    <meta name="description" content="福岡のデトックスサロンCHERISH。水素吸入・天然鉱石の足湯・低温岩盤浴で心と体を癒し、自分を大切にする時間をご提供します。">
     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -252,7 +211,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                                             class="card-footer d-flex justify-content-between align-items-center bg-white">
                                             <div class="d-flex align-items-center gap-2">
                                                 <span
-                                                    class="fw-bolder">¥{{ number_format($service->price) }}</span>
+                                                    class="fw-bolder">¥{{ number_format($service->price, 0) }}</span>
                                                 @unless ($service->is_active)
                                                 @endunless
                                             </div>
@@ -291,7 +250,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                                                 class="card-footer d-flex justify-content-between align-items-center bg-white">
                                                 <div class="d-flex align-items-center gap-2">
                                                     <span
-                                                        class="fw-bolder">¥{{ number_format($service->price) }}</span>
+                                                        class="fw-bolder">¥{{ number_format($service->price, 0) }}</span>
                                                     @unless ($service->is_active)
                                                     @endunless
                                                 </div>
@@ -305,7 +264,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                                 @endforeach
                             @else
                                 <div class="col-12">
-                                    <div class="alert alert-info mb-0 font-16 fw-normal">No services found.</div>
+                                    <div class="alert alert-info mb-0 font-16 fw-normal">サービスが見つかりません。</div>
                                 </div>
                             @endif
                         </div>
@@ -540,8 +499,8 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
     <div class="container-fluid location-section py-5">
         <div class="row align-items-center pt-4">
             <div class="col-12 mx-auto text-center text-second px-0">
-                <h2 class="font-40 fw-bold pb-lg-5 pb-sm-5 pb-3 jost-font">住所</h2>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d96296.22871197909!2d130.3716734!3d33.5446092!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x354191191b6593f7%3A0xd543562c29902dc4!2sCherish%20Fukuoka!5e1!3m2!1sja!2sjp!4v1767603659895!5m2!1sja!2sjp"
+                <h2 class="font-40 fw-bold pb-lg-5 pb-sm-5 pb-3 jost-font">場所</h2>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d96296.22871197909!2d130.3716734!3d33.5446092!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x354191191b6593f7%3A0xd543562c29902dc4!2sCherish%20Fukuoka!5e1!3m2!1sja!2sjp!4v1767289299413!5m2!1sja!2sjp" 
                     class="map" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 <!-- <iframe
                     src="google.com/maps/place/Cherish+Fukuoka/@33.558991,130.4258376,1382m/data=!3m2!1e3!4b1!4m6!3m5!1s0x354191191b6593f7:0xd543562c29902dc4!8m2!3d33.5589866!4d130.4284125!16s%2Fg%2F11yr1k0zdw?entry=tts&g_ep=EgoyMDI1MTIwOS4wIPu8ASoASAFQAw%3D%3D&skid=18c93bac-7bd2-4f8b-b3cb-7325a18367c0"
@@ -556,7 +515,8 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                 <div class="col-12 jost-font text-main text-center mx-auto">
                     <h2 class="font-40 fw-bold">
                         お客様の声
-                    </h2 <div class="row g-4">
+                    </h2>
+                    <div class="row g-4">
                     <div class="col-sm-12">
                         <div id="customers-testimonials" class="owl-carousel" role="region"
                             aria-roledescription="carousel" aria-label="Testimonials">
@@ -633,7 +593,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                     @endif
                     @if ($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fa-solid fa-circle-xmark me-2"></i><strong>Validation Error:</strong>
+                            <i class="fa-solid fa-circle-xmark me-2"></i><strong>入力エラー：</strong>
                             <ul class="mb-0 mt-2">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -655,7 +615,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                                 class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
                                 placeholder="氏名を入力してください"
                                 required>
-                            <div class="invalid-feedback text-white">氏名は2文字以上100文字以下で入力してください。</div>
+                            <div class="invalid-feedback text-white">2文字以上100文字以下で入力してください。</div>
                             @error('name')
                                 <div class="text-danger font-14 mt-1"><i
                                         class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
@@ -691,19 +651,22 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                                         '18:30',
                                     ];
 
+                                    // Use Japan timezone for date calculations
+                                    $japanNow = \Carbon\Carbon::now('Asia/Tokyo');
                                     $oldDate = old('datetime')
-                                        ? \Carbon\Carbon::parse(old('datetime'))->format('Y-m-d')
-                                        : now()->format('Y-m-d');
-                                    $oldTime = old('datetime')
-                                        ? \Carbon\Carbon::parse(old('datetime'))->format('H:i')
+                                        ? \Carbon\Carbon::parse(old('datetime'), 'Asia/Tokyo')->format('Y-m-d')
                                         : '';
+                                    $oldTime = old('datetime')
+                                        ? \Carbon\Carbon::parse(old('datetime'), 'Asia/Tokyo')->format('H:i')
+                                        : '';
+                                    $minDate = $japanNow->format('Y-m-d');
                                 @endphp
 
                                 <input type="date" id="dateInput"
                                     class="form-control @error('datetime') is-invalid @enderror"
-                                    value="{{ $oldDate }}" min="{{ now()->format('Y-m-d') }}" required>
+                                    value="{{ $oldDate }}" min="{{ $minDate }}" required>
 
-                                <select name="timeSelect" id="timeSelect" class="form-select @error('datetime') is-invalid @enderror"
+                                <select id="timeSelect" class="form-select @error('datetime') is-invalid @enderror"
                                     required>
                                     <option value="">時間...</option>
                                     @foreach ($allowedTimes as $t)
@@ -761,7 +724,6 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                                     class="required-star">*</span></label>
                             <input type="email" id="email" name="email" maxlength="255"
                                 class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
-                                placeholder="example@email.com"
                                 required>
                             <div class="invalid-feedback text-white">有効なメールアドレスを入力してください。</div>
                             @error('email')
@@ -898,8 +860,19 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
     const allowedTimes = @json($allowedTimes);
     const closedDays = [1, 4]; // Monday, Thursday
 
-    const serverNowMs = @json((int) \Carbon\Carbon::now()->getTimestamp() * 1000);
-    const clockOffsetMs = serverNowMs - Date.now();
+    // Get current Japan time from server (always uses Asia/Tokyo regardless of server timezone)
+    // This returns the Unix timestamp which is timezone-independent
+    const serverJapanTimestampMs = @json((int) \Carbon\Carbon::now('Asia/Tokyo')->getTimestampMs());
+    
+    // Calculate the offset between server's Japan time and client's local clock
+    // This accounts for: 1) any client clock drift, 2) network latency (minimal)
+    const clockOffsetMs = serverJapanTimestampMs - Date.now();
+    
+    // Japan timezone offset in milliseconds (UTC+9)
+    const JAPAN_OFFSET_MS = 9 * 60 * 60 * 1000;
+    
+    // Helper: Get current time in Japan as milliseconds since epoch
+    const getNowJapanMs = () => Date.now() + clockOffsetMs;
 
     const timeToMinutes = t => {
         const [h, m] = t.split(':').map(Number);
@@ -910,11 +883,26 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
         String(Math.floor(m / 60)).padStart(2, '0') + ':' +
         String(m % 60).padStart(2, '0');
 
+    // Check if a date string (YYYY-MM-DD) falls on a closed day
+    // The date is already in Japan timezone format from the date picker
     const isClosedDay = dateStr => {
-        // Parse date string as local date to avoid timezone issues
         const [y, m, d] = dateStr.split('-').map(Number);
-        const date = new Date(y, m - 1, d);
-        return closedDays.includes(date.getDay());
+        // Create date at noon Japan time to avoid date boundary issues
+        const japanNoonUtc = Date.UTC(y, m - 1, d, 12, 0) - JAPAN_OFFSET_MS;
+        const date = new Date(japanNoonUtc);
+        return closedDays.includes(date.getUTCDay());
+    };
+    
+    // Get current date in Japan timezone as YYYY-MM-DD string
+    const getJapanDateString = () => {
+        // Get current Japan time as UTC timestamp
+        const nowJapanMs = getNowJapanMs();
+        // Create a date object and add Japan offset to get Japan local time components
+        const japanDate = new Date(nowJapanMs + JAPAN_OFFSET_MS);
+        const y = japanDate.getUTCFullYear();
+        const m = String(japanDate.getUTCMonth() + 1).padStart(2, '0');
+        const d = String(japanDate.getUTCDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
     };
 
     const combineAndSetHidden = () => {
@@ -939,11 +927,13 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
     }
 
     /* ---------------- FLATPICKR ---------------- */
-  /* ---------------- FLATPICKR ---------------- */
+    // Get today's date in Japan timezone for minDate
+    const todayJapan = getJapanDateString();
+    
     if (typeof flatpickr !== 'undefined') {
         flatpickr(dateInput, {
             dateFormat: 'Y-m-d',
-            minDate: 'today',
+            minDate: todayJapan, // Use Japan's current date
             disable: [
                 function(date) {
                     // Disable Mondays (1) and Thursdays (4)
@@ -955,8 +945,8 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
             onReady: function(selectedDates, dateStr, instance) {
                 // Set placeholder when flatpickr is ready
                 instance.input.placeholder = '日付を選択...';
-                // Clear any default value
-                if (!instance.input.value || closedDays.includes(new Date(instance.input.value).getDay())) {
+                // Clear any default value if it's on a closed day
+                if (instance.input.value && isClosedDay(instance.input.value)) {
                     instance.clear();
                 }
             }
@@ -964,10 +954,14 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
     } else {
         // Fallback if flatpickr is not loaded
         dateInput.placeholder = '日付を選択...';
+        // Set min attribute for native date input (Japan's today)
+        dateInput.min = todayJapan;
     }
     /* ---------------- BASE TIME OPTIONS ---------------- */
     function refreshBaseTimeOptions() {
-        const now = Date.now() + clockOffsetMs;
+        // Get current time in Japan timezone (UTC timestamp)
+        const nowJapanMs = getNowJapanMs();
+        
         timeSelect.innerHTML = '<option value="">時間を選択...</option>';
 
         allowedTimes.forEach(t => {
@@ -976,10 +970,19 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
             opt.textContent = t;
 
             if (dateInput.value) {
+                // Parse date and time
                 const [y, m, d] = dateInput.value.split('-').map(Number);
                 const [hh, mm] = t.split(':').map(Number);
-                const slotDate = new Date(y, m - 1, d, hh, mm);
-                if (slotDate.getTime() <= now) opt.disabled = true;
+                
+                // Calculate the slot time as UTC milliseconds
+                // The slot is in Japan time, so we create UTC for that Japan time
+                // then convert to actual UTC by subtracting Japan offset
+                const slotUtcMs = Date.UTC(y, m - 1, d, hh, mm) - JAPAN_OFFSET_MS;
+                
+                // Disable if slot time is in the past or equal to now
+                if (slotUtcMs <= nowJapanMs) {
+                    opt.disabled = true;
+                }
             }
 
             timeSelect.appendChild(opt);
@@ -987,54 +990,107 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
     }
 
     /* ---------------- RESERVATION BLOCKING ---------------- */
-    async function applyReservationBlocking(date) {
-        if (!date) return;
+ async function applyReservationBlocking(date) {
+    if (!date) return;
 
-        try {
-            const res = await fetch(`/reservations-by-date?date=${date}`);
-            if (!res.ok) throw new Error('Network error');
+    // Business hours in minutes (10:30 = 630, 18:30 = 1110)
+    const businessStart = 630;
+    const businessEnd = 1110;
 
-            const data = await res.json();
-            // New response format:
-            // { "10:30": { conflicts: 0, remaining: 2, disabled: false }, "11:00": { conflicts: 1, remaining: 1, disabled: false }, ... }
+    try {
+        const res = await fetch(`/reservations-by-date?date=${date}`);
+        if (!res.ok) throw new Error('Network error');
 
-            /* -------- APPLY BLOCKS TO TIME OPTIONS -------- */
-            Array.from(timeSelect.options).forEach(opt => {
-                if (!opt.value || opt.disabled) return;
+        const data = await res.json();
+        // Response format:
+        // { 
+        //   reservations: { "15:00": 2, "16:30": 1 },
+        //   proximityBlocks: [ { start: 690, end: 810 } ]  // in minutes
+        // }
+        
+        const reservations = data.reservations || data;
+        const proximityBlocks = data.proximityBlocks || [];
 
-                const slotData = data[opt.value];
-                if (slotData && slotData.disabled) {
-                    opt.disabled = true;
-                    opt.textContent = `${opt.value} (予約不可)`;
-                } else if (slotData && slotData.remaining < 2) {
-                    opt.textContent = `${opt.value} (残り${slotData.remaining}枠)`;
-                }
-            });
+        const blockedRanges = [];
 
-        } catch (error) {
-            console.error(error);
-            showDatetimeError('予約情報の取得に失敗しました');
-        }
+        /* -------- CONDITION 1: SAME TIME SLOT >= 2 → BLOCK ±1 HOUR -------- */
+        Object.entries(reservations).forEach(([timeStr, count]) => {
+            if (count >= 2) {
+                const centerMin = timeToMinutes(timeStr);
+                // Clamp to business hours
+                const blockStart = Math.max(centerMin - 60, businessStart);
+                const blockEnd = Math.min(centerMin + 60, businessEnd);
+                blockedRanges.push([blockStart, blockEnd]);
+            }
+        });
+
+        /* -------- CONDITION 2: TWO RESERVATIONS WITHIN 1 HOUR → BLOCK FROM FIRST TO LAST+1HR -------- */
+        proximityBlocks.forEach(block => {
+            // Already clamped in backend, but ensure safety
+            const blockStart = Math.max(block.start, businessStart);
+            const blockEnd = Math.min(block.end, businessEnd);
+            blockedRanges.push([blockStart, blockEnd]);
+        });
+
+        /* -------- APPLY BLOCKS TO TIME OPTIONS -------- */
+        Array.from(timeSelect.options).forEach(opt => {
+            if (!opt.value || opt.disabled) return;
+
+            const optionMin = timeToMinutes(opt.value);
+
+            const isBlocked = blockedRanges.some(
+                ([start, end]) => optionMin >= start && optionMin <= end
+            );
+
+            if (isBlocked) {
+                opt.disabled = true;
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+        showDatetimeError('予約情報の取得に失敗しました');
     }
+}
 
 
     /* ---------------- EVENTS ---------------- */
     dateInput.addEventListener('change', async function () {
         clearDatetimeError();
+        
+        // Clear any previously selected time when date changes
+        timeSelect.value = '';
+        combineAndSetHidden();
+
+        if (!this.value) {
+            // No date selected - disable time dropdown
+            timeSelect.disabled = true;
+            timeSelect.innerHTML = '<option value="">まず日付を選択...</option>';
+            return;
+        }
 
         if (isClosedDay(this.value)) {
             showDatetimeError('月曜日と木曜日は定休日です。');
             this.value = '';
-            refreshBaseTimeOptions();
+            timeSelect.disabled = true;
+            timeSelect.innerHTML = '<option value="">まず日付を選択...</option>';
             return;
         }
 
+        // Enable time dropdown and load options
+        timeSelect.disabled = false;
         refreshBaseTimeOptions();
         await applyReservationBlocking(this.value);
         combineAndSetHidden();
     });
 
     timeSelect.addEventListener('change', combineAndSetHidden);
+    
+    // Initialize: Disable time dropdown until date is selected
+    if (!dateInput.value) {
+        timeSelect.disabled = true;
+        timeSelect.innerHTML = '<option value="">まず日付を選択...</option>';
+    }
 
     /* ---------------- FORM VALIDATION FUNCTIONS ---------------- */
     function validateName() {
@@ -1209,10 +1265,19 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
     });
 
     /* ---------------- INITIALIZE ON LOAD ---------------- */
-    // Load time options when page loads
-    if (dateInput.value) {
+    // Initialize time dropdown state based on whether date is selected
+    if (dateInput.value && !isClosedDay(dateInput.value)) {
+        // Date is pre-selected (e.g., from old() after validation error)
+        timeSelect.disabled = false;
         refreshBaseTimeOptions();
         applyReservationBlocking(dateInput.value);
+    } else {
+        // No date selected - disable time dropdown
+        timeSelect.disabled = true;
+        timeSelect.innerHTML = '<option value="">まず日付を選択...</option>';
+        if (dateInput.value && isClosedDay(dateInput.value)) {
+            dateInput.value = ''; // Clear closed day
+        }
     }
 
 });
@@ -1277,5 +1342,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
         }
     });
 </script>
+
+   
 
 </html>
