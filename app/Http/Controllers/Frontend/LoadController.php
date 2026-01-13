@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 use Illuminate\Support\Facades\Mail;
-use Carbon\Carbon;
 
 class LoadController extends Controller
 {
@@ -61,12 +60,7 @@ $testimonials = Testimonial::where('is_active', true)
         ]);
 
         // Ensure the selected time is on a 30-minute interval (minutes == 00 or 30)
-        // Use Carbon with Japan timezone for all date/time operations
-        $japanTz = 'Asia/Tokyo';
-        $reservationDt = Carbon::createFromFormat('Y-m-d\TH:i', $request->datetime, $japanTz);
-        $nowJapan = Carbon::now($japanTz);
-
-        $minutes = $reservationDt->format('i');
+        $minutes = date('i', strtotime($request->datetime));
         if (!in_array($minutes, ['00', '30'])) {
             throw ValidationException::withMessages([
                 'datetime' => ['時間は30分刻みで選択してください（00または30分）'],
@@ -74,43 +68,53 @@ $testimonials = Testimonial::where('is_active', true)
         }
 
         // Split datetime to date + time
-        $date = $reservationDt->format('Y-m-d');
-        $time = $reservationDt->format('H:i');
+        $date     = date('Y-m-d', strtotime($request->datetime));
+        $time     = date('H:i', strtotime($request->datetime));
 
-        // Validate not on closed days (Monday=1, Thursday=4)
-        $dayOfWeek = $reservationDt->dayOfWeekIso; // 1=Monday, 7=Sunday
+        // Check if the selected day is a closed day (Monday=1, Thursday=4)
+        $dayOfWeek = date('N', strtotime($date)); // 1=Monday, 7=Sunday
         if (in_array($dayOfWeek, [1, 4])) {
             throw ValidationException::withMessages([
                 'datetime' => ['月曜日と木曜日は定休日です。'],
             ]);
         }
 
-        // Validate not in the past (Japan time)
-        if ($reservationDt->lte($nowJapan)) {
+        // Check if date/time is not in the past (Japan timezone)
+        $selectedDateTime = \Carbon\Carbon::parse($request->datetime, 'Asia/Tokyo');
+        $nowJapan = \Carbon\Carbon::now('Asia/Tokyo');
+        if ($selectedDateTime->lessThanOrEqualTo($nowJapan)) {
             throw ValidationException::withMessages([
                 'datetime' => ['過去の日時は選択できません。'],
             ]);
         }
 
-        // Validate business hours (10:30 - 18:30)
-        $timeInMinutes = $reservationDt->hour * 60 + $reservationDt->minute;
-        if ($timeInMinutes < 630 || $timeInMinutes > 1110) { // 10:30 = 630, 18:30 = 1110
-            throw ValidationException::withMessages([
-                'datetime' => ['営業時間は10:30〜18:30です。'],
-            ]);
-        }
-
         // Use database transaction with locking to prevent race conditions
-        $reservation = DB::transaction(function () use ($date, $time, $request) {
-            // Check if slot is already fully booked (max 2 per slot)
-            // lockForUpdate() prevents other transactions from reading until this completes
-            $existingCount = Reservation::where('date', $date)
-                ->where('time', $time)
+        $reservation = DB::transaction(function () use ($request, $date, $time) {
+            // Check if the time slot is not overbooked (max 2 reservations within ±60 minutes)
+            $bufferMin = 60;
+            $maxCapacity = 2;
+            $selectedMinutes = (int)date('H', strtotime($time)) * 60 + (int)date('i', strtotime($time));
+            
+            // Lock the reservations for this date to prevent race conditions
+            $existingReservations = Reservation::where('date', $date)
                 ->lockForUpdate()
-                ->count();
-            if ($existingCount >= 2) {
+                ->pluck('time')
+                ->map(function ($t) {
+                    $parts = explode(':', $t);
+                    return (int)$parts[0] * 60 + (int)$parts[1];
+                })
+                ->toArray();
+            
+            $conflicts = 0;
+            foreach ($existingReservations as $resMin) {
+                if (abs($selectedMinutes - $resMin) <= $bufferMin) {
+                    $conflicts++;
+                }
+            }
+            
+            if ($conflicts >= $maxCapacity) {
                 throw ValidationException::withMessages([
-                    'datetime' => ['この時間帯は満席です。別の時間をお選びください。'],
+                    'datetime' => ['この時間帯は予約がいっぱいです。別の時間をお選びください。'],
                 ]);
             }
 
@@ -136,8 +140,8 @@ $testimonials = Testimonial::where('is_active', true)
     } catch (ValidationException $e) {
         return back()->withErrors($e->errors())->withInput()->with('scroll', 'message');
     } catch (\Exception $e) {
-        \Log::error('Reservation error: ' . $e->getMessage());
-        return back()->with('error', '予約の処理中にエラーが発生しました。もう一度お試しください。')->withInput();
+        \Log::error('Reservation error: ' . $e->getMessage(), ['exception' => $e]);
+        return back()->with('error', '予約処理中にエラーが発生しました。もう一度お試しください。')->with('scroll', 'message');
     }
 }
 
@@ -146,137 +150,44 @@ $testimonials = Testimonial::where('is_active', true)
 public function getReservationsByDate(Request $request)
 {
     $date = $request->date;
+    
+    // Configuration
+    $openStart = 10 * 60 + 30;  // 10:30 in minutes
+    $openEnd = 18 * 60 + 30;    // 18:30 in minutes
+    $stepMin = 30;              // 30-minute intervals
+    $bufferMin = 60;            // ±60 minutes buffer
+    $maxCapacity = 2;           // Max 2 reservations before blocking
 
-    // Business hours in minutes (10:30 = 630, 18:30 = 1110)
-    $businessStart = 630;
-    $businessEnd   = 1110;
-
-    // --------------------------------------------------
-    // 1. Reservation counts per time (for Validation 02)
-    // --------------------------------------------------
+    // Get all reservations for this date
     $reservations = Reservation::where('date', $date)
-        ->select('time', DB::raw('count(*) as total'))
-        ->groupBy('time')
-        ->pluck('total', 'time');
-
-    // --------------------------------------------------
-    // 2. Unique reservation times in minutes (sorted)
-    // --------------------------------------------------
-    $uniqueTimes = collect($reservations)
-        ->keys()
+        ->pluck('time')
         ->map(function ($time) {
-            [$h, $m] = array_map('intval', explode(':', $time));
-            return ($h * 60) + $m;
+            $parts = explode(':', $time);
+            return (int)$parts[0] * 60 + (int)$parts[1]; // Convert to minutes
         })
-        ->sort()
-        ->values()
         ->toArray();
 
-    $proximityBlocks = [];
-
-    // Helper to push clamped blocks
-    $pushBlock = function (int $startMin, int $endMin) use (&$proximityBlocks, $businessStart, $businessEnd) {
-        $start = max($startMin, $businessStart);
-        $end   = min($endMin, $businessEnd);
-
-        if ($start < $end) {
-            $proximityBlocks[] = [
-                'start' => $start,
-                'end'   => $end,
-            ];
-        }
-    };
-
-    // --------------------------------------------------
-    // Validation 02 – Same time reserved twice
-    // Block ±1 hour around that time
-    // --------------------------------------------------
-    foreach ($reservations as $timeStr => $count) {
-        if ($count >= 2) {
-            [$h, $m] = array_map('intval', explode(':', $timeStr));
-            $t = ($h * 60) + $m;
-            $pushBlock($t - 60, $t + 60);
-        }
-    }
-
-    // --------------------------------------------------
-    // Validation 01 – Continuous reservations (30 min chain)
-    // Rule: last overlapping time → +1 hour block
-    // --------------------------------------------------
-    $i = 0;
-    $n = count($uniqueTimes);
-
-    while ($i < $n) {
-        $chain = [$uniqueTimes[$i]];
-        $j = $i + 1;
-
-        while ($j < $n && ($uniqueTimes[$j] - $uniqueTimes[$j - 1] === 30)) {
-            $chain[] = $uniqueTimes[$j];
-            $j++;
-        }
-
-        if (count($chain) >= 2) {
-            // Last overlapping time = second-to-last
-            $lastOverlap = $chain[count($chain) - 2];
-            $pushBlock($lastOverlap, $lastOverlap + 60);
-        }
-
-        $i = $j;
-    }
-
-    // --------------------------------------------------
-    // Validation 03 – Reservations with gaps
-    // Rule: last reservation → +1 hour block
-    // --------------------------------------------------
-    if (count($uniqueTimes) >= 1) {
-        $hasGap = false;
-
-        for ($i = 1; $i < count($uniqueTimes); $i++) {
-            $gap = $uniqueTimes[$i] - $uniqueTimes[$i - 1];
-
-            // gap >= 60 means NOT overlapping
-            if ($gap >= 60) {
-                $hasGap = true;
-                break;
+    // Generate all time slots and compute conflicts
+    $slots = [];
+    for ($t = $openStart; $t <= $openEnd; $t += $stepMin) {
+        $conflicts = 0;
+        
+        // Count reservations within ±60 minutes of this slot
+        foreach ($reservations as $resMin) {
+            if (abs($t - $resMin) <= $bufferMin) {
+                $conflicts++;
             }
         }
-
-        if ($hasGap) {
-            $last = end($uniqueTimes);
-            $pushBlock($last, $last + 60);
-        }
+        
+        $timeStr = sprintf('%02d:%02d', floor($t / 60), $t % 60);
+        $slots[$timeStr] = [
+            'conflicts' => $conflicts,
+            'remaining' => max(0, $maxCapacity - $conflicts),
+            'disabled' => $conflicts >= $maxCapacity,
+        ];
     }
 
-    // --------------------------------------------------
-    // Merge overlapping proximity blocks
-    // --------------------------------------------------
-    if (count($proximityBlocks) > 1) {
-        usort($proximityBlocks, fn ($a, $b) => $a['start'] <=> $b['start']);
-
-        $merged = [$proximityBlocks[0]];
-
-        for ($k = 1; $k < count($proximityBlocks); $k++) {
-            $last = &$merged[count($merged) - 1];
-            $cur  = $proximityBlocks[$k];
-
-            if ($cur['start'] <= $last['end']) {
-                $last['end'] = max($last['end'], $cur['end']);
-            } else {
-                $merged[] = $cur;
-            }
-        }
-
-        $proximityBlocks = $merged;
-    }
-
-    // --------------------------------------------------
-    // Response
-    // --------------------------------------------------
-    return response()->json([
-        'reservations'     => $reservations,     // for same-time counts
-        'proximityBlocks'  => $proximityBlocks,  // final blocks to apply in JS
-    ]);
+    return response()->json($slots);
 }
-
 
 }
