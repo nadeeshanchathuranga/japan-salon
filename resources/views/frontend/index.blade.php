@@ -129,7 +129,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
     <div class="video-overlay"></div>
 </div>
 
- 
+
 {{-- <video
     autoplay
     muted
@@ -146,7 +146,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
 </video> --}}
                               {{-- <div class="video-overlay"></div> --}}
                             <div class="carousel-caption  ">
-                                <h3 class="font-144 fw-bold kiwi-maru-font text-second ls-2">CHERISH</span>
+                                <h3 class="font-144 fw-bold kiwi-maru-font text-second ls-2 d-none d-sm-block">CHERISH</span>
                                 </h3>
                                 <h3 class="font-48 pt-2 jost-font text-white fw-bolder">デトックスサロン</span>
                                 </h3>
