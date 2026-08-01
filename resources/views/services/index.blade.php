@@ -156,8 +156,10 @@
     $(document).ready(function () {
     if (!$.fn.DataTable.isDataTable('#servicesTable')) {
         $('#servicesTable').DataTable({
-            pageLength: 10,
+            pageLength: 15,
             order: [[0, 'desc']],
+            paging: true,
+            info: true,
         });
     }
 });

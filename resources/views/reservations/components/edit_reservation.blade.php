@@ -53,9 +53,9 @@
                             <div class="d-flex gap-2">
                                 @php
                                     $allowedTimes = [
-                                        '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30',
-                                        '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00',
-                                        '17:30', '18:00', '18:30',
+                                        '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00',
+                                        '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30',
+                                        '17:00', '17:30', '18:00', '18:30',
                                     ];
                                 @endphp
                                 <input type="date" class="form-control edit-date-input"
@@ -144,8 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const emailInput = form.querySelector('.edit-email');
     const serviceSelect = form.querySelector('.edit-service');
 
-    const allowedTimes = ["10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30"];
-    const closedDays = [1, 4];
+    const allowedTimes = ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30"];
 
     const serverNowMs = {{ (int) \Carbon\Carbon::now()->getTimestamp() * 1000 }};
     const clockOffsetMs = serverNowMs - Date.now();
@@ -154,8 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const [h, m] = t.split(':').map(Number);
         return h * 60 + m;
     };
-
-    const isClosedDay = dateStr => closedDays.includes(new Date(dateStr).getDay());
 
     const combineAndSetHidden = () => {
         hiddenDatetime.value = dateInput.value && timeSelect.value
@@ -181,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function () {
         flatpickr(dateInput, {
             dateFormat: 'Y-m-d',
             minDate: 'today',
-            disable: [function(date) { return closedDays.includes(date.getDay()); }],
             onChange: () => dateInput.dispatchEvent(new Event('change')),
         });
     }
@@ -223,14 +219,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const blockedRanges = [];
 
-        /* -------- SAME TIME SLOT >= 2 → BLOCK ±1 HOUR -------- */
+        /* -------- SAME TIME SLOT >= 2 → BLOCK ±2 HOURS -------- */
         Object.entries(data).forEach(([timeStr, count]) => {
             if (count >= 2) {
                 const centerMin = timeToMinutes(timeStr);
 
                 blockedRanges.push([
-                    centerMin - 60, // 1 hour before
-                    centerMin + 60  // 1 hour after
+                    centerMin - 120, // 2 hours before
+                    centerMin + 120  // 2 hours after
                 ]);
             }
         });
@@ -261,13 +257,6 @@ document.addEventListener('DOMContentLoaded', function () {
         clearDatetimeError();
 
         if (!this.value) {
-            timeSelect.innerHTML = '<option value="">時間を選択...</option>';
-            return;
-        }
-
-        if (isClosedDay(this.value)) {
-            showDatetimeError('申し訳ございません。月曜日と木曜日は定休日です。');
-            this.value = '';
             timeSelect.innerHTML = '<option value="">時間を選択...</option>';
             return;
         }

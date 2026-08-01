@@ -63,7 +63,6 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
     <link href="{{ asset('css/hover.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/mobile-style.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 
 <body>
@@ -94,7 +93,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link font-18 jost-font text-white fw-bolder ps-lg-5 ps-sm-4 ps-2"
-                                    href="#reservation">サービス一覧</a>
+                                    href="https://cherish2026.com/shop/mycontrol/introduction/" target="_blank">サービス一覧</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link font-18 jost-font text-white fw-bolder ps-lg-5 ps-sm-4 ps-2"
@@ -116,7 +115,36 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="{{ asset('/images/salon-banner.png') }}" class="d-block w-100" alt="Cherish">
+
+                            <div class="youtube-fullscreen">
+    <iframe
+        src="https://www.youtube.com/embed/Gm7aiIS50gQ?autoplay=1&mute=1&loop=1&playlist=Gm7aiIS50gQ&controls=0&rel=0&modestbranding=1"
+        title="YouTube video player"
+        frameborder="0"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+
+    <!-- Black Overlay -->
+    <div class="video-overlay"></div>
+</div>
+
+ 
+{{-- <video
+    autoplay
+    muted
+    loop
+    playsinline
+    webkit-playsinline
+    preload="auto"
+    class="w-100 d-block"
+    style="display:block; -webkit-media-controls-play-button:none; -webkit-media-controls-start-playback-button:none;"
+    oncanplay="this.muted=true; this.play();"
+    onloadeddata="this.muted=true; this.play();">
+
+    <source src="{{ asset('mp4/set-cherish.mp4') }}" type="video/mp4">
+</video> --}}
+                              {{-- <div class="video-overlay"></div> --}}
                             <div class="carousel-caption  ">
                                 <h3 class="font-144 fw-bold kiwi-maru-font text-second ls-2">CHERISH</span>
                                 </h3>
@@ -126,7 +154,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                                     心と体をゆるめ、緩めて、明日に繋ぐ場所</span>
                                 </h3>
                                 <ul class="d-flex justify-content-center list-unstyled gap-5 pt-lg-3 pt-1">
-                                    <li><a href="#reservation"
+                                    <li><a href="https://cherish2026.com/shop/mycontrol/introduction/" target="_blank"
                                             class="btn-border-1 jost-font font-20 text-white fw-bolder px-lg-5 px-2 py-lg-3 py-1 bt-hvr hvr-grow ">ご予約はこちら</a>
                                     </li>
                                     {{--
@@ -143,16 +171,16 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
             <div class="row justify-content-center text-center">
                 <div class="col-lg-4 mb-4">
                     <h4 class="font-18 fw-bold text-white text-uppercase jost-font ls-1 pb-4">お問い合わせ</h4>
-                    <p class="fw-normal jost-font font-16 pb-1"> <a href="tel:08079861646"
-                            class="text-white">080-7986-1646</a>
+                    <p class="fw-normal jost-font font-16 pb-1"> <a href="tel:07056249982"
+                            class="text-white">070-5624-9982</a>
                     </p>
                     <p class="fw-normal jost-font font-16"><a href="mailto:cherish.fukuoka260101@gmail.com"
                             class="text-white">cherish.fukuoka260101@gmail.com</a></p>
                 </div>
                 <div class="col-lg-4 mb-4">
                     <h4 class="font-18 fw-bold text-white text-uppercase jost-font ls-1 pb-4">営業時間</h4>
-                    <p class="fw-normal jost-font font-16 pb-1 text-white">10時半～18時半最終入店</p>
-                    <p class="fw-normal jost-font font-16 pb-1 text-white">定休日：月曜日、木曜日</p>
+                    <p class="fw-normal jost-font font-16 pb-1 text-white">10時～18時半最終入店</p>
+                    <p class="fw-normal jost-font font-16 pb-1 text-white">不定休：お休みについてはInstagramでお知らせします。ご確認ください。</p>
                 </div>
                 <div class="col-lg-4 mb-4">
                     <h4 class="font-18 fw-bold text-white text-uppercase jost-font ls-1 pb-4">所在地</h4>
@@ -256,7 +284,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                                                 @unless ($service->is_active)
                                                 @endunless
                                             </div>
-                                            <a href="#reservation"
+                                            <a href="https://cherish2026.com/shop/mycontrol/introduction/" target="_blank"
                                                 class="py-2 px-4 btn-border fw-bold text-center hvr-grow">
                                                 詳細
                                             </a>
@@ -295,7 +323,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                                                     @unless ($service->is_active)
                                                     @endunless
                                                 </div>
-                                                <a href="#reservation"
+                                                <a href="https://cherish2026.com/shop/mycontrol/introduction/" target="_blank"
                                                     class="py-2 px-4 btn-border fw-bold text-center hvr-grow">
                                                     詳細
                                                 </a>
@@ -556,7 +584,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                 <div class="col-12 jost-font text-main text-center mx-auto">
                     <h2 class="font-40 fw-bold">
                         お客様の声
-                    </h2 <div class="row g-4">
+                    </h2>
                     <div class="col-sm-12">
                         <div id="customers-testimonials" class="owl-carousel" role="region"
                             aria-roledescription="carousel" aria-label="Testimonials">
@@ -577,14 +605,13 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
             </div>
         </div>
     </div>
-    </div>
     <div class="container-fluid opening-section py-5 bg-white">
         <div class="row  py-3 text-center text-main">
             <div class="col-lg-4 col-sm-4">
                 <img src="{{ asset('/images/mobile.png') }}" class="w-auto mx-auto" alt="CHERISH">
                 <h4 class="font-20 fw-bold text-main text-uppercase ls-2 py-3">お問い合わせ</h4>
-                <p class="fw-normal jost-font font-16 pb-1"> <a href="tel:08079861646"
-                        class="text-a">080-7986-1646</a>
+                <p class="fw-normal jost-font font-16 pb-1"> <a href="tel:07056249982"
+                        class="text-a">070-5624-9982</a>
                 </p>
                 <p class=" fw-normal jost-font font-16"><a href="mailto:cherish.fukuoka260101@gmail.com"
                         class="text-a">cherish.fukuoka260101@gmail.com</a></p>
@@ -592,8 +619,8 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
             <div class="col-lg-4 col-sm-4">
                 <img src="{{ asset('/images/clock.png') }}" class="w-auto mx-auto" alt="CHERISH">
                 <h4 class="font-20 fw-bold text-main text-uppercase ls-2  py-3">営業時間</h4>
-                <p class="fw-normal jost-font font-16 pb-1  "> 10時半～18時半最終入店</p>
-                <p class=" fw-normal jost-font font-16 pb-1  "> 定休日：月曜日、木曜日</p>
+                <p class="fw-normal jost-font font-16 pb-1  "> 10時～18時半最終入店</p>
+                <p class=" fw-normal jost-font font-16 pb-1  "> 不定休：お休みについてはInstagramでお知らせします。ご確認ください。</p>
             </div>
             <div class="col-lg-4 col-sm-4">
                 <img src="{{ asset('/images/location.png') }}" class="w-auto mx-auto" alt="CHERISH">
@@ -608,189 +635,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
             </div>
         </div>
     </div>
-    <div class="container-fluid booking-section py-5 bg-main" id="reservation">
-        <div class="row py-lg-3 ">
-            <div class="col-12">
-                <h2 class="font-40 fw-bold pb-4 text-white jost-font text-center">
-                    予約
-                </h2>
-            </div>
-            <div class="col-lg-8 mx-auto">
-                <div id="message" class="jost-font">
-                    @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <i class="fa-solid fa-circle-check me-2"></i>{{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                    @endif
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fa-solid fa-circle-xmark me-2"></i>{{ session('error') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                    @endif
-                    @if ($errors->any())
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fa-solid fa-circle-xmark me-2"></i><strong>Validation Error:</strong>
-                            <ul class="mb-0 mt-2">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                    @endif
-                </div>
-                <form action="{{ route('frontend.reservations.store') }}" method="POST">
-                    @csrf
-                    <div class="row g-3">
-                        <!-- Name -->
-                        <div class="col-12">
-                            <label class="form-label font-20 pt-2 jost-font text-white">氏名<span
-                                    class="required-star">*</span></label>
-                            <input type="text" id="name" name="name" minlength="2" maxlength="100"
-                                class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
-                                placeholder="氏名を入力してください"
-                                required>
-                            <div class="invalid-feedback text-white">氏名は2文字以上100文字以下で入力してください。</div>
-                            @error('name')
-                                <div class="text-danger font-14 mt-1"><i
-                                        class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <!-- Date / Time -->
-                        <div class="col-sm-6">
-                            <label class="form-label font-20 pt-2 jost-font text-white">日時を選択<span
-                                    class="required-star">*</span></label>
 
-                            {{-- hidden input submitted to server in ISO format YYYY-MM-DDTHH:MM --}}
-                            <input type="hidden" id="datetime" name="datetime" value="{{ old('datetime') }}">
-
-                            <div class="d-flex gap-2">
-                                @php
-                                    $allowedTimes = [
-                                        '10:30',
-                                        '11:00',
-                                        '11:30',
-                                        '12:00',
-                                        '12:30',
-                                        '13:00',
-                                        '13:30',
-                                        '14:00',
-                                        '14:30',
-                                        '15:00',
-                                        '15:30',
-                                        '16:00',
-                                        '16:30',
-                                        '17:00',
-                                        '17:30',
-                                        '18:00',
-                                        '18:30',
-                                    ];
-
-                                    $oldDate = old('datetime')
-                                        ? \Carbon\Carbon::parse(old('datetime'))->format('Y-m-d')
-                                        : now()->format('Y-m-d');
-                                    $oldTime = old('datetime')
-                                        ? \Carbon\Carbon::parse(old('datetime'))->format('H:i')
-                                        : '';
-                                @endphp
-
-                                <input type="date" id="dateInput"
-                                    class="form-control @error('datetime') is-invalid @enderror"
-                                    value="{{ $oldDate }}" min="{{ now()->format('Y-m-d') }}" required>
-
-                                <select name="timeSelect" id="timeSelect" class="form-select @error('datetime') is-invalid @enderror"
-                                    required>
-                                    <option value="">時間...</option>
-                                    @foreach ($allowedTimes as $t)
-                                        <option value="{{ $t }}"
-                                            @if ($oldTime === $t) selected @endif>{{ $t }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="invalid-feedback text-white d-block">日付と時間を選択してください。</div>
-                            @error('datetime')
-                                <div class="text-white font-14 mt-1"><i
-                                        class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <!-- Service -->
-                        <div class="col-sm-6">
-                            <label class="form-label font-20 pt-2 jost-font text-white">サービス<span
-                                    class="required-star">*</span></label>
-                            <select id="service_id" name="service_id"
-                                class="form-select @error('service_id') is-invalid @enderror" required>
-                                <option value="">サービスを選択...</option>
-                                @foreach ($services1 as $service)
-                                    <option value="{{ $service->id }}"
-                                        @if (old('service_id') == $service->id) selected @endif>{{ $service->title }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback text-white">サービスを選択してください。</div>
-                            @error('service_id')
-                                <div class="text-white font-14 mt-1"><i
-                                        class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <!-- Phone -->
-                        <div class="col-sm-6">
-                            <label class="form-label font-20 pt-2 jost-font text-white">電話番号<span
-                                    class="required-star">*</span></label>
-                            <input type="tel" id="phone" name="phone" maxlength="11" minlength="10"
-                                pattern="0[0-9]{9,10}" class="form-control @error('phone') is-invalid @enderror"
-                                value="{{ old('phone') }}" placeholder="09012345678"
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                required>
-                            <div class="invalid-feedback text-white">有効な電話番号を入力してください（10-11桁、0から始まる）。
-                            </div>
-                            @error('phone')
-                                <div class="text-white font-14 mt-1"><i
-                                        class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <!-- Email -->
-                        <div class="col-sm-6">
-                            <label class="form-label font-20 pt-2 jost-font text-white">メールアドレス<span
-                                    class="required-star">*</span></label>
-                            <input type="email" id="email" name="email" maxlength="255"
-                                class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
-                                placeholder="example@email.com"
-                                required>
-                            <div class="invalid-feedback text-white">有効なメールアドレスを入力してください。</div>
-                            @error('email')
-                                <div class="text-white font-14 mt-1"><i
-                                        class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <!-- Other Request -->
-                        <div class="col-12">
-                            <label class="form-label font-20 pt-2 jost-font text-white">その他ご希望</label>
-                            <textarea id="request" name="other_request" class="form-control @error('other_request') is-invalid @enderror"
-                                maxlength="1000" rows="4" placeholder="何かご要望やご質問がございましたら、こちらにご記入ください。">{{ old('other_request') }}</textarea>
-                            <div class="text-white-50 font-12 mt-1"><span id="charCount">0</span>/1000</div>
-                            @error('other_request')
-                                <div class="text-white font-14 mt-1"><i
-                                        class="fa-solid fa-exclamation-circle me-1"></i>{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="mt-4 d-flex justify-content-between">
-                        <button type="submit" id="submitBtn"
-                            class="btn-border-1 jost-font font-17 text-white fw-bolder px-lg-5 px-2 py-lg-3 py-1 bt-hvr">
-                            予約する
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <footer class="footer-section py-5 bg-second">
         <div class="container">
             <div class="row gy-4 justify-content-between">
@@ -815,7 +660,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                         </li>
                         <li class="pb-2">
                             <i class="fa-solid fa-right-long me-2"></i>
-                            <a href="#reservation"
+                            <a href="https://cherish2026.com/shop/mycontrol/introduction/" target="_blank"
                                 class="font-15 fw-semibold jost-font text-main hvr-forward">サービス一覧</a>
                         </li>
                         <li class="pb-2">
@@ -868,414 +713,82 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url('js/lightbox-plus-jquery.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-</body>
-<script>
-    // Scroll to message if success, error, or validation errors
-    @if (session('success') || session('error') || $errors->any())
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const messageElement = document.getElementById('message');
-            if (messageElement) {
-                setTimeout(() => {
-                    messageElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center'
-                    });
-                }, 250);
-            }
-        });
-    @endif
+            // Force autoplay on all devices
+            var heroVideo = document.querySelector('.slider-section video');
+            if (heroVideo) {
+                heroVideo.muted = true;
+                heroVideo.volume = 0;
+                heroVideo.setAttribute('playsinline', '');
+                heroVideo.setAttribute('webkit-playsinline', '');
+                heroVideo.setAttribute('autoplay', '');
 
-
- document.addEventListener('DOMContentLoaded', function () {
-
-    const form = document.querySelector('form[action="{{ route('frontend.reservations.store') }}"]');
-    const submitBtn = document.getElementById('submitBtn');
-    const hiddenDatetime = document.getElementById('datetime');
-    const dateInput = document.getElementById('dateInput');
-    const timeSelect = document.getElementById('timeSelect');
-
-    const allowedTimes = @json($allowedTimes);
-    const closedDays = [1, 4]; // Monday, Thursday
-
-    const serverNowMs = @json((int) \Carbon\Carbon::now()->getTimestamp() * 1000);
-    const clockOffsetMs = serverNowMs - Date.now();
-
-    const timeToMinutes = t => {
-        const [h, m] = t.split(':').map(Number);
-        return h * 60 + m;
-    };
-
-    const minutesToTime = m =>
-        String(Math.floor(m / 60)).padStart(2, '0') + ':' +
-        String(m % 60).padStart(2, '0');
-
-    const isClosedDay = dateStr => {
-        // Parse date string as local date to avoid timezone issues
-        const [y, m, d] = dateStr.split('-').map(Number);
-        const date = new Date(y, m - 1, d);
-        return closedDays.includes(date.getDay());
-    };
-
-    const combineAndSetHidden = () => {
-        hiddenDatetime.value =
-            dateInput.value && timeSelect.value
-                ? dateInput.value + 'T' + timeSelect.value
-                : '';
-    };
-
-    function showDatetimeError(msg) {
-        clearDatetimeError();
-        const err = document.createElement('div');
-        err.id = 'datetimeValidationError';
-        err.className = 'text-white font-14 mt-1';
-        err.innerHTML = '<i class="fa-solid fa-exclamation-circle me-1"></i>' + msg;
-        timeSelect.parentNode.appendChild(err);
-    }
-
-    function clearDatetimeError() {
-        const err = document.getElementById('datetimeValidationError');
-        if (err) err.remove();
-    }
-
-    /* ---------------- FLATPICKR ---------------- */
-  /* ---------------- FLATPICKR ---------------- */
-    if (typeof flatpickr !== 'undefined') {
-        flatpickr(dateInput, {
-            dateFormat: 'Y-m-d',
-            minDate: 'today',
-            disable: [
-                function(date) {
-                    // Disable Mondays (1) and Thursdays (4)
-                    return closedDays.includes(date.getDay());
+                function tryPlay() {
+                    if (heroVideo.paused) {
+                        var p = heroVideo.play();
+                        if (p !== undefined) {
+                            p.catch(function() {
+                                // autoplay blocked — will retry on user interaction
+                            });
+                        }
+                    }
                 }
-            ],
-            defaultDate: null, // No default date selected
-            onChange: () => dateInput.dispatchEvent(new Event('change')),
-            onReady: function(selectedDates, dateStr, instance) {
-                // Set placeholder when flatpickr is ready
-                instance.input.placeholder = '日付を選択...';
-                // Clear any default value
-                if (!instance.input.value || closedDays.includes(new Date(instance.input.value).getDay())) {
-                    instance.clear();
-                }
-            }
-        });
-    } else {
-        // Fallback if flatpickr is not loaded
-        dateInput.placeholder = '日付を選択...';
-    }
-    /* ---------------- BASE TIME OPTIONS ---------------- */
-    function refreshBaseTimeOptions() {
-        const now = Date.now() + clockOffsetMs;
-        timeSelect.innerHTML = '<option value="">時間を選択...</option>';
 
-        allowedTimes.forEach(t => {
-            const opt = document.createElement('option');
-            opt.value = t;
-            opt.textContent = t;
+                // Try immediately
+                tryPlay();
 
-            if (dateInput.value) {
-                const [y, m, d] = dateInput.value.split('-').map(Number);
-                const [hh, mm] = t.split(':').map(Number);
-                const slotDate = new Date(y, m - 1, d, hh, mm);
-                if (slotDate.getTime() <= now) opt.disabled = true;
+                // Retry when enough data is available (helps desktop when video not ready yet)
+                heroVideo.addEventListener('canplay', tryPlay, { once: true });
+                heroVideo.addEventListener('loadeddata', tryPlay, { once: true });
+
+                // Also retry on first user interaction (required on some mobile browsers)
+                ['touchstart', 'touchend', 'click', 'scroll'].forEach(function(evt) {
+                    document.addEventListener(evt, function handler() {
+                        tryPlay();
+                        document.removeEventListener(evt, handler);
+                    }, { once: true, passive: true });
+                });
             }
 
-            timeSelect.appendChild(opt);
-        });
-    }
+            var $el = $('#customers-testimonials');
+            if ($el.length) {
+                var count = {{ count($testimonials) }};
+                var show = Math.min(2, Math.max(1, count));
 
-    /* ---------------- RESERVATION BLOCKING ---------------- */
-    async function applyReservationBlocking(date) {
-        if (!date) return;
+                $el.owlCarousel({
+                    loop: count > 1,
+                    center: count > 1,
+                    items: show,
+                    margin: 10,
+                    autoplay: false,
+                    autoplayTimeout: 4500,
+                    smartSpeed: 450,
+                    dots: true,
+                    nav: false,
+                    responsive: {
+                        0: { items: 1, stagePadding: 30, margin: 10 },
+                        600: { items: show, stagePadding: 80 },
+                        1000: { items: show, stagePadding: 50 }
+                    }
+                });
+            }
 
-        try {
-            const res = await fetch(`/reservations-by-date?date=${date}`);
-            if (!res.ok) throw new Error('Network error');
-
-            const data = await res.json();
-            // New response format:
-            // { "10:30": { conflicts: 0, remaining: 2, disabled: false }, "11:00": { conflicts: 1, remaining: 1, disabled: false }, ... }
-
-            /* -------- APPLY BLOCKS TO TIME OPTIONS -------- */
-            Array.from(timeSelect.options).forEach(opt => {
-                if (!opt.value || opt.disabled) return;
-
-                const slotData = data[opt.value];
-                if (slotData && slotData.disabled) {
-                    opt.disabled = true;
-                    opt.textContent = `${opt.value} (予約不可)`;
-                } else if (slotData && slotData.remaining < 2) {
-                    opt.textContent = `${opt.value} (残り${slotData.remaining}枠)`;
+            $('.service-carousel').owlCarousel({
+                margin: 30,
+                loop: true,
+                dots: false,
+                autoplay: true,
+                smartSpeed: 3000,
+                animateOut: 'fadeOut',
+                autoplayTimeout: 4000,
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 2 },
+                    1000: { items: 3, nav: false }
                 }
             });
-
-        } catch (error) {
-            console.error(error);
-            showDatetimeError('予約情報の取得に失敗しました');
-        }
-    }
-
-
-    /* ---------------- EVENTS ---------------- */
-    dateInput.addEventListener('change', async function () {
-        clearDatetimeError();
-
-        if (isClosedDay(this.value)) {
-            showDatetimeError('月曜日と木曜日は定休日です。');
-            this.value = '';
-            refreshBaseTimeOptions();
-            return;
-        }
-
-        refreshBaseTimeOptions();
-        await applyReservationBlocking(this.value);
-        combineAndSetHidden();
-    });
-
-    timeSelect.addEventListener('change', combineAndSetHidden);
-
-    /* ---------------- FORM VALIDATION FUNCTIONS ---------------- */
-    function validateName() {
-        const nameInput = document.getElementById('name');
-        const nameValue = nameInput.value.trim();
-
-        if (!nameValue) {
-            nameInput.classList.add('is-invalid');
-            return false;
-        }
-
-        if (nameValue.length < 2) {
-            nameInput.classList.add('is-invalid');
-            return false;
-        }
-
-        if (nameValue.length > 100) {
-            nameInput.classList.add('is-invalid');
-            return false;
-        }
-
-        nameInput.classList.remove('is-invalid');
-        return true;
-    }
-
-    function validatePhone() {
-        const phoneInput = document.getElementById('phone');
-        const phoneValue = phoneInput.value.trim().replace(/[^0-9]/g, '');
-
-        if (!phoneValue) {
-            phoneInput.classList.add('is-invalid');
-            return false;
-        }
-
-        if (phoneValue.length < 10 || phoneValue.length > 11) {
-            phoneInput.classList.add('is-invalid');
-            return false;
-        }
-
-        // Japanese phone format validation
-        if (!/^0\d{9,10}$/.test(phoneValue)) {
-            phoneInput.classList.add('is-invalid');
-            return false;
-        }
-
-        phoneInput.classList.remove('is-invalid');
-        return true;
-    }
-
-    function validateEmail() {
-        const emailInput = document.getElementById('email');
-        const emailValue = emailInput.value.trim();
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!emailValue) {
-            emailInput.classList.add('is-invalid');
-            return false;
-        }
-
-        if (!emailRegex.test(emailValue)) {
-            emailInput.classList.add('is-invalid');
-            return false;
-        }
-
-        if (emailValue.length > 255) {
-            emailInput.classList.add('is-invalid');
-            return false;
-        }
-
-        emailInput.classList.remove('is-invalid');
-        return true;
-    }
-
-    function validateService() {
-        const serviceInput = document.getElementById('service_id');
-
-        if (!serviceInput.value) {
-            serviceInput.classList.add('is-invalid');
-            return false;
-        }
-
-        serviceInput.classList.remove('is-invalid');
-        return true;
-    }
-
-    function validateDateTime() {
-        if (!hiddenDatetime.value) {
-            dateInput.classList.add('is-invalid');
-            timeSelect.classList.add('is-invalid');
-            return false;
-        }
-
-        dateInput.classList.remove('is-invalid');
-        timeSelect.classList.remove('is-invalid');
-        return true;
-    }
-
-    function validateOtherRequest() {
-        const requestInput = document.getElementById('request');
-        const requestValue = requestInput.value;
-        const charCount = document.getElementById('charCount');
-
-        if (charCount) {
-            charCount.textContent = requestValue.length;
-        }
-
-        if (requestValue.length > 1000) {
-            requestInput.classList.add('is-invalid');
-            return false;
-        }
-
-        requestInput.classList.remove('is-invalid');
-        return true;
-    }
-
-    // Add real-time validation
-    document.getElementById('name').addEventListener('blur', validateName);
-    document.getElementById('name').addEventListener('input', function() {
-        if (this.value.trim()) validateName();
-    });
-
-    document.getElementById('phone').addEventListener('blur', validatePhone);
-    document.getElementById('phone').addEventListener('input', function() {
-        if (this.value.trim()) validatePhone();
-    });
-
-    document.getElementById('email').addEventListener('blur', validateEmail);
-    document.getElementById('email').addEventListener('input', function() {
-        if (this.value.trim()) validateEmail();
-    });
-
-    document.getElementById('service_id').addEventListener('change', validateService);
-
-    document.getElementById('request').addEventListener('input', validateOtherRequest);
-
-    // Initialize character count on page load
-    window.addEventListener('load', function() {
-        const charCount = document.getElementById('charCount');
-        const requestInput = document.getElementById('request');
-        if (charCount && requestInput) {
-            charCount.textContent = requestInput.value.length;
-        }
-    });
-
-    /* ---------------- SUBMIT ---------------- */
-    form.addEventListener('submit', function (e) {
-        combineAndSetHidden();
-
-        // Validate all fields
-        const isNameValid = validateName();
-        const isPhoneValid = validatePhone();
-        const isEmailValid = validateEmail();
-        const isServiceValid = validateService();
-        const isDateTimeValid = validateDateTime();
-        const isRequestValid = validateOtherRequest();
-
-        if (!isNameValid || !isPhoneValid || !isEmailValid || !isServiceValid || !isDateTimeValid || !isRequestValid) {
-            e.preventDefault();
-
-            // Scroll to the first error
-            const firstInvalid = document.querySelector('.is-invalid');
-            if (firstInvalid) {
-                firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                firstInvalid.focus();
-            }
-
-            return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>送信中...';
-    });
-
-    /* ---------------- INITIALIZE ON LOAD ---------------- */
-    // Load time options when page loads
-    if (dateInput.value) {
-        refreshBaseTimeOptions();
-        applyReservationBlocking(dateInput.value);
-    }
-
-});
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var $el = $('#customers-testimonials');
-        if (!$el.length) return;
-
-        var count = {{ count($testimonials) }}; // Blade renders the number
-        var show = Math.min(2, Math.max(1, count)); // 1 if only one, else 2
-
-        $el.owlCarousel({
-            loop: count > 1, // don't loop if there’s only one slide
-            center: count > 1,
-            items: show,
-            margin: 10,
-            autoplay: false,
-            autoplayTimeout: 4500,
-            smartSpeed: 450,
-            dots: true,
-            nav: false,
-            responsive: {
-                0: {
-                    items: 1,
-                    stagePadding: 30,
-                    margin: 10
-                },
-                600: {
-                    items: show,
-                    stagePadding: 80
-                },
-                1000: {
-                    items: show,
-                    stagePadding: 50
-                }
-            }
         });
-    });
-
-
-
-    $('.service-carousel').owlCarousel({
-        margin: 30,
-        loop: true,
-        dots: false,
-        autoplay: true,
-        smartSpeed: 3000, // slide transition එක slow කරලා (default: 250)
-        animateOut: 'fadeOut',
-        autoplayTimeout: 4000, // slide එකක් 8 seconds පෙන්වලා next එකට යයි
-        responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 2
-            },
-            1000: {
-                items: 3,
-                nav: false
-            }
-        }
-    });
-</script>
-
+    </script>
+</body>
 </html>

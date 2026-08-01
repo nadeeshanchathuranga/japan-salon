@@ -71,14 +71,6 @@ $testimonials = Testimonial::where('is_active', true)
         $date     = date('Y-m-d', strtotime($request->datetime));
         $time     = date('H:i', strtotime($request->datetime));
 
-        // Check if the selected day is a closed day (Monday=1, Thursday=4)
-        $dayOfWeek = date('N', strtotime($date)); // 1=Monday, 7=Sunday
-        if (in_array($dayOfWeek, [1, 4])) {
-            throw ValidationException::withMessages([
-                'datetime' => ['月曜日と木曜日は定休日です。'],
-            ]);
-        }
-
         // Check if date/time is not in the past (Japan timezone)
         $selectedDateTime = \Carbon\Carbon::parse($request->datetime, 'Asia/Tokyo');
         $nowJapan = \Carbon\Carbon::now('Asia/Tokyo');
@@ -90,8 +82,8 @@ $testimonials = Testimonial::where('is_active', true)
 
         // Use database transaction with locking to prevent race conditions
         $reservation = DB::transaction(function () use ($request, $date, $time) {
-            // Check if the time slot is not overbooked (max 2 reservations within ±60 minutes)
-            $bufferMin = 60;
+            // Check if the time slot is not overbooked (max 2 reservations within ±120 minutes)
+            $bufferMin = 120;
             $maxCapacity = 2;
             $selectedMinutes = (int)date('H', strtotime($time)) * 60 + (int)date('i', strtotime($time));
             
@@ -115,6 +107,14 @@ $testimonials = Testimonial::where('is_active', true)
             if ($conflicts >= $maxCapacity) {
                 throw ValidationException::withMessages([
                     'datetime' => ['この時間帯は予約がいっぱいです。別の時間をお選びください。'],
+                ]);
+            }
+            
+            // Validate business hours (10:00 - 18:30)
+            $timeInMinutes = (int)date('H', strtotime($time)) * 60 + (int)date('i', strtotime($time));
+            if ($timeInMinutes < 600 || $timeInMinutes > 1110) { // 10:00 = 600, 18:30 = 1110
+                throw ValidationException::withMessages([
+                    'datetime' => ['営業時間は10:00〜18:30です。'],
                 ]);
             }
 
@@ -152,10 +152,10 @@ public function getReservationsByDate(Request $request)
     $date = $request->date;
     
     // Configuration
-    $openStart = 10 * 60 + 30;  // 10:30 in minutes
+    $openStart = 10 * 60 + 0;   // 10:00 in minutes
     $openEnd = 18 * 60 + 30;    // 18:30 in minutes
     $stepMin = 30;              // 30-minute intervals
-    $bufferMin = 60;            // ±60 minutes buffer
+    $bufferMin = 120;           // ±120 minutes buffer
     $maxCapacity = 2;           // Max 2 reservations before blocking
 
     // Get all reservations for this date

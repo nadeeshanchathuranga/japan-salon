@@ -280,7 +280,7 @@ html {
   top: 47%;
   transform: translateY(-50%);
   bottom: auto;
- 
+
 }
 
 .btn-border-1 {
@@ -528,7 +528,7 @@ bottom: auto;
 .sidenav{
     display: none;
 }
- 
+
 
  .custom-bullets {
   list-style: none;   /* remove default bullet */
@@ -542,7 +542,7 @@ bottom: auto;
 }
 
 .custom-bullets li::before {
- content: "●";         
+ content: "●";
   position: absolute;
   left: 0;
   color: #b6735d;            /* brand color */
@@ -550,7 +550,7 @@ bottom: auto;
   line-height: 1.4;
 }
 
- 
+
 
 
 
@@ -568,7 +568,7 @@ bottom: auto;
 
 .booking-section{
     position: relative;
-    min-height: 600px; 
+    min-height: 600px;
     background-image: url('../images/booking-section.jpg');
     background-size: cover;
     background-position: center;
@@ -584,11 +584,54 @@ bottom: auto;
     width: 100%;
     height: 100%;
     background-color: rgba(35,10,1,0.5); /* overlay color */
-   
+
     z-index: 1;
 }
 
 .booking-section > *{
     position: relative;
     z-index: 2;
+}
+
+.carousel-inner video {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2); /* overlay color */
+    z-index: 1;
+}
+
+.youtube-fullscreen {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+}
+
+.youtube-fullscreen iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw;
+    min-height: 100vh;
+    min-width: 177.78vh;
+    transform: translate(-50%, -50%);
+    border: 0;
+}
+
+/* Black Overlay */
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    pointer-events: none;
 }
