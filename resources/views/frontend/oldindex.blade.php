@@ -45,9 +45,9 @@ CHERISHで過ごす時間が、「自分を大切にするきっかけ」にな�
 	•	福岡 色彩心理カウンセリング
 	•	大橋 リラクゼーションサロン
 	•	福岡市南区 エステ デトックス">
-    <meta name="description" content="CHERISH（チェリッシュ）福岡・大橋｜身体をゆるめるデトックス＆カウンセリングサロン
+    <meta name="description" content="CHERISH（チェリッシュ）福岡・大橋｜心と身体をゆるめるデトックス＆カウンセリングサロン
 CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を大切にする」ためのデトックス＆カウンセリングサロンです。
-がんばりすぎてしまう日常の中で、身体の両面からやさしくアプローチし、「大切な自分」を取り戻すお手伝いをしています">
+がんばりすぎてしまう日常の中で、心と身体の両面からやさしくアプローチし、「大切な自分」を取り戻すお手伝いをしています">
     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -151,7 +151,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                                 <h3 class="font-48 pt-2 jost-font text-white fw-bolder">デトックスサロン</span>
                                 </h3>
                                 <h3 class="font-27 pt-2 py-2 fst-italic jost-font text-white fw-bolder">
-                                    体をゆるめ、緩めて、明日に繋ぐ場所</span>
+                                    心と体をゆるめ、緩めて、明日に繋ぐ場所</span>
                                 </h3>
                                 <ul class="d-flex justify-content-center list-unstyled gap-5 pt-lg-3 pt-1">
                                     <li><a href="https://cherish2026.com/shop/mycontrol/introduction/" target="_blank"
@@ -375,7 +375,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                         色彩心理カウンセリングなどを通して、ココロに目を向ける。
                     </p>
                     <p class="fw-normal jost-font font-16 mb-2">
-                        身体を静かにゆるめるための、穏やかな時間を過ごす
+                        心と身体を静かにゆるめるための、穏やかな時間を過ごす
                     </p>
                     <p class="fw-normal jost-font font-16 mb-2">
                         <strong>“自分を大切にする習慣”</strong>
@@ -421,7 +421,7 @@ CHERISH（チェリッシュ）は、福岡市南区大橋にある「自分を�
                             CHERISHは、訪れるたびに「また明日も頑張ろう」と思えるような
                         </p>
                         <p class="fw-bolder jost-font font-18 pb-2">
-                            身体のリセット空間を目指しています。
+                            心と身体のリセット空間を目指しています。
                         </p>
                         <p class="fw-bolder jost-font font-18 pb-2">
                             初めて来てくださる方も、何度も通ってくださる方も、
